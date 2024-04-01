@@ -30,12 +30,14 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
                       "--timeout=500",
                       "--nodefaultresources",
                       "--css=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
-                      f"--css={LATEXML_URL_BASE}/css/ar5iv_0.7.4.min.css",
+                      f"--css={LATEXML_URL_BASE}/css/ar5iv.0.7.9.min.css",
+                      f"--css={LATEXML_URL_BASE}/css/ar5iv-fonts.0.7.9.min.css",
                       f"--css={LATEXML_URL_BASE}/css/latexml_styles.css",
                       "--javascript=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
                       "--javascript=https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js",
-                      f"--javascript={LATEXML_URL_BASE}/js/addons.js",
+                      f"--javascript={LATEXML_URL_BASE}/js/addons_new.js",
                       f"--javascript={LATEXML_URL_BASE}/js/feedbackOverlay.js",
+                      "--navigationtoc=context",
                       f"--source={main_src_path}", f"--dest={output_path}"]
     
     completed_process = subprocess.run(
@@ -53,7 +55,7 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
     
 def insert_base_tag (idv: str, html_file_path: str) -> None:
     """ This inserts the base tag into the html so we can use the /html/arxiv_id url """
-    base_html = f'<base href="/html/{idv}">'
+    base_html = f'<base href="/html/{idv}/">'
 
     with open(html_file_path, 'r+') as html:
         soup = BeautifulSoup(html.read(), 'html.parser')
@@ -62,3 +64,14 @@ def insert_base_tag (idv: str, html_file_path: str) -> None:
             html.truncate(0)
             html.seek(0)
             html.write(str(soup))
+
+def replace_relative_anchors (absolute_base: str, html_file_path: str) -> None:
+    """ This replaces all the relative anchor tags with absolute anchors """
+    # Note: If this causes bugs, use a SAX parser to do this more accurately
+    # while still not needing to completely rebuild the DOM in memory with bs4
+    ANCHOR_REGEX = re.compile(r'href="#')
+    with open(html_file_path, 'r+') as html:
+        new_text = re.sub(ANCHOR_REGEX, f'href="{absolute_base}#', html.read())
+        html.truncate(0)
+        html.seek(0)
+        html.write(new_text)

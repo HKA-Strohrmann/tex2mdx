@@ -21,7 +21,7 @@ def generate_metadata_convert (payload: ConversionPayload, missing_packages: Lis
         license = get_license_for_submission(payload.identifier)
         base_url = f'{current_app.config["VIEW_SUB_BASE"]}/html/submission/{payload.identifier}/view'
     return json.dumps({
-        'missing_packages': missing_packages,
+        'missing_packages': missing_packages or None,
         'license': license,
         'base_url': base_url
     })
@@ -31,5 +31,6 @@ def generate_metadata_publish (payload: PublishPayload, existing_metadata: str) 
     metadata['base_url']= f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.paper_id.idv}'
     metadata['primary_category'] = get_version_primary_category(payload.paper_id)
     metadata['submission_timestamp'] = get_submission_timestamp_from_arxiv_identifier(payload.paper_id)
+    metadata['id'] = payload.paper_id.idv
     return json.dumps(metadata)
     
