@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "convert-scheduler"
+version = "1.0.0"
+description = "This container runs in a VM and converts the entire arXiv corpus to HTML"
+authors = ["Mark Nazzaro <marknazzaro2@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+arxiv-base = {git = "https://github.com/arXiv/arxiv-base.git", rev = "69c6ddc2d7271c9239cabd76b250c7ec9ced2d75"}
