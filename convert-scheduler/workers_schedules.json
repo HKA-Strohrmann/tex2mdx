@@ -1,34 +1,48 @@
 [
     {
         "url": "web5.arxiv.org",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 2
     },
     {
         "url": "web6.arxiv.org",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 2
+
     },
     {
         "url": "web7.arxiv.org",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 2
+
     },
     {
         "url": "web8.arxiv.org",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 2
+
     },
     {
         "url": "web9.arxiv.org",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 2
+
     },
     {
         "url": "web10.arxiv.org",
-        "intervals": [[0, 20], [21, 24]]
+        "intervals": [[0, 20], [21, 24]],
+        "concurrency": 2
+
     },
     {
         "url": "arxiv-sync.serverfarm.cornell.edu",
-        "intervals": null
+        "intervals": null,
+        "concurrency": 1
+
     },
     {
         "url": "nexus2.arxiv.org",
-        "intervals": [[4, 20]]
+        "intervals": [[4, 20]],
+        "concurrency": 2
     }
 ]

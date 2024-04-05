@@ -112,13 +112,17 @@ async def scheduler(args):
 
     print (workers_schedules)
 
-    max_q_size = len(workers_schedules)
+    max_q_size = sum(map(lambda x: x['concurrency'], workers_schedules))
     queue = Queue(maxsize=max_q_size)
 
-    workers = [asyncio.create_task(worker('https://' + item['url'] + settings.CONVERT_PATH, 
+    workers = []
+    for item in workers_schedules:
+        workers.extend([asyncio.create_task(worker('https://' + item['url'] + settings.CONVERT_PATH, 
                                           item['intervals'],
                                           queue, 
-                                          args)) for item in workers_schedules]
+                                          args)) for _ in range(item['concurrency'])])
+    
+    print (len(workers))
 
     while True:
         if queue.qsize() < max_q_size:
