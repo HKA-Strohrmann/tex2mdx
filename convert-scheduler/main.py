@@ -1,4 +1,5 @@
 from typing import Optional
+import random
 import logging
 import argparse
 import asyncio
@@ -64,7 +65,6 @@ class ConvertDataIterator:
                     self.current_meta_id -= 1
         raise StopIteration
 
-import random
 async def scheduler(args):
 
     async def worker (url: str, queue: Queue, args):
@@ -120,8 +120,8 @@ async def scheduler(args):
     for _ in range(max_q_size):
         await queue.put(None)
 
-    for worker in workers:
-        await worker
+    for w in workers:
+        await w
 
 async def main(args):
     await scheduler(args)
