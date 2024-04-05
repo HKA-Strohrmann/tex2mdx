@@ -73,19 +73,22 @@ class ConvertDataIterator:
 
 async def scheduler(args):
 
-    async def worker (url: str, intervals: List[List[int]], queue: Queue, args):
+    async def worker (url: str, intervals: List[List[int]], override_days: List[int], queue: Queue, args):
         print (f"STARTING WORKER {url}")
         async with aiohttp.ClientSession() as session:
             while True:
                 now = datetime.now(tz=pytz.timezone('US/Eastern'))
-                in_interval = False
                 min_next_hour = 25
-                for interval in intervals:
-                    if now.hour > interval[0] and now.hour < interval[1]:
-                        in_interval = True
-                        break
-                    if now.hour < interval[0] and interval[0] < min_next_hour:
-                        min_next_hour = interval[0]
+                if intervals and not now.weekday() in override_days:
+                    in_interval = False
+                    for interval in intervals:
+                        if now.hour > interval[0] and now.hour < interval[1]:
+                            in_interval = True
+                            break
+                        if now.hour < interval[0] and interval[0] < min_next_hour:
+                            min_next_hour = interval[0]
+                else:
+                    in_interval=True
                 
                 if in_interval:
                     convert_data: ConvertData = await queue.get()
@@ -117,6 +120,7 @@ async def scheduler(args):
     for item in workers_schedules:
         workers.extend([asyncio.create_task(worker('https://' + item['url'] + settings.CONVERT_PATH, 
                                           item['intervals'],
+                                          item['override_days'],
                                           queue, 
                                           args)) for _ in range(item['concurrency'])])
     

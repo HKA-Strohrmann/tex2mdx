@@ -2,47 +2,55 @@
     {
         "url": "web5.arxiv.org",
         "intervals": null,
+        "override_days": null,
         "concurrency": 2
     },
     {
         "url": "web6.arxiv.org",
         "intervals": null,
+        "override_days": null,
         "concurrency": 2
 
     },
     {
         "url": "web7.arxiv.org",
         "intervals": null,
+        "override_days": null,
         "concurrency": 2
 
     },
     {
         "url": "web8.arxiv.org",
         "intervals": null,
+        "override_days": null,
         "concurrency": 2
 
     },
     {
         "url": "web9.arxiv.org",
         "intervals": null,
+        "override_days": null,
         "concurrency": 2
 
     },
     {
         "url": "web10.arxiv.org",
         "intervals": [[0, 20], [21, 24]],
+        "override_days": [4, 5],
         "concurrency": 2
 
     },
     {
         "url": "arxiv-sync.serverfarm.cornell.edu",
         "intervals": null,
+        "override_days": null,
         "concurrency": 1
 
     },
     {
         "url": "nexus2.arxiv.org",
         "intervals": [[4, 20]],
+        "override_days": [4, 5],
         "concurrency": 2
     }
 ]
