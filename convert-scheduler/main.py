@@ -110,8 +110,6 @@ async def scheduler(args):
     with open('workers_schedules.json') as f:
         workers_schedules = loads(f.read())
 
-    print (workers_schedules)
-
     max_q_size = sum(map(lambda x: x['concurrency'], workers_schedules))
     queue = Queue(maxsize=max_q_size)
 
@@ -122,8 +120,6 @@ async def scheduler(args):
                                           queue, 
                                           args)) for _ in range(item['concurrency'])])
     
-    print (len(workers))
-
     while True:
         if queue.qsize() < max_q_size:
             try:
