@@ -83,10 +83,14 @@ def process_full_corpus () -> Response:
     if not current_app.config['IS_FULL_CORPUS_CONVERT_MACHINE']:
         return Response(status=404)
     try:
-        doc_conversion_payload = DocumentConversionPayload(Identifier(f'{request.json["paper_id"]}v{request.json["version"]}'), 
-                                                           single_file=request.json['single_file'])
+        data = json.loads(request.get_json())
+        doc_conversion_payload = DocumentConversionPayload(identifier=Identifier(f'{data["paper_id"]}v{data["version"]}'), 
+                                                           single_file=data['single_file'],
+                                                           is_latest=data['is_latest'])
     except Exception as e:
-        logger.warn(f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)}')
+        print (f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)} with {e}')
+        logger.warn(f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)} with {e}', exc_info=1)
+    print (doc_conversion_payload)
     process (doc_conversion_payload)
     return Response(status=200)
 

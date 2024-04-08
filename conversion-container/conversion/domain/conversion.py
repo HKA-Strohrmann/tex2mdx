@@ -15,6 +15,7 @@ class ConversionPayload (ABC):
     def name (self) -> str:
         ...
 
+@dataclass
 class SubmissionConversionPayload (ConversionPayload):
     identifier: int
 
@@ -22,6 +23,7 @@ class SubmissionConversionPayload (ConversionPayload):
     def name (self) -> str:
         return str(self.identifier)
 
+@dataclass
 class DocumentConversionPayload (ConversionPayload):
     identifier: Identifier
     is_latest: bool

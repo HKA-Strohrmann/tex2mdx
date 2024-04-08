@@ -10,7 +10,7 @@ from typing import (
 )
 import logging
 import uuid
-
+import traceback
 from flask import current_app
 
 from ...locking import id_lock
@@ -28,6 +28,7 @@ from ...services.latexml.metadata import generate_metadata_convert
 logger = logging.getLogger()
 
 def process(payload: ConversionPayload) -> None:
+    print ("PROCESS CALLED")
     try:
         with id_lock(payload.name, current_app.config['LOCK_DIR']):
             logger.info(f"starting conversion for {payload.name}")
@@ -55,6 +56,7 @@ def process(payload: ConversionPayload) -> None:
             # In my opinion, this is a smaller problem than the user seeing an incorrect version of their html
             get_file_manager().upload_latexml(payload)
     except Exception as e:
+        print (traceback.format_exc())
         logger.info(f'conversion unsuccessful for {payload.name}', exc_info=True)
         try:
             write_failure(payload, checksum)

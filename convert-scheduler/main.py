@@ -8,6 +8,7 @@ from asyncio.queues import Queue
 import aiohttp
 from datetime import datetime, timedelta
 import pytz
+import time
 from pydantic import BaseModel
 
 from sqlalchemy.sql import select
@@ -24,10 +25,19 @@ fh = logging.FileHandler(settings.LOG_PATH)
 fh.setLevel(logging.DEBUG)
 logger.addHandler(fh)
 
+data_logger = logging.getLogger("time_logger")
+data_logger.setLevel(logging.DEBUG)
+time_fh = logging.FileHandler(settings.DATA_LOG_PATH)
+time_fh.setLevel(logging.DEBUG)
+data_logger.addHandler(time_fh)
+data_logger.info('paper_idv, convert_time')
+start_time = time.time()
+
 class ConvertData (BaseModel):
     paper_id: str
     version: int
     single_file: bool
+    is_latest: bool
 
 class ConvertDataIterator:
 
@@ -49,30 +59,32 @@ class ConvertDataIterator:
             while self.current_meta_id >= 0:
                 try:
                     item = session.execute (
-                        select(Metadata.paper_id, Metadata.version, Metadata.source_flags, Metadata.source_format, Metadata.is_withdrawn)
+                        select(Metadata.paper_id, Metadata.version, Metadata.source_flags, Metadata.source_format, Metadata.is_withdrawn, Metadata.is_current)
                         .filter(Metadata.metadata_id == self.current_meta_id)
                     ).first()
                     if item is None:
                         logger.info(f'No result for {self.current_meta_id}')
                         continue
-                    paper_id, version, source_flags, source_format, is_withdrawn = item._t
+                    paper_id, version, source_flags, source_format, is_withdrawn, is_current = item._t
                     if is_withdrawn or not 'tex' in source_format:
                         logger.info(f'Not converting {self.current_meta_id} - withdrawn or no TeX source')
                         continue
                     return ConvertData(
                         paper_id=paper_id,
                         version=version,
-                        single_file=('1' in source_flags)
+                        single_file=('1' in source_flags),
+                        is_latest=bool(is_current)
                     )
                 except Exception as e:
-                    logger.warn(f'Error converting {self.current_meta_id} with {e}')
+                    print(f'Error converting {self.current_meta_id} with {e}')
+                    logger.warning(f'Error converting {self.current_meta_id} with {e}')
                     continue
                 finally:
                     self.current_meta_id -= 1
         raise StopIteration
 
 async def scheduler(args):
-
+    count = 1
     async def worker (url: str, intervals: List[List[int]], override_days: List[int], queue: Queue, args):
         print (f"STARTING WORKER {url}")
         async with aiohttp.ClientSession() as session:
@@ -100,8 +112,11 @@ async def scheduler(args):
                     print (f'SENDING {convert_data} to {url}')
                     logger.info(f'SENDING {convert_data} to {url}')
                     if not args.dry_run:
+                        start = time.time()
                         async with session.post(url, json=convert_data.json()) as response:
-                            await response.text
+                            await response.text()
+                        end = time.time()
+                        data_logger.info(f'{convert_data.paper_id}v{convert_data.version}, {end-start}')        
                     else:
                         await asyncio.sleep(random.randint(1, 5))
                     queue.task_done()
@@ -118,13 +133,13 @@ async def scheduler(args):
 
     workers = []
     for item in workers_schedules:
-        workers.extend([asyncio.create_task(worker('https://' + item['url'] + settings.CONVERT_PATH, 
+        workers.extend([asyncio.create_task(worker('http://' + item['url'] + settings.CONVERT_PATH, 
                                           item['intervals'],
                                           item['override_days'],
                                           queue, 
                                           args)) for _ in range(item['concurrency'])])
     
-    while True:
+    while True or (count >= 1000 and args.timing_test):
         if queue.qsize() < max_q_size:
             try:
                 conv_data = next(iterator)
@@ -133,6 +148,7 @@ async def scheduler(args):
                 break
         else:
             await asyncio.sleep(1)
+        count += 1
 
     await queue.join()
 
@@ -155,6 +171,9 @@ if __name__=='__main__':
     parser.add_argument('-s', '--start-meta-id',
                         type=int, default=None,
                         help="An optional metadata id to start at (counting down from)")
+    parser.add_argument('-t', '--timing-test',
+                        action='store_true',
+                        help="If this is set, we will convert 1000 papers and time them")
     args = parser.parse_args()
 
     asyncio.run(main(args))
