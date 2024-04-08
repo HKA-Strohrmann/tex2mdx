@@ -21,6 +21,7 @@ class Settings (BaseSettings):
 
     FASTLY_PURGE_KEY: str = 'no-key-dev'
     IS_DEV: bool = True
+    IS_FULL_CORPUS_CONVERT_MACHINE: bool = False
 
     LOCAL_CONVERSION_DIR = '/arxiv/extracted/'
     LOCAL_PUBLISH_DIR = '/arxiv/publish/'

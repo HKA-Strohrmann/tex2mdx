@@ -15,16 +15,20 @@ from ...services.db import (
 
 def generate_metadata_convert (payload: ConversionPayload, missing_packages: List[str]) -> str:
     if isinstance(payload, DocumentConversionPayload):
-        license = get_license_for_paper(payload.identifier)
-        base_url = f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.identifier.idv}'
+        return json.dumps({
+            'missing_packages': missing_packages or None,
+            'license': get_license_for_paper(payload.identifier),
+            'base_url': f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.identifier.idv}',
+            'primary_category': get_version_primary_category(payload.identifier),
+            'submission_timestamp': get_submission_timestamp_from_arxiv_identifier(payload.identifier),
+            'id': payload.identifier.idv
+        })
     elif isinstance(payload, SubmissionConversionPayload): # Need to do this to appease mypy
-        license = get_license_for_submission(payload.identifier)
-        base_url = f'{current_app.config["VIEW_SUB_BASE"]}/html/submission/{payload.identifier}/view'
-    return json.dumps({
-        'missing_packages': missing_packages or None,
-        'license': license,
-        'base_url': base_url
-    })
+        return json.dumps({
+            'missing_packages': missing_packages or None,
+            'license': get_license_for_submission(payload.identifier),
+            'base_url': f'{current_app.config["VIEW_SUB_BASE"]}/html/submission/{payload.identifier}/view'
+        })
 
 def generate_metadata_publish (payload: PublishPayload, existing_metadata: str) -> str:
     metadata = json.loads(existing_metadata)

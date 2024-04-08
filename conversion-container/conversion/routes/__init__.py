@@ -78,6 +78,18 @@ def process_route () -> Response:
     process (sub_conversion_payload)
     return Response(status=200)
 
+@blueprint.route('/process-full-corpus', methods=['POST'])
+def process_full_corpus () -> Response:
+    if not current_app.config['IS_FULL_CORPUS_CONVERT_MACHINE']:
+        return Response(status=404)
+    try:
+        doc_conversion_payload = DocumentConversionPayload(Identifier(f'{request.json["paper_id"]}v{request.json["version"]}'), 
+                                                           single_file=request.json['single_file'])
+    except Exception as e:
+        logger.warn(f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)}')
+    process (doc_conversion_payload)
+    return Response(status=200)
+
 # @blueprint.route('/batch-convert', methods=['POST'])
 # def batch_convert_route () -> Response:
 #     batch_process(*_unwrap_batch_conversion_payload(request.json))
