@@ -113,8 +113,12 @@ async def scheduler(args):
                     logger.info(f'SENDING {convert_data} to {url}')
                     if not args.dry_run:
                         start = time.time()
-                        async with session.post(url, json=convert_data.json()) as response:
-                            await response.text()
+                        try:
+                            async with session.post(url, json=convert_data.json(), timeout=500) as response:
+                                text = await response.text()
+                        except Exception as e:
+                            print (f"Encountered exception {e}")
+                            ...
                         end = time.time()
                         data_logger.info(f'{convert_data.paper_id}v{convert_data.version}, {end-start}')        
                     else:

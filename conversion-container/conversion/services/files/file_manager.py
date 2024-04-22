@@ -5,6 +5,7 @@ import os
 import shutil
 import hashlib
 from pathlib import Path
+from tenacity import retry, stop_after_attempt, wait_fixed
 
 from arxiv.files import UngzippedFileObj, FileObj, LocalFileObj
 from arxiv.files.object_store import ObjectStore, LocalObjectStore
@@ -63,6 +64,8 @@ class FileManager:
         assert isinstance(doc_converted_store, WritableGSObjectStore)
         self.doc_converted_store = doc_converted_store
 
+
+    @retry(stop=stop_after_attempt(6), wait=wait_fixed(10))
     def download_source (self, payload: ConversionPayload) -> Tuple[str, LocalFileObj]:
         """
         Download the src files and return the main tex file
