@@ -14,7 +14,7 @@ steps:
       - 'gcr.io/$PROJECT_ID/ar5ivist-base:latest'
       - '-f'
       - './conversion-container/dockerfiles/Dockerfile.ar5ivist_base'
-      - './conversion-container/dockerfiles/'
+      - './conversion-container/'
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
@@ -26,7 +26,7 @@ steps:
       - 'gcr.io/$PROJECT_ID/html-conversion:latest'
       - '-f'
       - './conversion-container/dockerfiles/Dockerfile.main_dev'
-      - './conversion-container/dockerfiles'
+      - './conversion-container/'
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - push
