@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1
 
-FROM gcr.io/$PROJECT_ID/ar5ivist-base:latest
+FROM gcr.io/arxiv-development/ar5ivist-base:latest
 
 ######## Install Python 3.11 ########
 

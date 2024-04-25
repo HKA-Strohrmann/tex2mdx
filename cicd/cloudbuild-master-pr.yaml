@@ -25,7 +25,7 @@ steps:
       - '-t'
       - 'gcr.io/$PROJECT_ID/html-conversion:latest'
       - '-f'
-      - './conversion-container/dockerfiles/Dockerfile.main'
+      - './conversion-container/dockerfiles/Dockerfile.main_prod'
       - './conversion-container/dockerfiles'
   - name: 'gcr.io/cloud-builders/docker'
     args:
