@@ -99,11 +99,18 @@ def process_full_corpus () -> Response:
 #     batch_process(*_unwrap_batch_conversion_payload(request.json))
 #     return '', 200
 
-# @blueprint.route('/single-convert', methods=['POST'])
-# def single_convert_route () -> Response:
-#     thread = FlaskThread(target=single_convert, args=_unwrap_single_conversion_payload(request.json))
-#     thread.start()
-#     return '', 200
+@blueprint.route('/single-convert', methods=['POST'])
+def single_convert_route () -> Response:
+    try:
+        doc_conversion_payload = unwrap_document_conversion_payload(request.json)
+    except Exception as e:
+        try:
+            logger.warn(f'PROCESS: Failed to parse payload for {request.json}')
+        except:
+            logger.warn(f'PROCESS: Failed to process due to malformed payload')
+        return Response(status=202)
+    process (doc_conversion_payload)
+    return '', 200
 
 # @blueprint.route('/reconvert-submission', methods=['POST'])
 # def reprocess_submission () -> Response:
