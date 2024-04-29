@@ -19,7 +19,7 @@ from ..processes.publish import publish
 from ..domain.conversion import SubmissionConversionPayload, \
     DocumentConversionPayload
 from ..domain.publish import PublishPayload
-from ..services.db import get_document_is_single_file
+from ..services.db import get_document_is_single_file, get_document_is_latest
 
 from .flask_thread import FlaskThread
 
@@ -42,7 +42,8 @@ def unwrap_document_conversion_payload (payload: Dict[str, str]) -> DocumentConv
     identifier = Identifier(f"{data['paper_id']}v{data['version']}")
     return DocumentConversionPayload(
         identifier=identifier,
-        single_file=get_document_is_single_file(identifier)
+        single_file=get_document_is_single_file(identifier),
+        is_latest=get_document_is_latest(identifier)
     )
 
 def unwrap_publish_payload (payload: Dict[str, str]) -> PublishPayload:

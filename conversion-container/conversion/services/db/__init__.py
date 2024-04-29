@@ -225,3 +225,11 @@ def get_document_is_single_file (identifier: Identifier) -> bool:
         .filter(Metadata.version == identifier.version)
     )
     return '1' in source_flags if source_flags else False
+
+def get_document_is_latest (identifier: Identifier) -> bool:
+    latest = session.scalar(
+        select(Metadata.is_current)
+        .filter(Metadata.paper_id == identifier.id)
+        .filter(Metadata.version == identifier.version)
+    )
+    return latest if latest is not None else True
