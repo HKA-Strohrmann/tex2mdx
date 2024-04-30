@@ -30,6 +30,10 @@ RUN poetry config virtualenvs.create false
 COPY . .
 RUN apt remove python3-blinker -y
 RUN poetry install
+
+RUN mkdir /arxiv/extracted
+RUN mkdir /arxiv/publish
+RUN mkdir /arxiv/locks
 RUN chmod +x wrapper.sh
 
 CMD ["/arxiv/wrapper.sh"]

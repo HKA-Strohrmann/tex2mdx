@@ -28,7 +28,6 @@ from ...services.latexml.metadata import generate_metadata_convert
 logger = logging.getLogger()
 
 def process(payload: ConversionPayload) -> None:
-    print ("PROCESS CALLED")
     try:
         with id_lock(payload.name, current_app.config['LOCK_DIR']):
             logger.info(f"starting conversion for {payload.name}")

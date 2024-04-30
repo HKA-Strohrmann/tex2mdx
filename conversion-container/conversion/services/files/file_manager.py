@@ -141,7 +141,14 @@ class FileManager:
         shutil.rmtree(self.local_conversion_store.prefix+payload.name)
 
     def clean_up_publish (self, payload: PublishPayload) -> None:
-        shutil.rmtree(self.local_publish_store.prefix+payload.paper_id.idv)
+        try:
+            shutil.rmtree(self.local_publish_store.prefix+payload.submission_id)
+        except:
+            pass
+        try:
+            shutil.rmtree(self.local_publish_store.prefix+payload.paper_id.idv)
+        except:
+            pass
 
     def download_submission_conversion (self, payload: PublishPayload) -> None:
         # Download and expand submission conversion .tar.gz
@@ -151,14 +158,16 @@ class FileManager:
             with tarfile.open(fileobj=ungzip_file) as tar: # type: ignore
                 tar.extractall(self.local_publish_store.prefix)
 
-        # Rename outer directory and html file to paper_idv
+        doc_path = f'{self.local_publish_store.prefix}{payload.paper_id.idv}'
+        if os.path.exists(doc_path):
+            shutil.rmtree(doc_path)
         os.rename(
             f'{self.local_publish_store.prefix}{payload.submission_id}',
-            f'{self.local_publish_store.prefix}{payload.paper_id.idv}',
+            doc_path,
         )
         os.rename(
-            f'{self.local_publish_store.prefix}{payload.paper_id.idv}/{payload.submission_id}.html',
-            f'{self.local_publish_store.prefix}{payload.paper_id.idv}/{payload.paper_id.idv}.html'
+            f'{doc_path}/{payload.submission_id}.html',
+            f'{doc_path}/{payload.paper_id.idv}.html'
         )
 
     # TODO: refactor so publish and convert can both use
