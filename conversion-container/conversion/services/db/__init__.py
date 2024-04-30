@@ -110,6 +110,7 @@ def _write_success_doc (identifier: Identifier, checksum: str) -> None:
             obj.conversion_status != 1:
                 obj.conversion_status = 1
                 obj.conversion_end_time = now()
+                obj.publish_dt = datetime.utcnow()
 
 # @database_retry(5)
 def _write_success_sub (submission_id: int, checksum: str) -> None:
