@@ -110,6 +110,7 @@ def _write_success_doc (identifier: Identifier, checksum: str) -> None:
             obj.conversion_status != 1:
                 obj.conversion_status = 1
                 obj.conversion_end_time = now()
+                obj.publish_dt = datetime.utcnow()
 
 # @database_retry(5)
 def _write_success_sub (submission_id: int, checksum: str) -> None:
@@ -128,6 +129,7 @@ def _write_success_sub (submission_id: int, checksum: str) -> None:
 def write_success (payload: ConversionPayload, checksum: str) -> None:
     if isinstance(payload, DocumentConversionPayload):
         _write_success_doc(payload.identifier, checksum)
+        print (f'successfully wrote {payload}')
     elif isinstance(payload, SubmissionConversionPayload):
         _write_success_sub(payload.identifier, checksum)
     

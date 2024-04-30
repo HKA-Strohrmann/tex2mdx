@@ -22,7 +22,7 @@ from ...services.db import (
 )
 from ...domain.conversion import ConversionPayload, DocumentConversionPayload
 from ...services.files import get_file_manager
-from ...services.latexml import latexml, insert_base_tag
+from ...services.latexml import latexml, insert_base_tag, replace_relative_anchors
 from ...services.latexml.metadata import generate_metadata_convert
 
 logger = logging.getLogger()
@@ -46,8 +46,11 @@ def process(payload: ConversionPayload) -> None:
                 f.write(latexml_output.output)
 
             if isinstance(payload, DocumentConversionPayload):
-                insert_base_tag(payload.identifier.idv, 
-                                f'{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html')
+                main_html_file_path = f'{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html'
+                insert_base_tag(payload.identifier.idv, main_html_file_path)
+                replace_relative_anchors(f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.name}', 
+                                         main_html_file_path)
+
 
             write_success (payload, checksum)
 
