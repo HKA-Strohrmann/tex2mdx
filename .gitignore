@@ -163,4 +163,6 @@ cython_debug/
 transition_converted.sh
 transition_converted.py
 
+credentials
+
 .VSCodeCounter/

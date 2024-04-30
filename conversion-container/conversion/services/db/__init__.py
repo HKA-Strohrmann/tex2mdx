@@ -128,6 +128,7 @@ def _write_success_sub (submission_id: int, checksum: str) -> None:
 def write_success (payload: ConversionPayload, checksum: str) -> None:
     if isinstance(payload, DocumentConversionPayload):
         _write_success_doc(payload.identifier, checksum)
+        print (f'successfully wrote {payload}')
     elif isinstance(payload, SubmissionConversionPayload):
         _write_success_sub(payload.identifier, checksum)
     

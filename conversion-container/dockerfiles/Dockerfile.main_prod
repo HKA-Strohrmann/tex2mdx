@@ -1,0 +1,26 @@
+# syntax=docker/dockerfile:1
+
+FROM gcr.io/arxiv-production/ar5ivist-base:latest
+
+######## Install Python 3.11 ########
+
+RUN apt install software-properties-common -y
+RUN add-apt-repository ppa:deadsnakes/ppa
+RUN apt-get update -y
+RUN apt install python3.11 python3-pip -y
+
+########## Everything Else ##########
+
+WORKDIR /arxiv
+
+RUN apt-get install -y python3.11-dev pkg-config default-libmysqlclient-dev build-essential
+
+RUN python3.11 -m pip install --upgrade pip
+RUN python3.11 -m pip install poetry 
+RUN poetry config virtualenvs.create false
+
+COPY . .
+RUN apt remove python3-blinker -y
+RUN poetry install
+
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "-t", "600", "-w", "16", "--threads", "2", "entry_point:app"]
