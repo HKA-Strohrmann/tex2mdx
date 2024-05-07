@@ -35,7 +35,7 @@ def doc_src_path (payload: DocumentConversionPayload) -> str:
     src_ext = '.gz' if payload.single_file else '.tar.gz'
     path = abs_path_current_parent(payload.identifier) if payload.is_latest \
         else abs_path_orig_parent(payload.identifier)
-    fname = payload.identifier.id if payload.is_latest else payload.identifier.idv
+    fname = f'{payload.identifier.filename}{"" if payload.is_latest else ("v" + str(payload.identifier.version))}'
     print (f'{path}/{fname}{src_ext}')
     return f'{path}/{fname}{src_ext}'
 
