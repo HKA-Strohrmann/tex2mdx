@@ -51,7 +51,7 @@ def process(payload: ConversionPayload) -> None:
             if isinstance(payload, DocumentConversionPayload):
                 main_html_file_path = f'{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html'
                 insert_base_tag(payload.identifier.idv, main_html_file_path)
-                replace_relative_anchors(f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.name}', 
+                replace_relative_anchors(f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.identifier.idv}', 
                                          main_html_file_path)
                 logger.info(f'Successfully updated HTML for {payload}')
 
