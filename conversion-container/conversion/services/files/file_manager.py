@@ -101,7 +101,7 @@ class FileManager:
         print (f'MAIN SRC: {main_src}')
 
         main_src_obj = self.local_conversion_store.to_obj(os.path.relpath(f'{in_dir}/{main_src}', self.local_conversion_store.prefix))
-        print (f'MAIN SRC OBJ: {main_src_obj}, ID: {payload.identifier.idv}')
+        print (f'MAIN SRC OBJ: {main_src_obj}, ID: {payload.identifier}')
         assert isinstance(main_src_obj, LocalFileObj)
 
         return checksum, main_src_obj

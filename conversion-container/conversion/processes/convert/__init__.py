@@ -29,8 +29,8 @@ logger = logging.getLogger()
 
 def process(payload: ConversionPayload) -> None:
     try:
-        with id_lock(payload.identifier.idv, current_app.config['LOCK_DIR']):
-            logger.info(f"starting conversion for {payload.identifier.idv}")
+        with id_lock(str(payload.identifier), current_app.config['LOCK_DIR']):
+            logger.info(f"starting conversion for {payload.identifier}")
             checksum, main_src = get_file_manager().download_source(payload)
 
             write_start (payload, checksum)
@@ -64,8 +64,8 @@ def process(payload: ConversionPayload) -> None:
             logger.info(f'Successfully uploaded {payload} HTML to bucket')
     except Exception as e:
         print (traceback.format_exc())
-        logger.info(f'conversion unsuccessful for {payload.identifier.idv}', exc_info=True)
+        logger.info(f'conversion unsuccessful for {payload.identifier}', exc_info=True)
         try:
             write_failure(payload, checksum)
         except:
-            logger.warning(f'failed to write failure for {payload.identifier.idv}', exc_info=True)
+            logger.warning(f'failed to write failure for {payload.identifier}', exc_info=True)
