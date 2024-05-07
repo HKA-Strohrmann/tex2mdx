@@ -48,21 +48,11 @@ def publish (payload: PublishPayload) -> None:
         get_file_manager().download_submission_conversion(payload)
         logger.info(f'Successfully downloaded conversion {payload}')
 
-        # Insert base tag
-        # insert_base_tag(html_file, paper_idv)
-        # logger.info(f'Successfully injected base tag for {submission_id}/{paper_idv}')
-
-        # Inject watermark into html
-        # insert_watermark(html_file, make_published_watermark(submission_id, paper_id, version))    
-        # logger.info(f'Successfully injected watermark for {submission_id}/{paper_idv}')
-
-        # replace_absolute_anchors_for_doc(html_file, paper_idv)
-        # logger.info(f'Successfully replaced anchor tags for {submission_id}/{paper_idv}')
-
         main_html_file_path = f'{get_file_manager().local_publish_store.prefix}{payload.paper_id.idv}/{payload.paper_id.idv}.html'
 
         insert_base_tag(payload.paper_id.idv, main_html_file_path)        
         replace_relative_anchors(f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.paper_id.idv}', main_html_file_path)
+        logger.info(f'Successfully updated HTML for {payload}')
         
         submission_metadata = get_file_manager().local_publish_store.to_obj(f'{payload.paper_id.idv}/__metadata.json')
     
@@ -71,21 +61,20 @@ def publish (payload: PublishPayload) -> None:
             published_metadata = generate_metadata_publish(payload, f.read()) # type: ignore
         with submission_metadata.open('w') as f:
             f.write(published_metadata) # type: ignore
+        logger.info(f'Successfully updated metadata for {payload}')
 
         write_published_html (payload.paper_id, submission_row)
+        logger.info(f'Successfully wrote {payload} to announced DB')
 
         get_file_manager().upload_document_conversion(payload)
+        logger.info(f'Successfully uploaded {payload} HTML to bucket')
 
         get_file_manager().clean_up_publish(payload)
+        logger.info(f'Successfully cleaned up filesystem for {payload} announce')
 
-        # Move log output from sub bucket to published bucket
-        # TODO: Move to file manager
-        # move_sub_qa_to_doc_qa (submission_id, paper_idv)
-        # logger.info(f'Successfully wrote {submission_id}/{paper_idv} qa to doc bucket')
-
-        # # Purge abs page from fastly so we can see it
-        # if not current_app.config['IS_DEV']:
-        #     fastly_purge_abs(paper_id, version, current_app.config['FASTLY_PURGE_KEY'])
+        # Purge abs page from fastly so we can see it
+        if not current_app.config['IS_DEV']:
+            fastly_purge_abs(payload.paper_id, current_app.config['FASTLY_PURGE_KEY'])
 
     # TODO: Clean this shit up
     except Exception as e:

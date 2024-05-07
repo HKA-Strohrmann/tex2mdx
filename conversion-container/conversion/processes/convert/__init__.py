@@ -38,8 +38,11 @@ def process(payload: ConversionPayload) -> None:
             get_file_manager().remove_ltxml(payload)
 
             latexml_output = latexml(payload, main_src) # Also need to upload stdout
+            logger.info(f'Successfully executed latexml on {payload}')
 
             metadata = generate_metadata_convert(payload, latexml_output.missing_packages)
+            logger.info(f'Successfully generated metadata for {payload}')
+
             with open(f'{get_file_manager().latexml_output_dir_name(payload)}__metadata.json', 'w') as f:
                 f.write(metadata)
             with open(f'{get_file_manager().latexml_output_dir_name(payload)}__stdout.txt', 'w') as f:
@@ -50,13 +53,15 @@ def process(payload: ConversionPayload) -> None:
                 insert_base_tag(payload.identifier.idv, main_html_file_path)
                 replace_relative_anchors(f'{current_app.config["VIEW_DOC_BASE"]}/html/{payload.name}', 
                                          main_html_file_path)
-
+                logger.info(f'Successfully updated HTML for {payload}')
 
             write_success (payload, checksum)
+            logger.info(f'Successfully wrote {payload} to announced DB')
 
             # Note: There is a gap between when the user would see that html is ready and when it is uploaded. 
             # In my opinion, this is a smaller problem than the user seeing an incorrect version of their html
             get_file_manager().upload_latexml(payload)
+            logger.info(f'Successfully uploaded {payload} HTML to bucket')
     except Exception as e:
         print (traceback.format_exc())
         logger.info(f'conversion unsuccessful for {payload.name}', exc_info=True)
@@ -64,6 +69,13 @@ def process(payload: ConversionPayload) -> None:
             write_failure(payload, checksum)
         except Exception as e:
             logger.warning(f'failed to write failure for {payload.name}', exc_info=True)
+    finally:
+        try:
+            get_file_manager().clean_up_conversion(payload)
+            logger.info(f'Successfully cleaned up filesystem for {payload} convert')
+        except:
+            logger.warning(f'failed to clean up filesystem for {payload}')
+
 
 
 
