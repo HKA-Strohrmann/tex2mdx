@@ -27,4 +27,4 @@ RUN mkdir /arxiv/extracted
 RUN mkdir /arxiv/publish
 RUN mkdir /arxiv/locks
 
-CMD ["gunicorn", "--bind", "0.0.0.0:8000", "-t", "600", "-w", "4", "--threads", "2", "entry_point:app"]
+CMD ["gunicorn", "--bind", "0.0.0.0:8000", "-t", "600", "-w", "2", "--threads", "4", "entry_point:app"]
