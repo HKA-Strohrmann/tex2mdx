@@ -92,6 +92,7 @@ def process_full_corpus () -> Response:
     except Exception as e:
         print (f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)} with {e}')
         logger.warn(f'PROCESS_FULL_CORPUS: Failed to parse payload for {request.get_json(silent=True)} with {e}', exc_info=1)
+        return Response(status=202)
     print (doc_conversion_payload)
     process (doc_conversion_payload)
     return Response(status=200)

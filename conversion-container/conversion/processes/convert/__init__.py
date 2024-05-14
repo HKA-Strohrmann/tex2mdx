@@ -29,7 +29,11 @@ logger = logging.getLogger()
 
 def process(payload: ConversionPayload) -> None:
     try:
-        with id_lock(str(payload.identifier), current_app.config['LOCK_DIR']):
+        if isinstance(payload.identifier, int):
+            lock_str = str(payload.identifier)
+        else:
+            lock_str = payload.identifier.idv
+        with id_lock(lock_str, current_app.config['LOCK_DIR']):
             logger.info(f"starting conversion for {payload.identifier}")
             checksum, main_src = get_file_manager().download_source(payload)
 
