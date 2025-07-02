@@ -14,18 +14,17 @@ MISSING_PACKAGE_RE = re.compile(
 )
 
 
-def format_missing_dependency(match: re.Match) -> str:
-    name = str(match.group(1))
+def format_missing_dependency(name:str, message_fragment:str) -> str:
     if name.endswith((".sty", ".cls")):
         return name
     else:
-        ext = "sty" if match.group(2) == "package" else "cls"
+        ext = "cls" if message_fragment == "binding for class" else "sty"
         return f"{name}.{ext}"
 
 
 def list_missing_packages(latexml_log: str) -> List[str]:
-    matches = MISSING_PACKAGE_RE.finditer(latexml_log)
-    return list(map(lambda x: format_missing_dependency(x), matches))
+    matches = MISSING_PACKAGE_RE.findall(latexml_log)
+    return list(map(lambda match: format_missing_dependency(match[0],match[1]), matches))
 
 
 def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput:
