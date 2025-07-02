@@ -9,12 +9,22 @@ from flask import current_app
 from ...domain.conversion import ConversionPayload, LaTeXMLOutput
 from ..files import get_file_manager
 
-MISSING_PACKAGE_RE = re.compile(r"Warning:missing_file:.+Can't\sfind\spackage\s(.+)\sat")
+MISSING_PACKAGE_RE = re.compile(
+    r"^Warning:missing_file:(\S+)\s(?:Can't\sfind\s(package|binding for class))?", flags=re.MULTILINE
+)
 
 
-def list_missing_packages(stdout: str) -> List[str]:
-    matches = MISSING_PACKAGE_RE.finditer(stdout)
-    return list(map(lambda x: x.group(1), matches))
+def format_missing_dependency(name:str, message_fragment:str) -> str:
+    if name.endswith((".sty", ".cls")):
+        return name
+    else:
+        ext = "cls" if message_fragment == "binding for class" else "sty"
+        return f"{name}.{ext}"
+
+
+def list_missing_packages(latexml_log: str) -> List[str]:
+    matches = MISSING_PACKAGE_RE.findall(latexml_log)
+    return list(map(lambda match: format_missing_dependency(match[0],match[1]), matches))
 
 
 def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput:
