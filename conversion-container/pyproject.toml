@@ -13,6 +13,7 @@ gunicorn = "^20.1.0"
 bs4 = "^0.0.1"
 filelock = "^3.12.2"
 requests = "^2.31.0"
+types-requests = "^2.31"
 tenacity = "*"
 sqlalchemy = "~=2.0.27"
 mypy = "*"
@@ -21,7 +22,7 @@ pg8000 = "^1.30.1"
 types-pytz = "*"
 tex-inspection = { git = "https://github.com/arXiv/submission-tools", branch = "master", subdirectory = "tex_inspection" }
 
-[tool.poetry.dev-dependencies]
+[tool.poetry.group.dev.dependencies]
 pytest-mock = "*"
 
 [tool.pytest.ini_options]
