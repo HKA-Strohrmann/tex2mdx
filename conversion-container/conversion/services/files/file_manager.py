@@ -1,11 +1,12 @@
 import hashlib
 import os
+import re
 import shutil
 import tarfile
 from io import BytesIO
 from pathlib import Path
 
-from arxiv.files import LocalFileObj, UngzippedFileObj
+from arxiv.files import FileObj, LocalFileObj, UngzippedFileObj
 from arxiv.files.key_patterns import abs_path_current_parent, abs_path_orig_parent
 from arxiv.files.object_store import LocalObjectStore, ObjectStore
 from tenacity import retry, stop_after_attempt, wait_fixed
@@ -21,8 +22,7 @@ from .writable_gs_obj_store import WritableGSObjectStore
 
 
 def sub_src_path(payload: SubmissionConversionPayload) -> str:
-    src_ext = ".gz" if payload.single_file else ".tar.gz"
-    return f"{payload.identifier}/{payload.identifier}{src_ext}"
+    return f"{payload.identifier}/{payload.identifier}.tar.gz"
 
 
 def doc_src_path(payload: DocumentConversionPayload) -> str:
@@ -58,21 +58,14 @@ class FileManager:
         assert isinstance(local_publish_store, LocalObjectStore)
         self.local_publish_store = local_publish_store
 
-        assert isinstance(sub_converted_store, WritableGSObjectStore)
         self.sub_converted_store = sub_converted_store
 
-        assert isinstance(doc_converted_store, WritableGSObjectStore)
         self.doc_converted_store = doc_converted_store
 
     @retry(stop=stop_after_attempt(6), wait=wait_fixed(10))
     def download_source(self, payload: ConversionPayload) -> tuple[str, LocalFileObj]:
         """Download the src files and return the main tex file."""
-        if isinstance(payload, DocumentConversionPayload):
-            src = UngzippedFileObj(self.doc_src_store.to_obj(doc_src_path(payload)))
-            print(f"SOURCE_PATH: {doc_src_path(payload)}")
-        else:
-            assert isinstance(payload, SubmissionConversionPayload)
-            src = UngzippedFileObj(self.sub_src_store.to_obj(sub_src_path(payload)))
+        src = self.source_payload_to_file_obj(payload)
 
         with src.open("rb") as ungzip_file:
             input_bytes = ungzip_file.read()
@@ -102,6 +95,22 @@ class FileManager:
 
         return checksum, main_src_obj
 
+    def source_payload_to_file_obj(self, payload: ConversionPayload) -> FileObj:
+        if isinstance(payload, DocumentConversionPayload):
+            return UngzippedFileObj(self.doc_src_store.to_obj(doc_src_path(payload)))
+        else:
+            assert isinstance(payload, SubmissionConversionPayload)
+            sub_path = sub_src_path(payload)
+            store_obj = self.sub_src_store.to_obj(sub_path)
+            if not (store_obj.exists()) and sub_path.endswith(".tar.gz"):
+                sub_path = re.sub(".tar.gz$", ".gz", sub_path)
+                gz_store_obj = self.sub_src_store.to_obj(sub_path)
+                # if we successfully find a .gz, it was a single_file upload, use that.
+                if gz_store_obj.exists():
+                    store_obj = gz_store_obj
+                    payload.single_file = True
+            return UngzippedFileObj(store_obj)
+
     def latexml_output_dir_name(self, payload: ConversionPayload) -> str:
         return f"{self.local_conversion_store.prefix}{payload.name}/html/{payload.name}/"
 
@@ -110,27 +119,28 @@ class FileManager:
 
     def upload_latexml(self, payload: ConversionPayload) -> None:
         """
-        Upload the latexml and metadata for the given payload. Delete the
-        working directory for the payload after.
+        Upload the latexml and metadata for the given payload.
+
+        Deletes the working directory for the payload after.
         """
         src_dir = self._upload_dir_name(payload)
         if isinstance(payload, DocumentConversionPayload):
-            print(f"Uploading to bucket: {self.doc_converted_store.bucket}")
-            self.doc_converted_store.copy_local_dir(self.latexml_output_dir_name(payload), payload.name)
+            if isinstance(self.doc_converted_store, WritableGSObjectStore):
+                print(f"Uploading to bucket: {self.doc_converted_store.bucket}")
+                self.doc_converted_store.copy_local_dir(self.latexml_output_dir_name(payload), payload.name)
         else:
             destination_fname = f"{src_dir}{payload.name}.tar.gz"
             with tarfile.open(destination_fname, "w:gz") as tar:
                 tar.add(f"{src_dir}/{payload.name}", arcname=str(payload.name))
-            self.sub_converted_store.write_obj(
-                LocalFileObj(Path(destination_fname)), self.sub_converted_store.bucket.blob(f"{payload.name}.tar.gz")
-            )
+            if isinstance(self.sub_converted_store, WritableGSObjectStore):
+                self.sub_converted_store.write_obj(
+                    LocalFileObj(Path(destination_fname)),
+                    self.sub_converted_store.bucket.blob(f"{payload.name}.tar.gz"),
+                )
         self.clean_up_conversion(payload)
 
     def remove_ltxml(self, payload: ConversionPayload) -> None:
-        """
-        Remove files with the .ltxml extension from the working
-        directory of the payload.
-        """
+        """Remove files with the .ltxml extension from the working directory of the payload."""
         for root, _, files in os.walk(self.local_conversion_store.prefix + payload.name):
             for file in files:
                 if str(file).endswith(".ltxml"):
@@ -168,7 +178,8 @@ class FileManager:
     # TODO: refactor so publish and convert can both use
     def upload_document_conversion(self, payload: PublishPayload) -> None:
         # Upload directory back
-        self.doc_converted_store.copy_local_dir(
-            self.local_publish_store.prefix + payload.paper_id.idv, payload.paper_id.idv
-        )
+        if isinstance(self.doc_converted_store, WritableGSObjectStore):
+            self.doc_converted_store.copy_local_dir(
+                self.local_publish_store.prefix + payload.paper_id.idv, payload.paper_id.idv
+            )
         print(f"successfully uploaded to bucket for {payload}")

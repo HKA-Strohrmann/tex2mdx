@@ -7,7 +7,7 @@ from arxiv.identifier import Identifier
 @dataclass
 class ConversionPayload(ABC):
     identifier: Identifier | int
-    single_file: bool
+    single_file: bool | None
 
     @property
     @abstractmethod
@@ -17,6 +17,7 @@ class ConversionPayload(ABC):
 @dataclass
 class SubmissionConversionPayload(ConversionPayload):
     identifier: int
+    single_file: bool | None
 
     @property
     def name(self) -> str:

@@ -16,7 +16,8 @@ _doc_src_store: ObjectStore | None = None
 _sub_converted_store: ObjectStore | None = None
 _doc_converted_store: ObjectStore | None = None
 
-def get_global_object_store (path: str, global_name: str) -> ObjectStore:
+
+def get_global_object_store(path: str, global_name: str) -> ObjectStore:
     """Creates an object store from given path."""
     store = globals().get(global_name)
     if store is None:
@@ -29,16 +30,17 @@ def get_global_object_store (path: str, global_name: str) -> ObjectStore:
         globals()[global_name] = store
     return store
 
-def get_file_manager () -> "FileManager":
+
+def get_file_manager() -> "FileManager":
     global _file_manager
     if _file_manager is None:
-        config= current_app.config
+        config = current_app.config
         _file_manager = FileManager(
-            sub_src_store=get_global_object_store(config['SUBMISSION_SOURCE_BUCKET'], '_sub_src_store'),
-            doc_src_store=get_global_object_store(config['DOCUMENT_SOURCE_BUCKET'], '_doc_src_store'),
-            local_conversion_store=get_global_object_store(config['LOCAL_CONVERSION_DIR'], '_local_conversion_store'),
-            local_publish_store=get_global_object_store(config['LOCAL_PUBLISH_DIR'], '_local_publish_store'),
-            sub_converted_store=get_global_object_store(config['SUBMISSION_CONVERTED_BUCKET'], '_sub_converted_store'),
-            doc_converted_store=get_global_object_store(config['DOCUMENT_CONVERTED_BUCKET'], '_doc_converted_store'),
+            sub_src_store=get_global_object_store(config["SUBMISSION_SOURCE_BUCKET"], "_sub_src_store"),
+            doc_src_store=get_global_object_store(config["DOCUMENT_SOURCE_BUCKET"], "_doc_src_store"),
+            local_conversion_store=get_global_object_store(config["LOCAL_CONVERSION_DIR"], "_local_conversion_store"),
+            local_publish_store=get_global_object_store(config["LOCAL_PUBLISH_DIR"], "_local_publish_store"),
+            sub_converted_store=get_global_object_store(config["SUBMISSION_CONVERTED_BUCKET"], "_sub_converted_store"),
+            doc_converted_store=get_global_object_store(config["DOCUMENT_CONVERTED_BUCKET"], "_doc_converted_store"),
         )
     return _file_manager

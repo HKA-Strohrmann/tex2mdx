@@ -27,9 +27,10 @@ pytest-mock = "*"
 
 [tool.pytest.ini_options]
 markers = [
-  "cc_unit_tests: Unit tests for concurrency control functions",
-  "processing_unit_tests: Unit tests for processing functions",
+  # "cc_unit_tests: Unit tests for concurrency control functions",
+  # "processing_unit_tests: Unit tests for processing functions",
   "logparser_unit_tests: Unit tests for log parser functions",
+  "filestore_unit_tests: Unit tests for filestore operations",
 ]
 filterwarnings = ["ignore:.*google\\._upb\\._message\\..*:DeprecationWarning"]
 
