@@ -23,7 +23,6 @@ TESTING_CONFIG = {
     "LATEXML_URL_BASE": "/static/browse/0.3.4",
     "VIEW_SUB_BASE": "",
     "VIEW_DOC_BASE": "",
-    "IS_TESTING": True,
 }
 
 
