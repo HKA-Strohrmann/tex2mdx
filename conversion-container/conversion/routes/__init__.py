@@ -28,7 +28,7 @@ def _unwrap_pubsub_payload(payload: dict[str, Any]) -> Any:
 
 def unwrap_submission_conversion_payload(payload: dict[str, Any]) -> SubmissionConversionPayload:
     data = _unwrap_pubsub_payload(payload)
-    return SubmissionConversionPayload(identifier=int(data["submission_id"]), single_file=data["single_file"])
+    return SubmissionConversionPayload(identifier=int(data["submission_id"]), single_file=data.get("single_file"))
 
 
 def unwrap_document_conversion_payload(payload: dict[str, str]) -> DocumentConversionPayload:
