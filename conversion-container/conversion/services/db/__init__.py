@@ -165,7 +165,7 @@ def write_failure(payload: ConversionPayload, checksum: str) -> None:
 
 
 # @database_retry(3)
-def get_submission_with_html(submission_id: int) -> Optional[DBLaTeXMLSubmissions]:
+def get_submission_with_html(submission_id: int) -> DBLaTeXMLSubmissions | None:
     row = session.scalar(select(DBLaTeXMLSubmissions).filter(DBLaTeXMLSubmissions.submission_id == submission_id))
     return row if (row and row.conversion_status == 1) else None
 
@@ -191,13 +191,13 @@ def write_published_html(identifier: Identifier, html_submission: DBLaTeXMLSubmi
 
 
 # @database_retry(3)
-def get_submission_timestamp(submission_id: int) -> Optional[str]:
+def get_submission_timestamp(submission_id: int) -> str | None:
     timestamp = session.scalar(select(Submission.submit_time).filter(Submission.submission_id == submission_id))
     return timestamp.strftime("%d %b %Y") if timestamp else None
 
 
 # @database_retry(3)
-def get_submission_timestamp_from_arxiv_identifier(identifier: Identifier) -> Optional[str]:
+def get_submission_timestamp_from_arxiv_identifier(identifier: Identifier) -> str | None:
     timestamp = session.scalar(
         select(Submission.submit_time)
         .filter(Submission.doc_paper_id == identifier.id)
@@ -207,7 +207,7 @@ def get_submission_timestamp_from_arxiv_identifier(identifier: Identifier) -> Op
 
 
 # @database_retry(3)
-def get_version_primary_category(identifier: Identifier) -> Optional[str]:
+def get_version_primary_category(identifier: Identifier) -> str | None:
     row = session.scalar(
         select(Metadata.abs_categories)
         .filter(Metadata.paper_id == identifier.id)

@@ -1,4 +1,4 @@
-"""Config that specifies output bucket name for uploading converted articles"""
+"""Config that specifies output bucket name for uploading converted articles."""
 
 from arxiv.config import Settings as BaseSettings
 

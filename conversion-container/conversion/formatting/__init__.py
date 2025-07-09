@@ -2,7 +2,7 @@ import re
 from typing import Optional
 
 
-def license_url_to_str_mapping(url: Optional[str]) -> str:
+def license_url_to_str_mapping(url: str | None) -> str:
     if not url:
         return "No License"
     elif url == "http://arxiv.org/licenses/nonexclusive-distrib/1.0/":

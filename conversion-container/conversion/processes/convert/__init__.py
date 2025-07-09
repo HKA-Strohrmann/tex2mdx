@@ -1,4 +1,4 @@
-"""Module that handles the conversion process from LaTeX to HTML"""
+"""Module that handles the conversion process from LaTeX to HTML."""
 
 import logging
 import traceback

@@ -22,7 +22,7 @@ def format_missing_dependency(name:str, message_fragment:str) -> str:
         return f"{name}.{ext}"
 
 
-def list_missing_packages(latexml_log: str) -> List[str]:
+def list_missing_packages(latexml_log: str) -> list[str]:
     matches = MISSING_PACKAGE_RE.findall(latexml_log)
     return list(map(lambda match: format_missing_dependency(match[0],match[1]), matches))
 
@@ -66,7 +66,7 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
 
 
 def insert_base_tag(idv: str, html_file_path: str) -> None:
-    """This inserts the base tag into the html so we can use the /html/arxiv_id url"""
+    """This inserts the base tag into the html so we can use the /html/arxiv_id url."""
     base_html = f'<base href="/html/{idv}/">'
 
     with open(html_file_path, "r+") as html:
@@ -79,7 +79,7 @@ def insert_base_tag(idv: str, html_file_path: str) -> None:
 
 
 def replace_relative_anchors(absolute_base: str, html_file_path: str) -> None:
-    """This replaces all the relative anchor tags with absolute anchors"""
+    """This replaces all the relative anchor tags with absolute anchors."""
     # Note: If this causes bugs, use a SAX parser to do this more accurately
     # while still not needing to completely rebuild the DOM in memory with bs4
     ANCHOR_REGEX = re.compile(r'href="#')

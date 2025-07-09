@@ -36,3 +36,41 @@ filterwarnings = ["ignore:.*google\\._upb\\._message\\..*:DeprecationWarning"]
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 120
+
+lint.select = [
+  "F", # Pyflakes
+  "D", # pydocstyle
+  "E", # pycodestyle errors
+  # "W", # pycodestyle warnings
+  # "C90", # McCabe
+  "I",   # isort
+  "UP",  # pyupgrade
+  "PLC",
+  "PLE",
+  "PLW", # Pylint
+  # "PLR", # Pylint refactoring
+  "PD",  # pandas checks
+  "NPY", # numpy checks
+  "RUF", # ruff internal check
+]
+lint.ignore = [
+  "D100", # missing docstring in public module
+  "D101", # missing docstring in public class
+  "D102", # missing docstring in public method
+  "D103", # missing docstring in public function
+  "D104", # missing docstring in public package
+  "D105", # no docstring in magic method like __str__
+  "D107", # no docstring in __init__
+]
+
+output-format = "grouped"
+
+# Assume Python 3.11
+# Note: helps prevent breaking autofixes from, e.g., pyupgrade
+target-version = "py311"
+
+[tool.ruff.lint.pydocstyle]
+convention = "pep257"

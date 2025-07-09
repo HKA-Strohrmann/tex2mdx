@@ -4,7 +4,6 @@ import shutil
 import tarfile
 from io import BytesIO
 from pathlib import Path
-from typing import Tuple
 
 from arxiv.files import LocalFileObj, UngzippedFileObj
 from arxiv.files.key_patterns import abs_path_current_parent, abs_path_orig_parent
@@ -66,11 +65,8 @@ class FileManager:
         self.doc_converted_store = doc_converted_store
 
     @retry(stop=stop_after_attempt(6), wait=wait_fixed(10))
-    def download_source(self, payload: ConversionPayload) -> Tuple[str, LocalFileObj]:
-        """
-        Download the src files and return the main tex file
-        """
-
+    def download_source(self, payload: ConversionPayload) -> tuple[str, LocalFileObj]:
+        """Download the src files and return the main tex file."""
         if isinstance(payload, DocumentConversionPayload):
             src = UngzippedFileObj(self.doc_src_store.to_obj(doc_src_path(payload)))
             print(f"SOURCE_PATH: {doc_src_path(payload)}")
@@ -133,7 +129,7 @@ class FileManager:
     def remove_ltxml(self, payload: ConversionPayload) -> None:
         """
         Remove files with the .ltxml extension from the working
-        directory of the payload
+        directory of the payload.
         """
         for root, _, files in os.walk(self.local_conversion_store.prefix + payload.name):
             for file in files:

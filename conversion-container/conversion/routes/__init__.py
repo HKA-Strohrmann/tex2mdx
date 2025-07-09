@@ -1,4 +1,4 @@
-"""HTTPS routes for the Flask app"""
+"""HTTPS routes for the Flask app."""
 
 import json
 import logging
@@ -22,16 +22,16 @@ logger = logging.getLogger()
 blueprint = Blueprint("routes", __name__)
 
 
-def _unwrap_pubsub_payload(payload: Dict[str, Any]) -> Any:
+def _unwrap_pubsub_payload(payload: dict[str, Any]) -> Any:
     return json.loads(b64decode(payload["message"]["data"]).decode("utf-8"))
 
 
-def unwrap_submission_conversion_payload(payload: Dict[str, Any]) -> SubmissionConversionPayload:
+def unwrap_submission_conversion_payload(payload: dict[str, Any]) -> SubmissionConversionPayload:
     data = _unwrap_pubsub_payload(payload)
     return SubmissionConversionPayload(identifier=int(data["submission_id"]), single_file=data["single_file"])
 
 
-def unwrap_document_conversion_payload(payload: Dict[str, str]) -> DocumentConversionPayload:
+def unwrap_document_conversion_payload(payload: dict[str, str]) -> DocumentConversionPayload:
     data = _unwrap_pubsub_payload(payload)
     identifier = Identifier(f"{data['paper_id']}v{data['version']}")
     return DocumentConversionPayload(
@@ -41,7 +41,7 @@ def unwrap_document_conversion_payload(payload: Dict[str, str]) -> DocumentConve
     )
 
 
-def unwrap_publish_payload(payload: Dict[str, str]) -> PublishPayload:
+def unwrap_publish_payload(payload: dict[str, str]) -> PublishPayload:
     data = _unwrap_pubsub_payload(payload)
     return PublishPayload(
         submission_id=data["submission_id"], paper_id=Identifier(f"{data['paper_id']}v{data['version']}")

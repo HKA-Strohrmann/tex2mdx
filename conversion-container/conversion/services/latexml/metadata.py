@@ -1,5 +1,4 @@
 import json
-from typing import List
 
 from flask import current_app
 
@@ -13,7 +12,7 @@ from ...services.db import (
 )
 
 
-def generate_metadata_convert(payload: ConversionPayload, missing_packages: List[str]) -> str:
+def generate_metadata_convert(payload: ConversionPayload, missing_packages: list[str]) -> str:
     if isinstance(payload, DocumentConversionPayload):
         return json.dumps(
             {
