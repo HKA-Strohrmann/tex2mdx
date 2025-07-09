@@ -1,4 +1,5 @@
 import pytest
+
 from conversion.factory import create_web_app
 
 LATEXML_DB_URI = "sqlite:///:memory:?cache=latexml"

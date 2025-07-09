@@ -1,13 +1,12 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import List, Union
 
 from arxiv.identifier import Identifier
 
 
 @dataclass
 class ConversionPayload(ABC):
-    identifier: Union[Identifier, int]
+    identifier: Identifier | int
     single_file: bool
 
     @property
@@ -41,4 +40,4 @@ class DocumentConversionPayload(ConversionPayload):
 @dataclass
 class LaTeXMLOutput:
     output: str
-    missing_packages: List[str]
+    missing_packages: list[str]

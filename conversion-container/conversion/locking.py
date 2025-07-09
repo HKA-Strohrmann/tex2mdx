@@ -1,6 +1,6 @@
 import os
+from collections.abc import Generator
 from contextlib import contextmanager
-from typing import Generator
 
 from filelock import FileLock
 

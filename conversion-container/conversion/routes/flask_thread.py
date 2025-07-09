@@ -1,4 +1,4 @@
-"""FlaskThread pushes the Flask applcation context"""
+"""FlaskThread pushes the Flask applcation context."""
 
 from threading import Thread
 from typing import Any

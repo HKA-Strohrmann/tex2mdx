@@ -32,7 +32,7 @@ def find_main_tex_source(path: str) -> str:
         else:
             main_files = {}
             for tf in tex_files:
-                with open(os.path.join(path, tf), "r") as file:
+                with open(os.path.join(path, tf)) as file:
                     for line in file:
                         if re.search(r"^\s*\\document(?:style|class)", line):
                             # https://arxiv.org/help/faq/mistakes#wrongtex
@@ -43,14 +43,14 @@ def find_main_tex_source(path: str) -> str:
                                 main_files[tf] = 0
                             break
             if len(main_files) == 1:
-                return os.path.join(path, list(main_files)[0])
+                return os.path.join(path, next(iter(main_files)))
             elif len(main_files) == 0:
                 raise MainTeXError(f"No main .tex found file in {path}")
             else:
                 # account for the two main ways of creating multi-file
                 # submissions on overleaf (standalone, subfiles)
                 for mf in main_files:
-                    with open(os.path.join(path, mf), "r") as file:
+                    with open(os.path.join(path, mf)) as file:
                         for line in file:
                             if re.search(r"^\s*\\document(?:style|class).*(?:\{standalone\}|\{subfiles\})", line):
                                 main_files[mf] = -99999

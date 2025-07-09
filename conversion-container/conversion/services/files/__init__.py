@@ -1,21 +1,20 @@
 from typing import Optional
 from urllib.parse import urlparse
 
+from arxiv.files.object_store import LocalObjectStore, ObjectStore
 from flask import current_app
 from google.cloud import storage
-
-from arxiv.files.object_store import ObjectStore, LocalObjectStore
 
 from .file_manager import FileManager
 from .writable_gs_obj_store import WritableGSObjectStore
 
-_file_manager: Optional[FileManager] = None
-_local_conversion_store: Optional[ObjectStore] = None
-_local_publish_store: Optional[ObjectStore] = None
-_sub_src_store: Optional[ObjectStore] = None
-_doc_src_store: Optional[ObjectStore] = None
-_sub_converted_store: Optional[ObjectStore] = None
-_doc_converted_store: Optional[ObjectStore] = None
+_file_manager: FileManager | None = None
+_local_conversion_store: ObjectStore | None = None
+_local_publish_store: ObjectStore | None = None
+_sub_src_store: ObjectStore | None = None
+_doc_src_store: ObjectStore | None = None
+_sub_converted_store: ObjectStore | None = None
+_doc_converted_store: ObjectStore | None = None
 
 def get_global_object_store (path: str, global_name: str) -> ObjectStore:
     """Creates an object store from given path."""
