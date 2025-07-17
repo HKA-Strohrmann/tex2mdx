@@ -14,7 +14,7 @@ MISSING_PACKAGE_RE = re.compile(
 )
 
 
-def format_missing_dependency(name:str, message_fragment:str) -> str:
+def format_missing_dependency(name: str, message_fragment: str) -> str:
     if name.endswith((".sty", ".cls")):
         return name
     else:
@@ -24,7 +24,7 @@ def format_missing_dependency(name:str, message_fragment:str) -> str:
 
 def list_missing_packages(latexml_log: str) -> list[str]:
     matches = MISSING_PACKAGE_RE.findall(latexml_log)
-    return list(map(lambda match: format_missing_dependency(match[0],match[1]), matches))
+    return list(map(lambda match: format_missing_dependency(match[0], match[1]), matches))
 
 
 def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput:
@@ -35,18 +35,20 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
 
     latexml_config = [
         "latexmlc",
-        "--preload=[nobibtex,ids,localrawstyles,mathlexemes,magnify=2,zoomout=2,tokenlimit=99999999,iflimit=1499999,absorblimit=1299999,pushbacklimit=599999]latexml.sty",
-        "--path=/opt/arxmliv-bindings/bindings",
-        "--path=/opt/arxmliv-bindings/supported_originals",
+        "--preload=[nobibtex,nobreakuntex,localrawstyles,mathlexemes,magnify=1.2,zoomout=1.2,tokenlimit=249999999,iflimit=3599999,absorblimit=1299999,pushbacklimit=599999]latexml.sty",
+        "--preload=ar5iv.sty",
+        "--path=/opt/ar5iv-bindings/bindings",
+        "--path=/opt/ar5iv-bindings/supported_originals",
         "--pmml",
-        "--cmml",
         "--mathtex",
-        "--timeout=500",
+        "--noinvisibletimes",
+        "--timeout=600",
         "--nodefaultresources",
+        "--format=html5",
         "--css=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
-        f"--css={LATEXML_URL_BASE}/css/ar5iv.0.7.9.min.css",
-        f"--css={LATEXML_URL_BASE}/css/ar5iv-fonts.0.7.9.min.css",
-        f"--css={LATEXML_URL_BASE}/css/latexml_styles.css",
+        f"--css={LATEXML_URL_BASE}/css/ar5iv.0.8.2.min.css",
+        f"--css={LATEXML_URL_BASE}/css/ar5iv-fonts.0.8.2.min.css",
+        f"--css={LATEXML_URL_BASE}/css/latexml_styles.0.8.2.css",
         "--javascript=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
         "--javascript=https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.3.3/html2canvas.min.js",
         f"--javascript={LATEXML_URL_BASE}/js/addons_new.js",
