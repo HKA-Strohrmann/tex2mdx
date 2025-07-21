@@ -23,13 +23,13 @@ def process(payload: ConversionPayload) -> None:
             lock_str = payload.identifier.idv
         with id_lock(lock_str, current_app.config["LOCK_DIR"]):
             logger.info(f"starting conversion for {payload.identifier}")
-            checksum, main_src = get_file_manager().download_source(payload)
+            checksum, workdir = get_file_manager().download_source(payload)
 
             write_start(payload, checksum)
 
             get_file_manager().remove_ltxml(payload)
 
-            latexml_output = latexml(payload, main_src)  # Also need to upload stdout
+            latexml_output = latexml(payload, workdir)  # Also need to upload stdout
             logger.info(f"Successfully executed latexml on {payload}")
 
             metadata = generate_metadata_convert(payload, latexml_output.missing_packages)

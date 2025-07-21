@@ -1,8 +1,7 @@
 import re
 import subprocess
-from typing import List
+from pathlib import Path
 
-from arxiv.files import LocalFileObj
 from bs4 import BeautifulSoup
 from flask import current_app
 
@@ -30,10 +29,9 @@ def list_missing_packages(latexml_log: str) -> list[str]:
     return list(filter(None, map(lambda match: format_missing_dependency(match[0], match[1]), matches)))
 
 
-def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput:
+def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     LATEXML_URL_BASE = current_app.config["LATEXML_URL_BASE"]
 
-    main_src_path = main_src.item
     output_path = f"{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html"
 
     latexml_config = [
@@ -57,7 +55,8 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
         f"--javascript={LATEXML_URL_BASE}/js/addons_new.js",
         f"--javascript={LATEXML_URL_BASE}/js/feedbackOverlay.js",
         "--navigationtoc=context",
-        f"--source={main_src_path}",
+        "--whatsin=directory",
+        f"--source={workdir}",
         f"--dest={output_path}",
     ]
 
@@ -71,7 +70,7 @@ def latexml(payload: ConversionPayload, main_src: LocalFileObj) -> LaTeXMLOutput
 
 
 def insert_base_tag(idv: str, html_file_path: str) -> None:
-    """This inserts the base tag into the html so we can use the /html/arxiv_id url."""
+    """Insert the base tag into the html so we can use the /html/arxiv_id url."""
     base_html = f'<base href="/html/{idv}/">'
 
     with open(html_file_path, "r+") as html:
@@ -84,7 +83,7 @@ def insert_base_tag(idv: str, html_file_path: str) -> None:
 
 
 def replace_relative_anchors(absolute_base: str, html_file_path: str) -> None:
-    """This replaces all the relative anchor tags with absolute anchors."""
+    """Replace all the relative anchor tags with absolute anchors."""
     # Note: If this causes bugs, use a SAX parser to do this more accurately
     # while still not needing to completely rebuild the DOM in memory with bs4
     ANCHOR_REGEX = re.compile(r'href="#')

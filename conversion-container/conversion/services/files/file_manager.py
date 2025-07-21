@@ -10,7 +10,6 @@ from arxiv.files import FileObj, LocalFileObj, UngzippedFileObj
 from arxiv.files.key_patterns import abs_path_current_parent, abs_path_orig_parent
 from arxiv.files.object_store import LocalObjectStore, ObjectStore
 from tenacity import retry, stop_after_attempt, wait_fixed
-from tex_inspection import ZeroZeroReadMe, find_primary_tex
 
 from ...domain.conversion import (
     ConversionPayload,
@@ -63,37 +62,25 @@ class FileManager:
         self.doc_converted_store = doc_converted_store
 
     @retry(stop=stop_after_attempt(6), wait=wait_fixed(10))
-    def download_source(self, payload: ConversionPayload) -> tuple[str, LocalFileObj]:
+    def download_source(self, payload: ConversionPayload) -> tuple[str, Path]:
         """Download the src files and return the main tex file."""
         src = self.source_payload_to_file_obj(payload)
+        workdir = Path(self.local_conversion_store.prefix + payload.name)
 
         with src.open("rb") as ungzip_file:
             input_bytes = ungzip_file.read()
             checksum = _get_checksum(input_bytes)
 
         if payload.single_file:
-            with open(f"{self.local_conversion_store.prefix}{payload.name}.tex", "wb+") as local_file:
+            with open(f"{workdir}/{payload.name}.tex", "wb+") as local_file:
                 local_file.write(input_bytes)
+        else:
+            with tarfile.open(fileobj=BytesIO(input_bytes)) as tar:
+                tar.extractall(workdir)
 
-            main_src_obj = self.local_conversion_store.to_obj(f"{payload.name}.tex")
-            assert isinstance(main_src_obj, LocalFileObj)
+        print(f"MAIN WORK DIR: {workdir}, ID: {payload.identifier}")
 
-            return checksum, main_src_obj
-
-        with tarfile.open(fileobj=BytesIO(input_bytes)) as tar:
-            tar.extractall(self.local_conversion_store.prefix + payload.name)
-
-        in_dir = self.local_conversion_store.prefix + payload.name
-        main_src = find_primary_tex(in_dir, ZeroZeroReadMe(in_dir))[0]
-        print(f"MAIN SRC: {main_src}")
-
-        main_src_obj = self.local_conversion_store.to_obj(
-            os.path.relpath(f"{in_dir}/{main_src}", self.local_conversion_store.prefix)
-        )
-        print(f"MAIN SRC OBJ: {main_src_obj}, ID: {payload.identifier}")
-        assert isinstance(main_src_obj, LocalFileObj)
-
-        return checksum, main_src_obj
+        return checksum, workdir
 
     def source_payload_to_file_obj(self, payload: ConversionPayload) -> FileObj:
         if isinstance(payload, DocumentConversionPayload):
