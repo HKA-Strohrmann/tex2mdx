@@ -37,8 +37,9 @@ def process(payload: ConversionPayload) -> None:
 
             with open(f"{get_file_manager().latexml_output_dir_name(payload)}__metadata.json", "w") as f:
                 f.write(metadata)
-            with open(f"{get_file_manager().latexml_output_dir_name(payload)}__stdout.txt", "w") as f:
-                f.write(latexml_output.output)
+            # This is now written by the main latexml process, see the --log parameter.
+            # with open(f"{get_file_manager().latexml_output_dir_name(payload)}__stdout.txt", "w") as f:
+            #     f.write(latexml_output.output)
 
             if isinstance(payload, DocumentConversionPayload):
                 main_html_file_path = f"{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html"

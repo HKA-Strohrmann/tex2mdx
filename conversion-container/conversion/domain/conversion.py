@@ -40,5 +40,6 @@ class DocumentConversionPayload(ConversionPayload):
 
 @dataclass
 class LaTeXMLOutput:
-    output: str
+    returncode: int
+    log: str | None
     missing_packages: list[str]

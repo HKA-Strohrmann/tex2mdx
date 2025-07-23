@@ -31,6 +31,7 @@ markers = [
   # "processing_unit_tests: Unit tests for processing functions",
   "logparser_unit_tests: Unit tests for log parser functions",
   "filestore_unit_tests: Unit tests for filestore operations",
+  "call_latexml_tests: Tests the stability of latexml calls",
 ]
 filterwarnings = ["ignore:.*google\\._upb\\._message\\..*:DeprecationWarning"]
 

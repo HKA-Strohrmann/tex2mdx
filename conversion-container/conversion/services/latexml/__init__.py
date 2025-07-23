@@ -1,3 +1,4 @@
+import logging
 import re
 import subprocess
 from pathlib import Path
@@ -24,26 +25,40 @@ def format_missing_dependency(name: str, message_fragment: str) -> str | None:
         return f"{name}.{ext}"
 
 
-def list_missing_packages(latexml_log: str) -> list[str]:
-    matches = MISSING_PACKAGE_RE.findall(latexml_log)
-    return list(filter(None, map(lambda match: format_missing_dependency(match[0], match[1]), matches)))
+def list_missing_packages(latexml_log_path: Path) -> list[str]:
+    matches = []
+    if latexml_log_path.exists():
+        with open(latexml_log_path) as latexml_log_stream:
+            for line in latexml_log_stream:
+                match = re.search(MISSING_PACKAGE_RE, line)
+                if match:
+                    matches.append(match)
+    return list(filter(None, map(lambda match: format_missing_dependency(match[1], match[2]), matches)))
 
 
 def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     LATEXML_URL_BASE = current_app.config["LATEXML_URL_BASE"]
-
-    output_path = f"{get_file_manager().latexml_output_dir_name(payload)}{payload.name}.html"
+    LATEXML_TIMEOUT_SEC = current_app.config.get("LATEXML_TIMEOUT_SEC", 600)
+    LATEXML_PATHS = current_app.config.get(
+        "LATEXML_PATHS",
+        [
+            "/opt/ar5iv-bindings/bindings",
+            "/opt/ar5iv-bindings/supported_originals",
+        ],
+    )
+    LATEXML_PRELOADS = current_app.config.get("LATEXML_PRELOADS", ["ar5iv.sty"])
+    LATEXML_LOG_FILE = current_app.config.get("LATEXML_LOG_FILE", "__stdout.txt")
+    output_dirname = get_file_manager().latexml_output_dir_name(payload)
+    output_path = f"{output_dirname}{payload.name}.html"
+    log_path = f"{output_dirname}{LATEXML_LOG_FILE}"
 
     latexml_config = [
         "latexmlc",
         "--preload=[nobibtex,nobreakuntex,localrawstyles,mathlexemes,magnify=1.2,zoomout=1.2,tokenlimit=249999999,iflimit=3599999,absorblimit=1299999,pushbacklimit=599999]latexml.sty",
-        "--preload=ar5iv.sty",
-        "--path=/opt/ar5iv-bindings/bindings",
-        "--path=/opt/ar5iv-bindings/supported_originals",
         "--pmml",
         "--mathtex",
         "--noinvisibletimes",
-        "--timeout=600",
+        f"--timeout={LATEXML_TIMEOUT_SEC}",
         "--nodefaultresources",
         "--format=html5",
         "--css=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css",
@@ -57,15 +72,30 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
         "--navigationtoc=context",
         "--whatsin=directory",
         f"--source={workdir}",
+        f"--log={log_path}",
         f"--dest={output_path}",
     ]
-
-    completed_process = subprocess.run(
-        latexml_config, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=True, text=True, timeout=500
-    )
-
+    for preload in LATEXML_PRELOADS:
+        latexml_config.append(f"--preload={preload}")
+    for path in LATEXML_PATHS:
+        latexml_config.append(f"--path={path}")
+    try:
+        completed_process = subprocess.run(
+            latexml_config, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=True, text=True, timeout=500
+        )
+        returncode = completed_process.returncode
+    except subprocess.TimeoutExpired as e:
+        logging.warning(f"LaTeXML conversion timed out after {e.timeout} seconds")
+        returncode = 1
+    except Exception as e:
+        logging.warning(f"LaTeXML conversion failed with error {e}")
+        returncode = 1
+    # Note: latexml will write the full conversion log at the path specified by `--log=[path]`,
+    # so we can keep the current __stdout.txt convention for now by copying the deposited log.
     return LaTeXMLOutput(
-        output=completed_process.stdout, missing_packages=list_missing_packages(completed_process.stdout)
+        missing_packages=list_missing_packages(Path(LATEXML_LOG_FILE)),
+        log=None,  # use the file from --log
+        returncode=returncode,
     )
 
 

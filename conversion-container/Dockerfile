@@ -1,6 +1,8 @@
 # syntax=docker/dockerfile:1
 
-# This dockerfile is for doing full corpus convert.
+# DG: This dockerfile is deprecated.
+#
+# This dockerfile was for doing full corpus convert.
 # It needs to be run with the correct environment
 # variables and google application credentials
 
