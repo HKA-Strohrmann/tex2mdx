@@ -52,6 +52,9 @@ def clean_up_stale_assets(tmpdir: Path, stale_asset_expiration_sec: int) -> None
     now = time.time()
     # Always try to clean up old / unneeded files.
     for entry in os.listdir(tmpdir):
+        # exempt the cloudsql file, if it exists, we want to allow its reuse
+        if entry.endswith("csql"):
+            continue
         full_entry = os.path.join(tmpdir, entry)
         stat = os.stat(full_entry)
         # only consider old files this user owns.
