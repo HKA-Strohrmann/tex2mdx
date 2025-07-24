@@ -1,12 +1,14 @@
 import logging
+import os
 import tempfile
+import time
 from pathlib import Path
 
 import pytest
 
 from conversion.domain.conversion import LaTeXMLOutput, SubmissionConversionPayload
 from conversion.services.files import get_file_manager
-from conversion.services.latexml import latexml
+from conversion.services.latexml import clean_up_stale_assets, latexml
 
 
 def call_bare_latexml(app, config=dict | None) -> LaTeXMLOutput:
@@ -44,3 +46,19 @@ def test_latexml_timeout(app):
     logging.warning(f"RESULT: {result}")
     assert "Fatal:timeout:timedout" in result.log
     assert result.returncode == 1
+
+
+@pytest.mark.call_latexml_tests
+def test_clean_up_stale_assets(app):
+    with tempfile.TemporaryDirectory() as workdir:
+        test_file_path = f"{workdir}/test.tex"
+        with open(test_file_path, "w") as file:
+            file.write("sample")
+        test_dir_path = f"{workdir}/test_dir"
+        os.mkdir(f"{workdir}/test_dir")
+        time.sleep(1)
+        assert os.path.exists(test_file_path)
+        assert os.path.exists(test_dir_path)
+        clean_up_stale_assets(workdir, 0)
+        assert not (os.path.exists(test_file_path))
+        assert not (os.path.exists(test_dir_path))

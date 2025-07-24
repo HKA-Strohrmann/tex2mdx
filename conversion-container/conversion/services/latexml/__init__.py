@@ -1,6 +1,9 @@
 import logging
+import os
 import re
+import shutil
 import subprocess
+import time
 from pathlib import Path
 
 from bs4 import BeautifulSoup
@@ -12,6 +15,8 @@ from ..files import get_file_manager
 MISSING_PACKAGE_RE = re.compile(
     r"^Warning:missing_file:(\S+)\s(?:Can't\sfind\s(package|binding for class))?", flags=re.MULTILINE
 )
+TMPDIR = Path(os.getenv("TMPDIR", "/tmp"))
+UID = os.getuid()
 
 
 def format_missing_dependency(name: str, message_fragment: str) -> str | None:
@@ -36,9 +41,31 @@ def list_missing_packages(latexml_log_path: Path) -> list[str]:
     return list(filter(None, map(lambda match: format_missing_dependency(match[1], match[2]), matches)))
 
 
+def clean_up_stale_assets(tmpdir: Path, stale_asset_expiration_sec: int) -> None:
+    """
+    Clean the temporary directory from all files that have are now stale (too old).
+
+    When latexml dies in particularly dirty ways (e.g. imagemagick issues) the initial
+    web service process may become completely unrecoverable. In these cases files can remain
+    in the temporary directory for an indefinite amount of time, and fill up the disk.
+    """
+    now = time.time()
+    # Always try to clean up old / unneeded files.
+    for entry in os.listdir(tmpdir):
+        full_entry = os.path.join(tmpdir, entry)
+        stat = os.stat(full_entry)
+        # only consider old files this user owns.
+        age = now - stat.st_mtime
+        if stat.st_uid == UID and (age > stale_asset_expiration_sec):
+            logging.warning(f"deleting stale temporary asset ({age}s): {full_entry}")
+            if os.path.isfile(full_entry):
+                os.remove(full_entry)
+            else:
+                shutil.rmtree(full_entry)
+
+
 def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     LATEXML_URL_BASE = current_app.config["LATEXML_URL_BASE"]
-    LATEXML_TIMEOUT_SEC = current_app.config.get("LATEXML_TIMEOUT_SEC", 600)
     LATEXML_PATHS = current_app.config.get(
         "LATEXML_PATHS",
         [
@@ -48,6 +75,15 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     )
     LATEXML_PRELOADS = current_app.config.get("LATEXML_PRELOADS", ["ar5iv.sty"])
     LATEXML_LOG_FILE = current_app.config.get("LATEXML_LOG_FILE", "__stdout.txt")
+    LATEXML_TIMEOUT_SEC = int(current_app.config.get("LATEXML_TIMEOUT_SEC", 600))
+    # Always clean up before executing the latexml call, this is too important
+    # for service health, so we tightly couple it with this call.
+    # (at least for now)
+    #
+    # Assets are considered stale 5 min after a fully timed latexml run is over.
+    stale_asset_expiration_sec = 300 + LATEXML_TIMEOUT_SEC
+    clean_up_stale_assets(TMPDIR, stale_asset_expiration_sec)
+
     output_dirname = get_file_manager().latexml_output_dir_name(payload)
     output_path = f"{output_dirname}{payload.name}.html"
     log_path = f"{output_dirname}{LATEXML_LOG_FILE}"
