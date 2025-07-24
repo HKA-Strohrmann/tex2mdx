@@ -117,7 +117,12 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
         latexml_config.append(f"--path={path}")
     try:
         completed_process = subprocess.run(
-            latexml_config, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, check=True, text=True, timeout=500
+            latexml_config,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            check=True,
+            text=True,
+            timeout=LATEXML_TIMEOUT_SEC + 5,
         )
         returncode = completed_process.returncode
     except subprocess.TimeoutExpired as e:
