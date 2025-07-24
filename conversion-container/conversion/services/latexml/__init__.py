@@ -58,10 +58,13 @@ def clean_up_stale_assets(tmpdir: Path, stale_asset_expiration_sec: int) -> None
         age = now - stat.st_mtime
         if stat.st_uid == UID and (age > stale_asset_expiration_sec):
             logging.warning(f"deleting stale temporary asset ({age}s): {full_entry}")
-            if os.path.isfile(full_entry):
-                os.remove(full_entry)
-            else:
-                shutil.rmtree(full_entry)
+            try:
+                if os.path.isfile(full_entry):
+                    os.remove(full_entry)
+                else:
+                    shutil.rmtree(full_entry)
+            except Exception as e:
+                logging.error(f"failed to delete stale temporary asset: {full_entry} ({e})")
 
 
 def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
