@@ -103,7 +103,6 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
         "--mathtex",
         "--noinvisibletimes",
         f"--timeout={LATEXML_TIMEOUT_SEC}",
-        "--nodefaultresources",
         "--format=html5",
         f"--css={LATEXML_URL_BASE}/css/arxiv-html-papers-20250916.css",
         "--javascript=https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js",
