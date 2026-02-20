@@ -30,6 +30,17 @@ WORKDIR /source
 
 COPY . .
 
+######### GET BASE ARXIV.FILES UTILITY ##########
+
+ENV ARXIV_BASE_COMMIT=a1fed38fcae2d8630acc9aa8b53c2f4a1776f5c5
+
+WORKDIR /lib
+RUN rm -rf /lib/arxiv-base
+RUN git clone https://github.com/arXiv/arxiv-base.git
+WORKDIR /lib/arxiv-base
+RUN git reset --hard $ARXIV_BASE_COMMIT
+RUN cp /lib/arxiv-base/arxiv/files/__init__.py /source/ReverseProxy/files.py
+
 ########## GET BROWSE TEMPLATE RESOURCES ##########
 
 WORKDIR /lib
