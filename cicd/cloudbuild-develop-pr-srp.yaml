@@ -5,6 +5,8 @@ steps:
   - name: 'gcr.io/cloud-builders/docker'
     args:
       - 'build'
+      - '--build-arg'
+      - 'CACHE_BUST=$BUILD_ID'
       - '--cache-from'
       - 'gcr.io/$PROJECT_ID/html-submit-reverse-proxy:latest'
       - '-t'

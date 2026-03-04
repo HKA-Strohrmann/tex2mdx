@@ -47,6 +47,7 @@ RUN cp /lib/arxiv-base/arxiv/files/__init__.py /source/ReverseProxy/files.py
 # where arxiv-browse has a workflow to redeploy this proxy service when master is updated.
 
 ENV BROWSE_DEV_BRANCH=develop
+ARG CACHE_BUST
 
 WORKDIR /lib
 RUN rm -rf /lib/arxiv-browse
