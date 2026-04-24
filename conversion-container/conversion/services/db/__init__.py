@@ -135,33 +135,73 @@ def write_success(payload: ConversionPayload, checksum: str) -> None:
 
 
 # @database_retry(5)
-def _write_failure_doc(identifier: Identifier, checksum: str) -> None:
+def _write_failure_doc(identifier: Identifier, checksum: Optional[str], bucket_clobbered: bool) -> None:
     with transaction() as session:
         obj = (
             session.query(DBLaTeXMLDocuments)
             .filter(DBLaTeXMLDocuments.paper_id == identifier.id)
             .filter(DBLaTeXMLDocuments.document_version == identifier.version)
-            .one()
+            .first()
         )
-        if obj.tex_checksum == checksum and obj.latexml_version == current_app.config["LATEXML_COMMIT"]:
-            obj.conversion_status = 2
-            obj.conversion_end_time = now()
+        if obj is None:
+            session.add(
+                DBLaTeXMLDocuments(
+                    paper_id=identifier.id,
+                    document_version=identifier.version,
+                    conversion_status=2,
+                    latexml_version=current_app.config["LATEXML_COMMIT"],
+                    tex_checksum=checksum,
+                    conversion_start_time=now(),
+                    conversion_end_time=now(),
+                )
+            )
+            return
+        if obj.conversion_status == 1 and not bucket_clobbered:
+            # prior successful HTML is still intact in the bucket; do not downgrade the DB status
+            return
+        obj.conversion_status = 2
+        obj.conversion_end_time = now()
+        obj.tex_checksum = checksum
+        obj.latexml_version = current_app.config["LATEXML_COMMIT"]
 
 
 # @database_retry(5)
-def _write_failure_sub(submission_id: int, checksum: str) -> None:
+def _write_failure_sub(submission_id: int, checksum: Optional[str], bucket_clobbered: bool) -> None:
     with transaction() as session:
-        obj = session.query(DBLaTeXMLSubmissions).filter(DBLaTeXMLSubmissions.submission_id == submission_id).one()
-        if obj.tex_checksum == checksum and obj.latexml_version == current_app.config["LATEXML_COMMIT"]:
-            obj.conversion_status = 2
-            obj.conversion_end_time = now()
+        obj = session.query(DBLaTeXMLSubmissions).filter(DBLaTeXMLSubmissions.submission_id == submission_id).first()
+        if obj is None:
+            session.add(
+                DBLaTeXMLSubmissions(
+                    submission_id=submission_id,
+                    conversion_status=2,
+                    latexml_version=current_app.config["LATEXML_COMMIT"],
+                    tex_checksum=checksum,
+                    conversion_start_time=now(),
+                    conversion_end_time=now(),
+                )
+            )
+            return
+        if obj.conversion_status == 1 and not bucket_clobbered:
+            return
+        obj.conversion_status = 2
+        obj.conversion_end_time = now()
+        obj.tex_checksum = checksum
+        obj.latexml_version = current_app.config["LATEXML_COMMIT"]
 
 
-def write_failure(payload: ConversionPayload, checksum: str) -> None:
+def write_failure(payload: ConversionPayload, checksum: Optional[str], bucket_clobbered: bool = False) -> None:
+    """Record a failed conversion attempt.
+
+    bucket_clobbered: True if the failing attempt already overwrote the previously
+    published HTML in the converted-bucket (i.e. upload_latexml ran with broken output). 
+    When True, a prior status=1 row is overwritten because the bucket no longer matches it. 
+    When False (e.g. an early exception before upload), a prior successful row is preserved
+    because the good HTML is still live in the bucket.
+    """
     if isinstance(payload, DocumentConversionPayload):
-        _write_failure_doc(payload.identifier, checksum)
+        _write_failure_doc(payload.identifier, checksum, bucket_clobbered)
     elif isinstance(payload, SubmissionConversionPayload):
-        _write_failure_sub(payload.identifier, checksum)
+        _write_failure_sub(payload.identifier, checksum, bucket_clobbered)
 
 
 # @database_retry(3)

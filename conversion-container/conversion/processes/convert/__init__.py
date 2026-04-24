@@ -16,6 +16,7 @@ logger = logging.getLogger()
 
 
 def process(payload: ConversionPayload) -> None:
+    checksum: str | None = None
     try:
         if isinstance(payload.identifier, int):
             lock_str = str(payload.identifier)
@@ -51,7 +52,9 @@ def process(payload: ConversionPayload) -> None:
                 write_success(payload, checksum)
                 logger.info(f"Successfully wrote {payload} to announced DB")
             else:
-                write_failure(payload, checksum)
+                # upload_latexml below will overwrite the previously-published HTML in the
+                # bucket with this run's broken output, so the DB must reflect the failure.
+                write_failure(payload, checksum, bucket_clobbered=True)
 
             # Note: There is a gap between when the user would see that html is ready and when it is uploaded.
             # In my opinion, this is a smaller problem than the user seeing an incorrect version of their html
@@ -61,6 +64,9 @@ def process(payload: ConversionPayload) -> None:
         print(traceback.format_exc())
         logger.info(f"conversion unsuccessful for {payload.identifier}", exc_info=True)
         try:
-            write_failure(payload, checksum)
+            write_failure(payload, checksum, bucket_clobbered=True)
+            logger.info(
+                f"recorded failure in DB for {payload.identifier} (checksum={'unknown' if checksum is None else checksum})"
+            )
         except Exception as e:
-            logger.warning(f"failed to write failure for {payload.identifier}: {e}", exc_info=True)
+            logger.error(f"failed to write failure for {payload.identifier}: {e}", exc_info=True)
