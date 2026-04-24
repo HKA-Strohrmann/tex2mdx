@@ -90,6 +90,7 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     LATEXML_PRELOADS = current_app.config.get("LATEXML_PRELOADS", ["ar5iv.sty"])
     LATEXML_LOG_FILE = current_app.config.get("LATEXML_LOG_FILE", "__stdout.txt")
     LATEXML_TIMEOUT_SEC = int(current_app.config.get("LATEXML_TIMEOUT_SEC", 540))
+    LATEXML_MEM_LIMIT_BYTES = int(current_app.config.get("LATEXML_MEM_LIMIT_BYTES", 6 * 1024**3))
     # Always clean up before executing the latexml call, this is too important
     # for service health, so we tightly couple it with this call.
     # (at least for now)
@@ -103,6 +104,7 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
     log_path = f"{output_dirname}{LATEXML_LOG_FILE}"
 
     latexml_config = [
+        "prlimit", f"--as={LATEXML_MEM_LIMIT_BYTES}", "--",
         "latexmlc",
         "--whatsin=directory",
         "--pmml",
@@ -126,11 +128,16 @@ def latexml(payload: ConversionPayload, workdir: Path) -> LaTeXMLOutput:
             latexml_config,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
-            check=True,
+            check=False,
             text=True,
             timeout=LATEXML_TIMEOUT_SEC + 5,
         )
         returncode = completed_process.returncode
+        if returncode != 0:
+            logging.error(
+                f"LaTeXML conversion failed rc={returncode} "
+                f"(mem_limit={LATEXML_MEM_LIMIT_BYTES}) for {payload.identifier}"
+            )
     except subprocess.TimeoutExpired as e:
         logging.warning(f"LaTeXML conversion timed out after {e.timeout} seconds")
         returncode = 1
