@@ -16,4 +16,4 @@ _build/
 *.log
 
 # html builds
-# */html/
+*/html/
