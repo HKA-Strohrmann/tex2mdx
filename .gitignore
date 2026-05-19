@@ -9,5 +9,11 @@ wheels/
 # Virtual environments
 .venv
 
-*/_build
-*/html
+# latex builds
+*/_build/
+_build/
+*/svg-inkscape/
+*.log
+
+# html builds
+# */html/

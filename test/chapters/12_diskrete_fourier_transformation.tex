@@ -6,7 +6,7 @@ In Kapitel \hyperref[spektrum-von-signalfolgen]{7} wird die Fourier-Transformati
 \item
   Die Fourier-Transformation von Signalfolgen eignet sich nur für analytisch definierte Signale, für die unendlich viele Folgenwerte vorliegen. Messergebnisse sind jedoch immer auf ein endliches Zeitintervall begrenzt, sodass das Spektrum des zugrunde liegenden Signals nur über den vorliegenden Signalausschnitt geschätzt werden kann.
 \item
-  Außerdem ist das Ergebnis der Fourier-Transformation von Signalfolgen ein kontinuierliches Spektrum \(X(Ω)\), das numerisch nicht oder nur aufwendig bearbeitet werden kann. Für die digitale Signalverarbeitung im Spektralbereich wäre ein diskretes Spektrum vorteilhaft, das wie bei der Fourier-Reihe aus einzelnen Koeffizienten besteht.
+  Außerdem ist das Ergebnis der Fourier-Transformation von Signalfolgen ein kontinuierliches Spektrum \(X(Ω)\), das numerisch nicht oder nur aufwendig bearbeitet werden kann. Für die digitale Signalverarbeitung im Spektralbereich wäre ein diskretes Spektrum vorteilhaft, das wie bei der Fourier-Reihe aus einzelnen Koeffizienten besteht.
 \end{itemize}
 
 In diesem Kapitel wird die Diskrete-Fourier-Transformation (DFT) eingeführt. Sie erlaubt die Schätzung von Spektren auf Basis von Signalausschnitten. Das Ergebnis der Diskrete-Fourier-Transformation ist ein diskretes Spektrum. Nach ihrer Definition wird ihre Berechnung an einführenden Beispielen erläutert.
@@ -71,7 +71,7 @@ Aus einem Vergleich von den Gleichungen (\ref{eq:10.8}) und (\ref{eq:10.9}) wird
 \begin{align}
 \Omega_{n} &= \frac{2  \pi  n}{N} \label{eq:10.11}
 \end{align}
-den Abtastwerten des Spektrums \(X_{W}\)(\(Ω_{n}\)) entspricht. Wegen des diskreten Spektrums wird die Transformation als Diskrete-Fourier-Transformation (DFT) bezeichnet. Sie geht von einer endlichen Anzahl von N Abtastwerten eines Signals aus und ist als endliche Summe definiert. Damit lässt sie sich in technischen Systemen verarbeiten.
+den Abtastwerten des Spektrums \(X_{W}\)(\(Ω_{n}\)) entspricht. Wegen des diskreten Spektrums wird die Transformation als Diskrete-Fourier-Transformation (DFT) bezeichnet. Sie geht von einer endlichen Anzahl von N Abtastwerten eines Signals aus und ist als endliche Summe definiert. Damit lässt sie sich in technischen Systemen verarbeiten.
 
 Über die Umrechnung der Definitionsgleichung ergibt sich
 \begin{align}
@@ -104,11 +104,11 @@ Die Berechnung muss nicht unbedingt als analytische Rechnung ausgeführt werden,
   {\label{fig:10.1}}
 
 
-Die Diskrete-Fourier-Transformierte wird mit dem Spektrum \(X(Ω)\) verglichen, das sich aus der Fourier-Transformation der Folge ergibt.
+Die Diskrete-Fourier-Transformierte wird mit dem Spektrum \(X(Ω)\) verglichen, das sich aus der Fourier-Transformation der Folge ergibt.
 \begin{align}
 X(\Omega) &= \sum_{k = 2}^{6}{1  e^{- j  k  \Omega}} = e^{- j  4  \Omega}  \frac{\sin\left( \frac{5  \Omega}{2} \right)}{\sin\left( \frac{\Omega}{2} \right)} \label{eq:10.16}
 \end{align}
-Beide Spektren sind in Bild \ref{fig:10.2} dargestellt. Die periodische Fortsetzung der Diskreten-Fourier-Transformierten und die Fourier-Transformierte der Folge sind an den Punkten \(Ω_{n}\) identisch. Allerdings liefert die Diskrete-Fourier-Transformierte nicht den bislang interpretierten Frequenzbereich von - π \ldots{} π sondern das Spektrum im Bereich von 0 \ldots{} 2π. Wegen der Periodizität der Fourier-Transformierten können die Darstellungen jedoch ineinander überführt werden.
+Beide Spektren sind in Bild \ref{fig:10.2} dargestellt. Die periodische Fortsetzung der Diskreten-Fourier-Transformierten und die Fourier-Transformierte der Folge sind an den Punkten \(Ω_{n}\) identisch. Allerdings liefert die Diskrete-Fourier-Transformierte nicht den bislang interpretierten Frequenzbereich von - π \ldots{} π sondern das Spektrum im Bereich von 0 \ldots{} 2π. Wegen der Periodizität der Fourier-Transformierten können die Darstellungen jedoch ineinander überführt werden.
 
 \manualFigure
   [alt={Spektrum der Rechteckfolge berechnet über Fourier-Transformation\\
@@ -270,11 +270,11 @@ Die Folge \(x_{D}\){[}k{]} ergibt sich aus den Gewichten des ideal abgetasteten 
 \begin{align}
 x_{D}[ k] &= x\left( k  T_{A} \right) \label{eq:10.33}
 \end{align}
-Die Fourier-Transformierte \(X_{D}(Ω)\) entspricht grundsätzlich dem Spektrum \(X_{A}(ω)\), allerdings wird es als Funktion der normierten Kreisfrequenz Ω = ωT\textsubscript{A} dargestellt. Mit der Substitution \(ω = Ω\)/\(T_{A}\) ergibt sich
+Die Fourier-Transformierte \(X_{D}(Ω)\) entspricht grundsätzlich dem Spektrum \(X_{A}(ω)\), allerdings wird es als Funktion der normierten Kreisfrequenz Ω = ωT\textsubscript{A} dargestellt. Mit der Substitution \(ω = Ω\)/\(T_{A}\) ergibt sich
 \begin{align}
 X_{D}(\Omega) &= \left. \ \frac{1}{T_{A}}  \sum_{n = - \infty}^{\infty}{X\left( \omega - n  \omega_{A} \right)} \right|_{\omega = \frac{\Omega}{T_{A}}} = 5  \sum_{n = - \infty}^{\infty}\frac{4}{(5  \Omega - n  10  \pi)^{2}}  \sin^{2}\left( \frac{5  \Omega - n  10  \pi}{2} \right) \label{eq:10.34}
 \end{align}
-Die diskrete Signalfolge und das Spektrum \(X_{D}(Ω)\) sind in Bild \ref{fig:10.8} dargestellt.
+Die diskrete Signalfolge und das Spektrum \(X_{D}(Ω)\) sind in Bild \ref{fig:10.8} dargestellt.
 
 \begin{figure}
   \centering
@@ -283,11 +283,11 @@ Die diskrete Signalfolge und das Spektrum \(X_{D}(Ω)\) sind in Bild \ref{fig:1
   \label{fig:10.8}
 \end{figure}
 
-Die Signalfolge \(x_{D}\){[}k{]} wird über einen Zeitraum - 5 ≤ k ≤ 4 beobachtet. Mit den entsprechenden Werten \(x_{W}\){[}k{]} der Signalfolge wird eine Diskrete-Fourier-Transformierte \(X_{n}\) berechnet. Es werden \(N = 10\) Abtastwerte verwendet. Deshalb berechnen sich die Frequenzen \(Ω_{n}\) mit \(n = 0\) ... 9 zu
+Die Signalfolge \(x_{D}\){[}k{]} wird über einen Zeitraum - 5 ≤ k ≤ 4 beobachtet. Mit den entsprechenden Werten \(x_{W}\){[}k{]} der Signalfolge wird eine Diskrete-Fourier-Transformierte \(X_{n}\) berechnet. Es werden \(N = 10\) Abtastwerte verwendet. Deshalb berechnen sich die Frequenzen \(Ω_{n}\) mit \(n = 0\) ... 9 zu
 \begin{align}
 \Omega_{n} &= \frac{2  \pi}{N}  n = \frac{2  \pi}{10}  n \label{eq:10.35}
 \end{align}
-Da das Signal \(x[k]\) sowieso zeitbegrenzt war, wirkt sich die Fensterung nicht auf das Spektrum aus. Das Spektrum der Signalfolge \(x_{D}\){[}k{]} entspricht damit an den Stellen \(Ω = Ω_{n}\) den Werten der diskreten Fourier-Transformation X(\(Ω_{n}\)) = \(X_{n}\). Wegen der Abtastung im Frequenzbereich wird das Signal im Zeitbereich periodisch in N wiederholt. Die periodisch fortgesetzte Signalfolge und die Diskrete-Fourier-Transformierte sind in Bild \ref{fig:10.9} dargestellt.
+Da das Signal \(x[k]\) sowieso zeitbegrenzt war, wirkt sich die Fensterung nicht auf das Spektrum aus. Das Spektrum der Signalfolge \(x_{D}\){[}k{]} entspricht damit an den Stellen \(Ω = Ω_{n}\) den Werten der diskreten Fourier-Transformation X(\(Ω_{n}\)) = \(X_{n}\). Wegen der Abtastung im Frequenzbereich wird das Signal im Zeitbereich periodisch in N wiederholt. Die periodisch fortgesetzte Signalfolge und die Diskrete-Fourier-Transformierte sind in Bild \ref{fig:10.9} dargestellt.
 
 \begin{figure}
   \centering
@@ -451,7 +451,7 @@ Bild \ref{fig:10.11} stellt die Diskreten-Fourier-Transformierten für die perio
 
 \end{example}
 
-Diese Dualität existiert in analoger Weise für die Fourier-Transformation zeitkontinuierlicher Signale. Im Gegensatz zur Diskreten-Fourier-Transformation weist die Fourier-Transformation von Signalfolgen dieses Dualitätsprinzip nicht auf, da das Signal \(x[k]\) eine zeitdiskrete Folge und das Spektrum \(X(Ω)\) eine kontinuierliche Funktion ist.
+Diese Dualität existiert in analoger Weise für die Fourier-Transformation zeitkontinuierlicher Signale. Im Gegensatz zur Diskreten-Fourier-Transformation weist die Fourier-Transformation von Signalfolgen dieses Dualitätsprinzip nicht auf, da das Signal \(x[k]\) eine zeitdiskrete Folge und das Spektrum \(X(Ω)\) eine kontinuierliche Funktion ist.
 
 \subsection{Zeitverschiebung}\label{sec:zeitverschiebung}
 
@@ -551,7 +551,7 @@ X_{A}(\omega) &= \frac{1}{T_{A}}  \sum_{k = - \infty}^{\infty}{X_{TP}\left( \ome
 \end{align}
 Im Fall einer nicht idealen Abtastung kann die dadurch entstehende Veränderung des Spektrums durch einen inversen Filter kompensiert werden.
 
-Der Übergang des ideal abgetasteten Signals \(x_{A}(t)\) zur diskreten Signalfolge \(x_{D}\){[}k{]} ist formal. Unter der Bedingung Ω = ωT\textsubscript{A} ist das Spektrum \(X_{A}(ω)\) identisch zu dem Spektrum der Signalfolge \(x_{D}\){[}k{]}, das sich mit der Fourier-Transformation für Signalfolgen berechnet zu
+Der Übergang des ideal abgetasteten Signals \(x_{A}(t)\) zur diskreten Signalfolge \(x_{D}\){[}k{]} ist formal. Unter der Bedingung Ω = ωT\textsubscript{A} ist das Spektrum \(X_{A}(ω)\) identisch zu dem Spektrum der Signalfolge \(x_{D}\){[}k{]}, das sich mit der Fourier-Transformation für Signalfolgen berechnet zu
 \begin{align}
 X_{D}(\Omega) &= \sum_{k = - \infty}^{\infty}{x_{D}[ k]  e^{- j  k  \Omega}} \label{eq:10.52}
 \end{align}
@@ -563,15 +563,15 @@ Damit liegen von dem Signal N Abtastwerte mit den Indizes \(k = 0\) \ldots{} N -
 \begin{align}
 x_{w}[ k] &= x_{D}[ k]  w[ k] = x_{D}[ k]  \left( \sigma[ k] - \sigma[ k - N] \right) \label{eq:10.54}
 \end{align}
-Der Multiplikation im Zeitbereich entspricht die Faltung im Frequenzbereich. Durch die Fensterung wird das Spektrum \(X_{D}(Ω)\) mit dem Spektrum der verwendeten Fensterfunktion \(W(Ω)\) gefaltet. Das Spektrum der mit einem Rechteckfenster multiplizierten Signalfolge ergibt sich zu
+Der Multiplikation im Zeitbereich entspricht die Faltung im Frequenzbereich. Durch die Fensterung wird das Spektrum \(X_{D}(Ω)\) mit dem Spektrum der verwendeten Fensterfunktion \(W(Ω)\) gefaltet. Das Spektrum der mit einem Rechteckfenster multiplizierten Signalfolge ergibt sich zu
 \begin{align}
 X_{w}(\Omega) &= X_{D}(\Omega)*W(\Omega) = X_{D}(\Omega)*\frac{\sin\left( \frac{N  \Omega}{2} \right)}{\sin\left( \frac{\Omega}{2} \right)}  e^{- j  \frac{(N - 1)  \Omega}{2}} \label{eq:10.55}
 \end{align}
-Die Zeitbegrenzung führt zur Faltung des Spektrums mit dem sogenannten Dirichlet-Kern, was zu einer Veränderung des Spektrums führt. Die Veränderung des Spektrums durch die Faltung mit dem Spektrum der Fensterfunktion wird als Leck-Effekt (Leakage) bezeichnet. Dieser Effekt wird in Abschnitt \ref{sec:10.3.2} wieder aufgegriffen. Da nur N Abtastwerte vorliegen, kann die Fourier-Transformierte \(X_{W}(Ω)\) nur an N Stellen bestimmt werden.
+Die Zeitbegrenzung führt zur Faltung des Spektrums mit dem sogenannten Dirichlet-Kern, was zu einer Veränderung des Spektrums führt. Die Veränderung des Spektrums durch die Faltung mit dem Spektrum der Fensterfunktion wird als Leck-Effekt (Leakage) bezeichnet. Dieser Effekt wird in Abschnitt \ref{sec:10.3.2} wieder aufgegriffen. Da nur N Abtastwerte vorliegen, kann die Fourier-Transformierte \(X_{W}(Ω)\) nur an N Stellen bestimmt werden.
 \begin{align}
 \Omega_{n} &= \frac{2  \pi  n}{N} \label{eq:10.56}
 \end{align}
-Das Spektrum \(X_{n}\) stimmt an diesen Stellen mit der Fourier-Transformierten \(X_{W}(Ω)\) der gefensterten Signalfolge \(x_{W}\){[}k{]} überein.
+Das Spektrum \(X_{n}\) stimmt an diesen Stellen mit der Fourier-Transformierten \(X_{W}(Ω)\) der gefensterten Signalfolge \(x_{W}\){[}k{]} überein.
 \begin{align}
 X_{w}\left( \Omega_{n} \right) &= X_{n} = \sum_{k = 0}^{N - 1}{x_{w}[ k]  e^{- j  \left( 2  \pi  \frac{n}{N}  k \right)}}\ \label{eq:10.57}
 \end{align}
@@ -600,11 +600,11 @@ Das zeitlich begrenzte Signal hat damit die Beschreibung
 \begin{align}
 x_{W}[ k] &= \ x_{D}[ k]  w[ k] \label{eq:10.59}
 \end{align}
-Nach den Rechenregeln zur Fourier-Transformation berechnet sich das Spektrum \(X_{W}(Ω)\) des zeitlich begrenzten Signals \(x_{W}\){[}k{]} aus der Faltung der Spektren \(X_{D}(Ω)\) und \(W(Ω)\). Das Spektrum \(W(Ω)\) wird als Dirichlet-Kern bezeichnet und berechnet sich zu
+Nach den Rechenregeln zur Fourier-Transformation berechnet sich das Spektrum \(X_{W}(Ω)\) des zeitlich begrenzten Signals \(x_{W}\){[}k{]} aus der Faltung der Spektren \(X_{D}(Ω)\) und \(W(Ω)\). Das Spektrum \(W(Ω)\) wird als Dirichlet-Kern bezeichnet und berechnet sich zu
 \begin{align}
 W(\Omega) &= e^{- j  \frac{\Omega  (N - 1)}{2}}  \frac{\sin\left( \frac{N  \Omega}{2} \right)}{\sin\left( \frac{\Omega}{2} \right)} \label{eq:10.60}
 \end{align}
-Der Betrag des Spektrums \(W(Ω)\) ist für unterschiedliche Beobachtungszeiten in Bild \ref{fig:10.14} dargestellt.
+Der Betrag des Spektrums \(W(Ω)\) ist für unterschiedliche Beobachtungszeiten in Bild \ref{fig:10.14} dargestellt.
 
 \begin{figure}
   \centering
@@ -635,7 +635,7 @@ Die Signalfolge weist das Spektrum
 \begin{align}
 X(\Omega) &= \pi  \left( \delta\left( \Omega + \Omega_{0} \right) + \delta\left( \Omega - \Omega_{0} \right) \right) \label{eq:10.63}
 \end{align}
-auf. Signalfolge und Spektrum sind für \(Ω_{0} = π\)/5 in Bild \ref{fig:10.15} dargestellt.
+auf. Signalfolge und Spektrum sind für \(Ω_{0} = π\)/5 in Bild \ref{fig:10.15} dargestellt.
 
 \begin{figure}
   \centering
@@ -644,7 +644,7 @@ auf. Signalfolge und Spektrum sind für \(Ω_{0} = π\)/5 in Bild \ref{fig:10.1
   \label{fig:10.15}
 \end{figure}
 
-Zur Berechnung des Spektrums mit der Diskreten-Fourier-Transformation muss die Signalfolge begrenzt werden. Dazu wird das Signal mit einer Rechteckfolge \(w[k]\) multipliziert. Bei einer Begrenzung des Abtastvorgangs auf 2 volle Periodendauern (\(N = 20\) = 2~N\textsubscript{0}) wird das Spektrum des Signals \(X(Ω)\) mit dem Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) gefaltet. Weil das Spektrum des Signals \(X(Ω)\) aus zwei Impulsen besteht, wird das Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) an die Stelle der Impulse gefaltet. Damit ergibt sich Bild \ref{fig:10.16}.
+Zur Berechnung des Spektrums mit der Diskreten-Fourier-Transformation muss die Signalfolge begrenzt werden. Dazu wird das Signal mit einer Rechteckfolge \(w[k]\) multipliziert. Bei einer Begrenzung des Abtastvorgangs auf 2 volle Periodendauern (\(N = 20\) = 2~N\textsubscript{0}) wird das Spektrum des Signals \(X(Ω)\) mit dem Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) gefaltet. Weil das Spektrum des Signals \(X(Ω)\) aus zwei Impulsen besteht, wird das Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) an die Stelle der Impulse gefaltet. Damit ergibt sich Bild \ref{fig:10.16}.
 
 \begin{figure}
   \centering
@@ -653,7 +653,7 @@ Zur Berechnung des Spektrums mit der Diskreten-Fourier-Transformation muss die S
   \label{fig:10.16}
 \end{figure}
 
-Das Spektrum der Fensterfunktion hat keine Auswirkungen auf die berechnete Diskrete-Fourier-Transformierte, weil es an allen Stellen \(Ω_{n}\) ≠ \(Ω_{0}\) den Wert 0 aufweist. Weiterhin ist der Wert \(Ω_{0}\) ein Vielfaches der Auflösung ∆Ω, die entsprechende Amplitude wird deshalb bei der Diskreten-Fourier-Transformierten wirklich berechnet. Bild \ref{fig:10.17} zeigt außerdem, dass eine periodische Fortsetzung der Signalfolge zur ursprünglichen nicht zeitbegrenzten Signalfolge führen würde.
+Das Spektrum der Fensterfunktion hat keine Auswirkungen auf die berechnete Diskrete-Fourier-Transformierte, weil es an allen Stellen \(Ω_{n}\) ≠ \(Ω_{0}\) den Wert 0 aufweist. Weiterhin ist der Wert \(Ω_{0}\) ein Vielfaches der Auflösung ∆Ω, die entsprechende Amplitude wird deshalb bei der Diskreten-Fourier-Transformierten wirklich berechnet. Bild \ref{fig:10.17} zeigt außerdem, dass eine periodische Fortsetzung der Signalfolge zur ursprünglichen nicht zeitbegrenzten Signalfolge führen würde.
 
 \begin{figure}
   \centering
@@ -662,11 +662,11 @@ Das Spektrum der Fensterfunktion hat keine Auswirkungen auf die berechnete Diskr
   \label{fig:10.17}
 \end{figure}
 
-Das ideale Ergebnis der Diskreten-Fourier-Transformation ist darauf zurückzuführen, dass in diesem Beispiel die Anzahl von Abtastwerten ein Vielfaches der Periodendauer ist. Führt die periodische Wiederholung von Signalausschnitten wieder zur ursprünglichen Signalfolge, entspricht die Diskrete-Fourier-Transformierte dem Spektrum der ursprünglichen Signalfolge \(x_{D}\){[}k{]}. Dieser Fall ist im Allgemeinen aber nicht zu erwarten, da das Signal \(x_{D}\){[}k{]} typischerweise kein harmonisches Signal mit einer bekannten Frequenz sein wird. Bild \ref{fig:10.18} zeigt Signalverläufe für den Fall, dass die Beobachtungsdauer kein Vielfaches der Periodendauer ist (\(N = 15\)). Die periodische Fortsetzung des Signals hat eine Sprungstelle und die Frequenzwerte \(Ω_{n}\), an denen die DFT berechnet wird, ändern sich aufgrund der geänderten Anzahl N von Abtastwerten.
+Das ideale Ergebnis der Diskreten-Fourier-Transformation ist darauf zurückzuführen, dass in diesem Beispiel die Anzahl von Abtastwerten ein Vielfaches der Periodendauer ist. Führt die periodische Wiederholung von Signalausschnitten wieder zur ursprünglichen Signalfolge, entspricht die Diskrete-Fourier-Transformierte dem Spektrum der ursprünglichen Signalfolge \(x_{D}\){[}k{]}. Dieser Fall ist im Allgemeinen aber nicht zu erwarten, da das Signal \(x_{D}\){[}k{]} typischerweise kein harmonisches Signal mit einer bekannten Frequenz sein wird. Bild \ref{fig:10.18} zeigt Signalverläufe für den Fall, dass die Beobachtungsdauer kein Vielfaches der Periodendauer ist (\(N = 15\)). Die periodische Fortsetzung des Signals hat eine Sprungstelle und die Frequenzwerte \(Ω_{n}\), an denen die DFT berechnet wird, ändern sich aufgrund der geänderten Anzahl N von Abtastwerten.
 \begin{align}
 \Omega_{n} &= \frac{2  \pi  n}{N} \label{eq:10.64}
 \end{align}
-Damit entspricht kein Wert \(Ω_{n}\) dem eigentlich vorliegenden Wert \(Ω_{0}\), die DFT ist deshalb nur eine Näherung des erwarteten Spektrums.
+Damit entspricht kein Wert \(Ω_{n}\) dem eigentlich vorliegenden Wert \(Ω_{0}\), die DFT ist deshalb nur eine Näherung des erwarteten Spektrums.
 
 \begin{figure}
   \centering
@@ -675,7 +675,7 @@ Damit entspricht kein Wert \(Ω_{n}\) dem eigentlich vorliegenden Wert \(Ω_{0
   \label{fig:10.18}
 \end{figure}
 
-Weil die ursprünglichen scharfen Spektrallinien des harmonischen Signals sich auf die vorhandenen Stützstellen an den Stellen \(Ω_{n}\) verteilen, wird dieser Effekt als Leck-Effekt (Leakage) bezeichnet. Bei der Diskussion des Dirichlet-Kerns wird darauf hingewiesen, dass mit einer längeren Beobachtungsdauer die Breite des Dirichlet-Kerns reduziert wird. Das Spektrum der Diskreten-Fourier-Transformation wird schmaler. Deshalb zeigt Bild \ref{fig:10.19} die Signalverläufe für den Fall einer längeren Beobachtungsdauer, die kein Vielfaches der Periodendauer ist (\(N = 35\)).
+Weil die ursprünglichen scharfen Spektrallinien des harmonischen Signals sich auf die vorhandenen Stützstellen an den Stellen \(Ω_{n}\) verteilen, wird dieser Effekt als Leck-Effekt (Leakage) bezeichnet. Bei der Diskussion des Dirichlet-Kerns wird darauf hingewiesen, dass mit einer längeren Beobachtungsdauer die Breite des Dirichlet-Kerns reduziert wird. Das Spektrum der Diskreten-Fourier-Transformation wird schmaler. Deshalb zeigt Bild \ref{fig:10.19} die Signalverläufe für den Fall einer längeren Beobachtungsdauer, die kein Vielfaches der Periodendauer ist (\(N = 35\)).
 
 \begin{figure}
   \centering
@@ -684,7 +684,7 @@ Weil die ursprünglichen scharfen Spektrallinien des harmonischen Signals sich a
   \label{fig:10.19}
 \end{figure}
 
-Die einzelnen Werte der Diskreten-Fourier-Transformierten liegen auf dem Spektrum \(X_{w}(Ω)\), das wegen der längeren Beobachtungszeit jedoch deutlich schmaler ist. Außerdem ist mit der längeren Beobachtungsdauer die spektrale Auflösung gestiegen, was in den reduzierten Abstand ∆Ω der Stützstellen resultiert.
+Die einzelnen Werte der Diskreten-Fourier-Transformierten liegen auf dem Spektrum \(X_{w}(Ω)\), das wegen der längeren Beobachtungszeit jedoch deutlich schmaler ist. Außerdem ist mit der längeren Beobachtungsdauer die spektrale Auflösung gestiegen, was in den reduzierten Abstand ∆Ω der Stützstellen resultiert.
 
 ▪
 
@@ -705,7 +705,7 @@ Das zu analysierende Signal wird mit der Hann-Fensterfunktion multipliziert. Dad
 \begin{align}
 x_{W}[ k] &= \ x_{D}[ k]  w[ k] \label{eq:10.65}
 \end{align}
-Nach den Rechenregeln zur Fourier-Transformation berechnet sich das Spektrum \(X_{W}(Ω)\) des zeitlich begrenzten Signals \(x_{W}\){[}k{]} aus der Faltung der Spektren \(X_{D}(Ω)\) und \(W(Ω)\). Ideale wäre ein Spektrum, das aus einem Impuls an der Stelle \(Ω = 0\) besteht, da die Faltung des Spektrums \(X_{D}(Ω)\) mit dem Impuls \(δ(Ω)\) das Spektrum unverändert ließe. Allerdings entspricht dem Spektrum \(W(Ω)\) = \(δ(Ω)\) im Zeitbereich die Fensterfunktion \(w[k]\) = 1, die unendlich lang ist und damit zu einer unendlich langen Beobachtungszeit führen würde. Es muss also eine Fensterfunktion \(w[k]\) gefunden werden, die zum einen endlich ist und zum anderen ein Spektrum aufweist, das einer Impulsfunktion \(δ(Ω)\) möglichst nahekommt. Zur Diskussion unterschiedlicher Fensterfunktionen ist in Bild \ref{fig:10.21} das Spektrum des Rechteck-Fensters dargestellt.
+Nach den Rechenregeln zur Fourier-Transformation berechnet sich das Spektrum \(X_{W}(Ω)\) des zeitlich begrenzten Signals \(x_{W}\){[}k{]} aus der Faltung der Spektren \(X_{D}(Ω)\) und \(W(Ω)\). Ideale wäre ein Spektrum, das aus einem Impuls an der Stelle \(Ω = 0\) besteht, da die Faltung des Spektrums \(X_{D}(Ω)\) mit dem Impuls \(δ(Ω)\) das Spektrum unverändert ließe. Allerdings entspricht dem Spektrum \(W(Ω)\) = \(δ(Ω)\) im Zeitbereich die Fensterfunktion \(w[k]\) = 1, die unendlich lang ist und damit zu einer unendlich langen Beobachtungszeit führen würde. Es muss also eine Fensterfunktion \(w[k]\) gefunden werden, die zum einen endlich ist und zum anderen ein Spektrum aufweist, das einer Impulsfunktion \(δ(Ω)\) möglichst nahekommt. Zur Diskussion unterschiedlicher Fensterfunktionen ist in Bild \ref{fig:10.21} das Spektrum des Rechteck-Fensters dargestellt.
 
 \begin{figure}
   \centering
@@ -719,7 +719,7 @@ Das Spektrum besteht aus einem Hauptschwinger (Main-Lobe) und den Nebenschwinger
 \begin{itemize}
 \item
   Breite des Hauptmaximums\\
-  Die Breite des Hauptmaximums ist der Frequenzbereich zwischen \(Ω = 0\) und dem ersten Nulldurchgang des Spektrums \(Ω_{S}\). Eine gute Fensterfunktion hat eine geringe Breite des Hauptmaximums, da dadurch bei der Faltung das Spektrum der gefensterten Funktion weniger stark verbreitert wird.
+  Die Breite des Hauptmaximums ist der Frequenzbereich zwischen \(Ω = 0\) und dem ersten Nulldurchgang des Spektrums \(Ω_{S}\). Eine gute Fensterfunktion hat eine geringe Breite des Hauptmaximums, da dadurch bei der Faltung das Spektrum der gefensterten Funktion weniger stark verbreitert wird.
 \item
   Relative Amplitude des ersten Nebenmaximums\\
   Die relative Amplitude des Nebenmaximums ist das Verhältnis von Maximum des Nebenmaximums \(A_{SL}\) zu dem Hauptmaximum \(A_{ML}\). Die relative Amplitude wird in dB angegeben.
@@ -750,7 +750,7 @@ Das Rechteckfenster und der normierte Amplitudengang sind in Bild \ref{fig:10.22
   \label{fig:10.22}
 \end{figure}
 
-Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 13~dB.
+Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 13~dB.
 
 \subsubsection{Dreieck- oder Bartlett-Fenster}\label{sec:dreieck--oder-bartlett-fenster-1}
 
@@ -771,7 +771,7 @@ Das Dreieckfenster und der normierte Amplitudengang sind in Bild \ref{fig:10.23}
   \label{fig:10.23}
 \end{figure}
 
-Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 25~dB.
+Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 25~dB.
 
 \subsubsection{Hann-Fenster}\label{sec:hann-fenster-1}
 
@@ -792,7 +792,7 @@ Das Hann-Fenster und sein Spektrum sind in Bild \ref{fig:10.24} dargestellt.
   \label{fig:10.24}
 \end{figure}
 
-Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - 32~dB deutlich größer als bei dem Rechteckfenster.
+Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - 32~dB deutlich größer als bei dem Rechteckfenster.
 
 \subsubsection{Hamming-Fenster}\label{sec:hamming-fenster-1}
 
@@ -813,7 +813,7 @@ Das Hamming-Fenster und sein Spektrum sind in Bild \ref{fig:10.25} dargestellt.
   \label{fig:10.25}
 \end{figure}
 
-Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - 42~dB und ist nochmals deutlich größer als bei dem Hann-Fenster.
+Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - 42~dB und ist nochmals deutlich größer als bei dem Hann-Fenster.
 
 \subsubsection{Vergleich der Fensterfunktionen}\label{sec:vergleich-der-fensterfunktionen-1}
 
@@ -829,7 +829,7 @@ Tabelle \ref{tab:10.6} stellt die berechneten Kennwerte der unterschiedlichen Fe
 Funktion
  & 
 Breite des 
-Hauptmaximums \(Ω_{S}\)
+Hauptmaximums \(Ω_{S}\)
  & 
 Relative Amplitude 
 der Nebenmaxima \(a_{REL}\) \\
@@ -847,14 +847,14 @@ Der Vergleich zeigt, dass es eine ideale Fensterfunktion nicht gibt. Das Spektru
 \begin{example}{Vergleich verschiedener Fensterfunktionen bei der Diskreten-Fourier-Transformation}
 \label{beispiel-vergleich-verschiedener-fensterfunktionen-bei-der-diskreten-fourier-transformation}
 
-Als Beispiel wird eine harmonische Funktion mit der normierten Kreisfrequenz \(Ω_{0} = 2\)·π/7 abgetastet. Es werden \(N = 32\) Abtastwerte aufgenommen, wobei die Signale mit Rechteck-, Hann- und Hamming-Fenster multipliziert werden. Bild \ref{fig:10.26} zeigt die aufgenommenen Werte.
+Als Beispiel wird eine harmonische Funktion mit der normierten Kreisfrequenz \(Ω_{0} = 2\)·π/7 abgetastet. Es werden \(N = 32\) Abtastwerte aufgenommen, wobei die Signale mit Rechteck-, Hann- und Hamming-Fenster multipliziert werden. Bild \ref{fig:10.26} zeigt die aufgenommenen Werte.
 
 \manualFigure
   [alt={Abtastwerte der harmonischen Funktion nach Gewichtung mit Rechteck-, Hann-\\
-und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}]
+und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}]
   {./media/image314.png}
   {Abtastwerte der harmonischen Funktion nach Gewichtung mit Rechteck-, Hann-\\
-und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}
+und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}
   {\label{fig:10.26}}
 
 
@@ -862,25 +862,25 @@ Es ist deutlich zu erkennen, dass die Werte an den Rändern des Beobachtungszeit
 
 \manualFigure
   [alt={Diskrete-Fourier-Transformierte der harmonischen Funktion\\
-nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}]
+nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}]
   {./media/image315.png}
   {Diskrete-Fourier-Transformierte der harmonischen Funktion\\
-nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}
+nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/7)}
   {\label{fig:10.27}}
 
 
-Kein Fenster führt zur Berechnung des Spektrums, das sich aus der analytischen Rechnung ergibt. Da an der entsprechenden Frequenz \(Ω_{0}\) keine Stützstelle liegt, ist dies auch nicht möglich. Das Spektrum ist bei allen Fenstern ähnlich auf die beiden Stützstellen verteilt, die in direkter Nachbarschaft zum Impuls an der Frequenz \(Ω_{0}\) liegen.
+Kein Fenster führt zur Berechnung des Spektrums, das sich aus der analytischen Rechnung ergibt. Da an der entsprechenden Frequenz \(Ω_{0}\) keine Stützstelle liegt, ist dies auch nicht möglich. Das Spektrum ist bei allen Fenstern ähnlich auf die beiden Stützstellen verteilt, die in direkter Nachbarschaft zum Impuls an der Frequenz \(Ω_{0}\) liegen.
 
-Bei dem Rechteck-Fenster fällt der Betrag des Spektrums nur langsam ab. Stützstellen, die sehr weit weg von der Frequenz \(Ω_{0}\) liegen, weisen noch einen erheblichen Amplitudenwert auf. Bei Hann- und Hamming-Fenster fallen die Beträge des Spektrums deutlich schneller ab. Das Beispiel bestätigt damit die theoretische Betrachtung in diesem Abschnitt.
+Bei dem Rechteck-Fenster fällt der Betrag des Spektrums nur langsam ab. Stützstellen, die sehr weit weg von der Frequenz \(Ω_{0}\) liegen, weisen noch einen erheblichen Amplitudenwert auf. Bei Hann- und Hamming-Fenster fallen die Beträge des Spektrums deutlich schneller ab. Das Beispiel bestätigt damit die theoretische Betrachtung in diesem Abschnitt.
 
-Zum Vergleich zeigt Bild \ref{fig:10.28} die über die Diskrete-Fourier-Transformation berechneten Spektren bei einer Frequenz \(Ω_{0} = 2\)·π/8.
+Zum Vergleich zeigt Bild \ref{fig:10.28} die über die Diskrete-Fourier-Transformation berechneten Spektren bei einer Frequenz \(Ω_{0} = 2\)·π/8.
 
 \manualFigure
   [alt={Diskrete-Fourier-Transformierte der harmonischen Funktion\\
-nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/8)}]
+nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/8)}]
   {./media/image316.png}
   {Diskrete-Fourier-Transformierte der harmonischen Funktion\\
-nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/8)}
+nach Gewichtung mit Rechteck- und Hann- und Hamming-Fenster (Frequenz \(Ω_{0} = 2\)·π/8)}
   {\label{fig:10.28}}
 
 
@@ -896,7 +896,7 @@ Zusammenfassend können damit zur Reduktion des Leakage-Effektes folgende Maßna
   Im Idealfall ist die Beobachtungszeit so gewählt, dass ein von sich aus periodisch fortgesetztes Signal entsteht. Die Maßnahme ist sehr wirkungsvoll, lässt sich aber in den wenigsten Anwendungen umsetzen, da die zu analysierenden Signale im Allgemeinen unbekannt sind.
 \item
   Vergrößerung des Beobachtungszeitraums\\
-  Eine Vergrößerung des Beobachtungsintervalls führt zu einer Verringerung der Breite des Hauptschwingers, wodurch die spektrale Auflösung der Diskreten-Fourier-Transformation ∆Ω verbessert wird.
+  Eine Vergrößerung des Beobachtungsintervalls führt zu einer Verringerung der Breite des Hauptschwingers, wodurch die spektrale Auflösung der Diskreten-Fourier-Transformation ∆Ω verbessert wird.
 \item
   Anwendung von Fensterfunktionen\\
   Durch Fensterfunktionen werden die bei dem Rechteckfenster vergleichsweise schwach gedämpften Nebenschwinger stärker gedämpft. Dieser Vorteil wird jedoch durch eine Verdoppelung der Breite des Hauptschwingers erkauft.
@@ -930,9 +930,9 @@ Dieser Vorgang wird als Zero-Padding bezeichnet. Um die Auswirkung des Zero-Padd
   Im dritten Fall wird die Beobachtungszeit auf \(N_{2} = 32\) Abtastwerte erhöht.
 \end{itemize}
 
-Bild \ref{fig:10.29} zeigt die Berechnungsergebnisse aller drei Fälle. Ein Vergleich der beiden ersten Fälle zeigt, dass durch die Erweiterung der Signalfolge mit Nullen das Spektrum erwartungsgemäß enger abgetastet wird. Da die Fensterung des Signals jedoch nicht verändert wird, ändert sich die Breite des Dirichlet-Kerns nicht. Aus diesem Grund wird das Spektrum \(X_{W1}(Ω)\) nur mit einer höheren Auflösung abgetastet. Zero-Padding eignet sich damit zur Interpolation des Spektrums, es eignet sich nicht dazu, den durch die Fensterung entstehenden Leakage-Effekt zu reduzieren. Das Einfügen von Nullen führt damit nicht zu einem Informationsgewinn. Zero-Padding kann dazu eingesetzt werden, um das Spektrum besser darzustellen und um lokale Maxima genauer zu identifizieren.
+Bild \ref{fig:10.29} zeigt die Berechnungsergebnisse aller drei Fälle. Ein Vergleich der beiden ersten Fälle zeigt, dass durch die Erweiterung der Signalfolge mit Nullen das Spektrum erwartungsgemäß enger abgetastet wird. Da die Fensterung des Signals jedoch nicht verändert wird, ändert sich die Breite des Dirichlet-Kerns nicht. Aus diesem Grund wird das Spektrum \(X_{W1}(Ω)\) nur mit einer höheren Auflösung abgetastet. Zero-Padding eignet sich damit zur Interpolation des Spektrums, es eignet sich nicht dazu, den durch die Fensterung entstehenden Leakage-Effekt zu reduzieren. Das Einfügen von Nullen führt damit nicht zu einem Informationsgewinn. Zero-Padding kann dazu eingesetzt werden, um das Spektrum besser darzustellen und um lokale Maxima genauer zu identifizieren.
 
-Im Gegensatz dazu zeigt der Vergleich der Fälle 1 und 3, dass durch eine Vergrößerung des Beobachtungsintervalls die Breite des Dirichlet-Kerns verringert wird, was zu einer Reduzierung des Leakage-Effektes führt. Der Abstand der Stützstellen ∆Ω entspricht in Fall 3 dem Fall 2.
+Im Gegensatz dazu zeigt der Vergleich der Fälle 1 und 3, dass durch eine Vergrößerung des Beobachtungsintervalls die Breite des Dirichlet-Kerns verringert wird, was zu einer Reduzierung des Leakage-Effektes führt. Der Abstand der Stützstellen ∆Ω entspricht in Fall 3 dem Fall 2.
 
 \begin{figure}
   \centering
@@ -949,7 +949,7 @@ Fall 3: Signalfolge der Länge \(N_{2}\) = 2~N\textsubscript{1} = 32}
 
 \subsection{Rekonstruktion der Fourier-Transformierten für Signalfolgen aus der DFT}\label{sec:rekonstruktion-der-fourier-transformierten-fuxfcr-signalfolgen-aus-der-dft}
 
-Zur Berechnung der Diskreten-Fourier-Transformation wird eine Signalfolge \(x_{W}\){[}k{]} verwendet, die ein abgetastetes Signal in einem Beobachtungsfenster darstellt. Durch die Berechnung der Diskreten-Fourier-Transformierten wird die Signalfolge periodisch fortgesetzt. Das Spektrum der periodisch fortgesetzten Signalfolge \(x_{P}\){[}k{]} ist die Diskrete-Fourier-Transformierte \(X_{n}\). Sie ist nur an den Punkten \(Ω_{n}\) definiert und kann über Impulsfunktionen dargestellt werden als
+Zur Berechnung der Diskreten-Fourier-Transformation wird eine Signalfolge \(x_{W}\){[}k{]} verwendet, die ein abgetastetes Signal in einem Beobachtungsfenster darstellt. Durch die Berechnung der Diskreten-Fourier-Transformierten wird die Signalfolge periodisch fortgesetzt. Das Spektrum der periodisch fortgesetzten Signalfolge \(x_{P}\){[}k{]} ist die Diskrete-Fourier-Transformierte \(X_{n}\). Sie ist nur an den Punkten \(Ω_{n}\) definiert und kann über Impulsfunktionen dargestellt werden als
 \begin{align}
 X_{P}(\Omega) &= \sum_{n = 0}^{N - 1}{X_{n}  \delta\left( \Omega - \frac{2  \pi  n}{N} \right)} \label{eq:10.77}
 \end{align}
@@ -957,7 +957,7 @@ Um das Spektrum der gefensterten Signalfolge \(x_{W}\){[}k{]} ohne periodische W
 \begin{align}
 x_{W}[ k] &= x_{P}[ k]  w[ k] = x_{P}[ k]  \left( \sigma[ k] - \sigma[ k - N] \right) \label{eq:10.78}
 \end{align}
-Der Multiplikation im Zeitbereich entspricht die Faltung im Frequenzbereich. Das Spektrum der Fensterfunktion \(W(Ω)\) lautet
+Der Multiplikation im Zeitbereich entspricht die Faltung im Frequenzbereich. Das Spektrum der Fensterfunktion \(W(Ω)\) lautet
 \begin{align}
 W(\Omega) &= e^{- j  \Omega  \frac{N - 1}{2}}  \frac{\sin\left( \frac{\Omega  N}{2} \right)}{\sin\left( \frac{\Omega}{2} \right)} \label{eq:10.79}
 \end{align}
@@ -965,7 +965,7 @@ Da das Spektrum der periodisch fortgesetzten Folge ausschließlich aus gewichtet
 \begin{align}
 X_{W}(\Omega) &= X_{P}(\Omega)*W(\Omega) = \sum_{n = 0}^{N - 1}{X_{n}  e^{- j  \left( \Omega - \frac{2  \pi  n}{N} \right)  \frac{N - 1}{2}}  \frac{\sin\left( \frac{\left( \Omega - \frac{2  \pi  n}{N} \right)  N}{2} \right)}{\sin\left( \frac{\Omega - \frac{2  \pi  n}{N}}{2} \right)}} \label{eq:10.80}
 \end{align}
-Das Spektrum des gefensterten Signals \(x_{W}\){[}k{]} besitzt das kontinuierliche Spektrum \(X_{W}(Ω)\).
+Das Spektrum des gefensterten Signals \(x_{W}\){[}k{]} besitzt das kontinuierliche Spektrum \(X_{W}(Ω)\).
 
 \subsection{Zero-Padding im Frequenzbereich}\label{sec:zero-padding-im-frequenzbereich}
 

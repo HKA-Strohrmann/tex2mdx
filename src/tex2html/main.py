@@ -36,35 +36,41 @@ LATEXML_PRELOADS = ["ar5iv.sty"]
 LATEXML_LOG_FILE = "__stdout.txt"
 LATEXML_TIMEOUT_SEC = 540
 LATEXML_MEM_LIMIT_BYTES = 6 * 1024**3
-LATEXML_URL_BASE = "https://arxiv.org/static/browse/0.3.4/"
+LATEXML_URL_BASE = "https://arxiv.org/static/browse/0.3.4"
 
-def convert_latex_to_html(payload: ConversionPayload, workdir: Path, output_dirname: str) -> LaTeXMLOutput:
+def convert_latex_to_html(file, payload: ConversionPayload, workdir: Path, output_dirname: str) -> LaTeXMLOutput:
 
     # output_dirname = get_file_manager().latexml_output_dir_name(payload)
     output_path = f"{output_dirname}{payload.name}.html"
     log_path = f"{output_dirname}{LATEXML_LOG_FILE}"
 
+    # print(f"Converting {file} to HTML with LaTeXML, output will be at {output_path}", file=sys.stderr)
+
     latexml_config = [
-            "prlimit", f"--as={LATEXML_MEM_LIMIT_BYTES}", "--",
-            "latexmlc",
+            "latexmlc.bat",
             "--whatsin=directory",
             "--pmml",
             "--mathtex",
             "--noinvisibletimes",
             "--format=html5",
             "--navigationtoc=context",
+            "--splitat=chapter"
             f"--timeout={LATEXML_TIMEOUT_SEC}",
             f"--css={LATEXML_URL_BASE}/css/arxiv-html-papers-20260131.css",
             f"--javascript={LATEXML_URL_BASE}/js/arxiv-html-papers-20260131.js",
-            f"--source={workdir}",
+            # f"--source={workdir}",
             f"--log={log_path}",
             f"--dest={output_path}",
+            f"{file}"
         ]
     
     # for preload in LATEXML_PRELOADS:
         # latexml_config.append(f"--preload={preload}")
-    for path in LATEXML_PATHS:
-        latexml_config.append(f"--path={path}")
+    # for path in LATEXML_PATHS:
+    #     latexml_config.append(f"--path={path}")
+
+    # print(latexml_config)
+
     try:
         completed_process = subprocess.run(
             latexml_config,
@@ -152,7 +158,7 @@ def run_cli_conversion(input_path: str, output_dirname: str) -> LaTeXMLOutput:
     workdir = tex
     if not output_dirname.endswith("/"):
         output_dirname = f"{output_dirname}/"
-    return convert_latex_to_html(payload, workdir, output_dirname)
+    return convert_latex_to_html(input_path, payload, workdir, output_dirname)
 
 
 app = typer.Typer(help="CLI for LaTeXML conversion (test only)")
@@ -175,4 +181,5 @@ def main(
 
 
 if __name__ == "__main__":
-    raise SystemExit(app())
+    # raise SystemExit(app())
+    result = run_cli_conversion("test/combined.tex", "test/html/")

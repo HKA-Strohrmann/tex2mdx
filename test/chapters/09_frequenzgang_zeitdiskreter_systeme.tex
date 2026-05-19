@@ -27,11 +27,11 @@ Mit der Verschiebungsregel der Fourier-Transformation für Signalfolgen kann die
 \begin{align}
 \sum_{n = 0}^{N}{c_{n}  Y(\Omega)  e^{- j  \Omega  n}} &= \sum_{m = 0}^{M}{d_{m}  U(\Omega)  e^{- j  \Omega  m}} \label{eq:8.2}
 \end{align}
-Durch Ausklammern von \(U(Ω)\) und \(Y(Ω)\) ergibt sich
+Durch Ausklammern von \(U(Ω)\) und \(Y(Ω)\) ergibt sich
 \begin{align}
 G(\Omega) &= \frac{Y(\Omega)}{U(\Omega)} = \frac{\sum_{m = 0}^{M}{d_{m}  e^{- j  \Omega  m}}}{\sum_{n = 0}^{N}{c_{n}  e^{- j  \Omega  n}}} \label{eq:8.3}
 \end{align}
-Die resultierende Funktion \(G(Ω)\) wird als Frequenzgang des Systems bezeichnet. In Abschnitt \ref{sec:8.1.3} wird sich zeigen, dass der Frequenzgang \(G(Ω)\) für kausale und stabile Systeme gleichzeitig die Fourier-Transformierte der Impulsantwort \(g[k]\) ist.
+Die resultierende Funktion \(G(Ω)\) wird als Frequenzgang des Systems bezeichnet. In Abschnitt \ref{sec:8.1.3} wird sich zeigen, dass der Frequenzgang \(G(Ω)\) für kausale und stabile Systeme gleichzeitig die Fourier-Transformierte der Impulsantwort \(g[k]\) ist.
 
 \begin{example}{Rekursives Tiefpass-Filter}
 \label{beispiel-rekursives-tiefpass-filter}
@@ -54,11 +54,11 @@ Der Frequenzgang wird im Abschnitt \ref{sec:8.2} dargestellt und interpretiert.
 
 \subsection{Berechnung des Frequenzgangs aus der Übertragungsfunktion \(G(z)\) eines Systems}\label{sec:berechnung-des-frequenzgangs-aus-der-uxfcbertragungsfunktion-gz-eines-systems}
 
-Die Berechnung der Übertragungsfunktion \(G(Ω)\) wird in Abschnitt \ref{sec:8.1.1} formal genauso durchgeführt wie die Berechnung der Übertragungsfunktion im z-Bereich. Ein Vergleich der Fourier- und der z-Transformierten der Differenzengleichung
+Die Berechnung der Übertragungsfunktion \(G(Ω)\) wird in Abschnitt \ref{sec:8.1.1} formal genauso durchgeführt wie die Berechnung der Übertragungsfunktion im z-Bereich. Ein Vergleich der Fourier- und der z-Transformierten der Differenzengleichung
 \begin{align}
 \sum_{n = 0}^{N}{c_{n}  Y(z)  z^{- n}} &= \sum_{m = 0}^{M}{d_{m}  U(z)  z^{- m}} \label{eq:8.7}
 \end{align}
-zeigt, dass die beiden Transformierten und damit auch die beiden Übertragungsfunktionen übereinstimmen, wenn die Variable z durch den Ausdruck \(e^{jΩ}\) substituiert wird. Aus Kapitel \ref{sec:7.3.2} ist bekannt, dass diese Substitution nur dann durchgeführt werden darf, wenn der Einheitskreis im Konvergenzbereich der z-Transformierten \(G(z)\) liegt. Das ist bei asymptotisch stabilen Systemen der Fall, sodass für asymptotisch stabile Systeme gilt:
+zeigt, dass die beiden Transformierten und damit auch die beiden Übertragungsfunktionen übereinstimmen, wenn die Variable z durch den Ausdruck \(e^{jΩ}\) substituiert wird. Aus Kapitel \ref{sec:7.3.2} ist bekannt, dass diese Substitution nur dann durchgeführt werden darf, wenn der Einheitskreis im Konvergenzbereich der z-Transformierten \(G(z)\) liegt. Das ist bei asymptotisch stabilen Systemen der Fall, sodass für asymptotisch stabile Systeme gilt:
 \begin{align}
 G(\Omega) &= \left. \ G(z) \right|_{z = e^{j  \Omega}} \label{eq:8.8}
 \end{align}
@@ -89,7 +89,7 @@ Mit der Faltungsregel der Fourier-Transformation ergibt sich im Frequenzbereich 
 \begin{align}
 Y(\Omega) &= G(\Omega)  U(\Omega) = U(\Omega)  G(\Omega) \label{eq:8.13}
 \end{align}
-Das Spektrum \(Y(Ω)\) des Ausgangssignals \(y[k]\) errechnet sich aus dem Produkt der Spektren der Impulsantwort \(G(Ω)\) und des Spektrums des Eingangssignals \(U(Ω)\). Charakteristisch für das System ist die Übertragungsfunktion \(G(Ω)\), die sich aus dem Quotienten der Fourier-Transformierten von Aus- und Eingangssignal ergibt.
+Das Spektrum \(Y(Ω)\) des Ausgangssignals \(y[k]\) errechnet sich aus dem Produkt der Spektren der Impulsantwort \(G(Ω)\) und des Spektrums des Eingangssignals \(U(Ω)\). Charakteristisch für das System ist die Übertragungsfunktion \(G(Ω)\), die sich aus dem Quotienten der Fourier-Transformierten von Aus- und Eingangssignal ergibt.
 \begin{align}
 G(\Omega) &= \frac{Y(\Omega)}{U(\Omega)} \label{eq:8.14}
 \end{align}
@@ -163,23 +163,23 @@ und \(y[k]\) kann vereinfacht werden zu
 {} &=  {A \left|G\left(\Omega \right)\right| \cos \left(\Omega  k+\varphi \left(\Omega \right)\right) \sigma \left[k\right]-A \left(\sum _{n=k+1}^{\infty }g\left[n\right]  \cos \left(\Omega  \left(k-n\right)\right)\right) \sigma \left[k\right]}
  \label{eq:8.26}
 \end{align}
-Der erste Term beschreibt die Systemreaktion auf die harmonische Anregung. Sie besitzt die gleiche Frequenz wie das Eingangssignal. Die Amplitude wird mit dem Betrag des Frequenzgangs \textbar \(G(Ω)\)\textbar{} multipliziert, die Phase ändert sich gegenüber dem Eingangssignal um die Phase des Frequenzgangs ϕ(Ω). Der zweite Term beschreibt das Einschwingen des Systems. Bei stabilen Systemen konvergiert die Impulsantwort \(g[k]\) für k → ∞ gegen null, sodass der zweite Summand bei stabilen Systemen gegen null geht. Damit gelten für zeitdiskrete Systeme bezüglich der Reaktion des Systems auf kausale, harmonische Anregungen dieselben Gesetzmäßigkeiten wie bei zeitkontinuierlichen Systemen.
+Der erste Term beschreibt die Systemreaktion auf die harmonische Anregung. Sie besitzt die gleiche Frequenz wie das Eingangssignal. Die Amplitude wird mit dem Betrag des Frequenzgangs \textbar \(G(Ω)\)\textbar{} multipliziert, die Phase ändert sich gegenüber dem Eingangssignal um die Phase des Frequenzgangs ϕ(Ω). Der zweite Term beschreibt das Einschwingen des Systems. Bei stabilen Systemen konvergiert die Impulsantwort \(g[k]\) für k → ∞ gegen null, sodass der zweite Summand bei stabilen Systemen gegen null geht. Damit gelten für zeitdiskrete Systeme bezüglich der Reaktion des Systems auf kausale, harmonische Anregungen dieselben Gesetzmäßigkeiten wie bei zeitkontinuierlichen Systemen.
 
 \section{Grafische Darstellung des Frequenzgangs}\label{sec:8.2}
 
-An dem Frequenzgang kann das Amplitudenverhältnis von Ein- und Ausgangssignal sowie die Phasenverschiebung als Funktion der normierten Kreisfrequenz Ω abgelesen werden. Die Beschreibung des Frequenzgangs erfolgt über den Amplitudengang und den Phasengang von Systemen. Sie werden in diesem Abschnitt berechnet und interpretiert. Der Frequenzgang zeitdiskreter Systeme entspricht der Fourier-Transformierten der Impulsantwort.
+An dem Frequenzgang kann das Amplitudenverhältnis von Ein- und Ausgangssignal sowie die Phasenverschiebung als Funktion der normierten Kreisfrequenz Ω abgelesen werden. Die Beschreibung des Frequenzgangs erfolgt über den Amplitudengang und den Phasengang von Systemen. Sie werden in diesem Abschnitt berechnet und interpretiert. Der Frequenzgang zeitdiskreter Systeme entspricht der Fourier-Transformierten der Impulsantwort.
 \begin{align}
 G(\Omega) &= \sum_{k = - \infty}^{\infty}{g[ k]  e^{- j  k  \Omega}} \label{eq:8.27}
 \end{align}
-Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung (\ref{eq:8.27}) periodisch in 2∙π. Damit ist der Frequenzgang eines zeitdiskreten Systems analog zu dem Spektrum von Signalfolgen periodisch in 2∙π. Deshalb ist es ausreichend, den Frequenzgang in einem Bereich von - π \ldots{} + π darzustellen. Der Frequenzgang kann in kartesischen Koordinaten oder Polar-Koordinaten dargestellt werden. Bei der Darstellung in kartesischen Koordinaten wird der Frequenzgang in Realteil \(G_{R}(Ω)\) und Imaginärteil \(G_{I}(Ω)\) zerlegt. Bei der Darstellung in Polarkoordinaten wird der Frequenzgang mit Betrag \textbar \(G(Ω)\)\textbar{} und Phase ϕ(Ω) dargestellt.
+Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung (\ref{eq:8.27}) periodisch in 2∙π. Damit ist der Frequenzgang eines zeitdiskreten Systems analog zu dem Spektrum von Signalfolgen periodisch in 2∙π. Deshalb ist es ausreichend, den Frequenzgang in einem Bereich von - π \ldots{} + π darzustellen. Der Frequenzgang kann in kartesischen Koordinaten oder Polar-Koordinaten dargestellt werden. Bei der Darstellung in kartesischen Koordinaten wird der Frequenzgang in Realteil \(G_{R}(Ω)\) und Imaginärteil \(G_{I}(Ω)\) zerlegt. Bei der Darstellung in Polarkoordinaten wird der Frequenzgang mit Betrag \textbar \(G(Ω)\)\textbar{} und Phase ϕ(Ω) dargestellt.
 \begin{align}
 G(\Omega) &= G_{R}(\Omega) + j  G_{I}(\Omega) = \left| G(\Omega) \right|  e^{j  \varphi(\Omega)} = A(\Omega)  e^{j  \varphi(\Omega)} \label{eq:8.28}
 \end{align}
-Der Betrag der Übertragungsfunktion \(A(Ω)\) wird als Amplitudengang und die Phase der Übertragungsfunktion ϕ(Ω) wird als Phasengang bezeichnet. Analog zu den Darstellungen des Frequenzgangs zeitkontinuierlicher Signale kann der Frequenzgang von Signalfolgen entweder als Ortskurve oder als Frequenzgangskennlinie dargestellt werden.
+Der Betrag der Übertragungsfunktion \(A(Ω)\) wird als Amplitudengang und die Phase der Übertragungsfunktion ϕ(Ω) wird als Phasengang bezeichnet. Analog zu den Darstellungen des Frequenzgangs zeitkontinuierlicher Signale kann der Frequenzgang von Signalfolgen entweder als Ortskurve oder als Frequenzgangskennlinie dargestellt werden.
 
 \subsection{Ortskurven}\label{sec:ortskurven}
 
-Bei der Ortskurve wird der Frequenzgang in der komplexen Ebene abgebildet. Dazu werden für unterschiedliche Frequenzen - π ≤ Ω ≤ π Real- und Imaginärteil des Frequenzgangs bestimmt und die entsprechenden Punkte in die komplexe Ebene eingezeichnet.
+Bei der Ortskurve wird der Frequenzgang in der komplexen Ebene abgebildet. Dazu werden für unterschiedliche Frequenzen - π ≤ Ω ≤ π Real- und Imaginärteil des Frequenzgangs bestimmt und die entsprechenden Punkte in die komplexe Ebene eingezeichnet.
 
 \begin{example}{Rekursives Tiefpass-Filter}
 \label{beispiel-rekursives-tiefpass-filter-3}
@@ -205,7 +205,7 @@ und die Phase
 {} &=  {\arctan \left(\frac{0}{1-GF} \right)-\arctan \left(\frac{GF \sin \left(\Omega \right)}{1-GF \cos \left(\Omega \right)} \right)=-\arctan \left(\frac{GF \sin \left(\Omega \right)}{1-GF \cos \left(\Omega \right)} \right)}
  \label{eq:8.32}
 \end{align}
-Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF = 0.5 und GF = 0.9 folgende Ortskurven.
+Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF = 0.5 und GF = 0.9 folgende Ortskurven.
 
 \manualFigure
   [alt={Ortskurve eines rekursiven Tiefpassfilters mit GF = 0.5 und GF = 0.9}]
@@ -214,14 +214,14 @@ Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF = 0.5 und GF =
   {}
 
 
-Für das Filter mit GF = 0.5 wird die Ortskurve diskutiert. An den Stellen Ω = ± π und \(Ω = 0\) wird der Imaginärteil zu null, der Frequenzgang ist an diesen Stellen reell. Für die normierte Kreisfrequenz\\
-Ω = ± π wird der Betrag minimal \(A = 1\)/√7 und für \(Ω = 0\) maximal (\(A = 1\)). Das Verhalten entspricht damit einem Tiefpass-Verhalten.
+Für das Filter mit GF = 0.5 wird die Ortskurve diskutiert. An den Stellen Ω = ± π und \(Ω = 0\) wird der Imaginärteil zu null, der Frequenzgang ist an diesen Stellen reell. Für die normierte Kreisfrequenz\\
+Ω = ± π wird der Betrag minimal \(A = 1\)/√7 und für \(Ω = 0\) maximal (\(A = 1\)). Das Verhalten entspricht damit einem Tiefpass-Verhalten.
 
 \end{example}
 
 \subsection{Frequenzgangskennlinien}\label{sec:frequenzgangskennlinien}
 
-Ortskurven stellen Real- und Imaginärteil in einem Schaubild dar, allerdings geht die Frequenzinformation bei der Darstellung verloren. Aus diesem Grund ist ihr Frequenzverhalten schwer zu interpretieren und wenig übersichtlich. Alternativ zur Ortskurve wird deshalb der Frequenzgang mit Frequenzgangskennlinien dargestellt. Dabei werden Betrag und Phase in separaten Diagrammen als Funktion der normierten Kreisfrequenz - π ≤ Ω ≤ π abgebildet. Frequenzgangskennlinien haben den Vorteil, dass der Zusammenhang zwischen Betrag beziehungsweise Phase und Frequenz direkt abgelesen werden kann.
+Ortskurven stellen Real- und Imaginärteil in einem Schaubild dar, allerdings geht die Frequenzinformation bei der Darstellung verloren. Aus diesem Grund ist ihr Frequenzverhalten schwer zu interpretieren und wenig übersichtlich. Alternativ zur Ortskurve wird deshalb der Frequenzgang mit Frequenzgangskennlinien dargestellt. Dabei werden Betrag und Phase in separaten Diagrammen als Funktion der normierten Kreisfrequenz - π ≤ Ω ≤ π abgebildet. Frequenzgangskennlinien haben den Vorteil, dass der Zusammenhang zwischen Betrag beziehungsweise Phase und Frequenz direkt abgelesen werden kann.
 
 \begin{example}{Rekursives Tiefpass-Filter}
 \label{beispiel-rekursives-tiefpass-filter-4}
@@ -230,7 +230,7 @@ Wieder wird das Beispiel des rekursiven Tiefpasses mit dem Frequenzgang
 \begin{align}
 G(\Omega) &= \frac{1 - GF}{1 - GF  e^{- j  \Omega}} \label{eq:8.33}
 \end{align}
-aufgegriffen. Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF = 0.5 und GF = 0.9 folgende Frequenzgangskennlinien.
+aufgegriffen. Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF = 0.5 und GF = 0.9 folgende Frequenzgangskennlinien.
 
 \manualFigure
   [alt={Frequenzgangskennlinien eines rekursiven Tiefpassfilters mit GF = 0.5 und GF = 0.9}]
@@ -239,9 +239,9 @@ aufgegriffen. Für den Frequenzbereich - π ≤ Ω ≤ π ergeben sich für GF 
   {}
 
 
-Der Amplitudengang beider Filter weist bei der Frequenz Ω~=~0~mit A(0) = 1~sein Maximum auf. Er fällt bis zu den Stellen Ω = ± π ab. An allen drei Stellen ist die Phase ϕ = 0, weil die Übertragungsfunktion \(G(Ω)\) einen positiven reellen Wert aufweist. Bei dieser Darstellung ist die Tiefpass-Charakteristik direkt ablesbar. Es zeigt sich, dass die Grenzfrequenz und die Dämpfung im Sperrbereich von dem Gedächtnisfaktor GF abhängen.
+Der Amplitudengang beider Filter weist bei der Frequenz Ω~=~0~mit A(0) = 1~sein Maximum auf. Er fällt bis zu den Stellen Ω = ± π ab. An allen drei Stellen ist die Phase ϕ = 0, weil die Übertragungsfunktion \(G(Ω)\) einen positiven reellen Wert aufweist. Bei dieser Darstellung ist die Tiefpass-Charakteristik direkt ablesbar. Es zeigt sich, dass die Grenzfrequenz und die Dämpfung im Sperrbereich von dem Gedächtnisfaktor GF abhängen.
 
-Die normierte Kreisfrequenz \(Ω = 0\) entspricht dabei der Kreisfrequenz \(ω = 0\) und die normierten Kreisfrequenzen Ω = ± π entsprechen den Kreisfrequenzen ±~\(ω_{A}\)/2. Die Übertragungsfunktion des Systems hat einen Pol an der Stelle z = GF ≠ 0. Bei diesem Beispiel handelt es sich demnach um ein System mit unendlich langer Impulsantwort. Es wird als Inifinite-Impulse-Response (IIR) System bezeichnet. Der Frequenzgang von IIR-Systemen höherer Ordnung mit rationaler Übertragungsfunktion wird in Abschnitt \ref{sec:8.3} weiter vertieft.
+Die normierte Kreisfrequenz \(Ω = 0\) entspricht dabei der Kreisfrequenz \(ω = 0\) und die normierten Kreisfrequenzen Ω = ± π entsprechen den Kreisfrequenzen ±~\(ω_{A}\)/2. Die Übertragungsfunktion des Systems hat einen Pol an der Stelle z = GF ≠ 0. Bei diesem Beispiel handelt es sich demnach um ein System mit unendlich langer Impulsantwort. Es wird als Inifinite-Impulse-Response (IIR) System bezeichnet. Der Frequenzgang von IIR-Systemen höherer Ordnung mit rationaler Übertragungsfunktion wird in Abschnitt \ref{sec:8.3} weiter vertieft.
 
 \end{example}
 
@@ -287,9 +287,9 @@ Im zeitkontinuierlichen Bereich werden Frequenzgangskennlinien als Bode-Diagramm
 \begin{align}
 a(\Omega) &= 20  \log\left( A(\Omega) \right)\ dB \label{eq:8.37}
 \end{align}
-dargestellt. Diese Darstellungsform ist auch im zeitdiskreten Bereich gebräuchlich. Allerdings muss dabei berücksichtigt werden, dass der Frequenzgang periodisch in 2π ist. Außerdem kann er wegen des logarithmischen Maßstabs nur positive Frequenzen Ω dargestellt werden. Insgesamt beschränkt sich damit der Frequenzbereich auf 0 \textless{} Ω ≤ π.
+dargestellt. Diese Darstellungsform ist auch im zeitdiskreten Bereich gebräuchlich. Allerdings muss dabei berücksichtigt werden, dass der Frequenzgang periodisch in 2π ist. Außerdem kann er wegen des logarithmischen Maßstabs nur positive Frequenzen Ω dargestellt werden. Insgesamt beschränkt sich damit der Frequenzbereich auf 0 \textless{} Ω ≤ π.
 
-Das Bode-Diagramm wird bevorzugt für einen Vergleich von analogen und digitalen Systemen eingesetzt. Dazu wird die normierte Frequenzachse Ω über
+Das Bode-Diagramm wird bevorzugt für einen Vergleich von analogen und digitalen Systemen eingesetzt. Dazu wird die normierte Frequenzachse Ω über
 \begin{align}
 \omega &= \frac{\Omega}{T_{A}} \label{eq:8.38}
 \end{align}
@@ -331,7 +331,7 @@ beschrieben. Bei stabilen Systemen liegen die Pole \(α_{n}\) der Übertragungsf
 \begin{align}
 G(\Omega) &= \left. \ G(z) \right|_{z = e^{j  \Omega}} = A(\Omega)  e^{j  \varphi(\Omega)} = \frac{b_{M}}{a_{N}}  \frac{\prod_{m = 1}^{M}\left( e^{j  \Omega} - \beta_{m} \right)}{\prod_{n = 1}^{N}\left( e^{j  \Omega} - \alpha_{n} \right)} \label{eq:8.42}
 \end{align}
-Der Amplitudengang des Systems kann logarithmisch in dB angegeben werden. Der logarithmische Amplitudengang \(a(Ω)\) ergibt sich mit den Rechenregeln des Logarithmus zu
+Der Amplitudengang des Systems kann logarithmisch in dB angegeben werden. Der logarithmische Amplitudengang \(a(Ω)\) ergibt sich mit den Rechenregeln des Logarithmus zu
 \begin{align}
 {a\left(\Omega \right)} &=  {20 \log \left(\left|\frac{b_{M} }{a_{N} }  \frac{\prod _{m=1}^{M}\left(e^{j \Omega } -\beta _{m} \right) }{\prod _{n=1}^{N}\left(e^{j \Omega } -\alpha _{n} \right) } \right|\right)} \\
 {} &=  {20 \log \left(\left|\frac{b_{M} }{a_{N} } \right|\right)+\sum _{m=1}^{M}20 \log  \left(\left|e^{j \Omega } -\beta _{m} \right|\right)-\sum _{n=1}^{N}20 \log  \left(\left|e^{j \Omega } -\alpha _{n} \right|\right)}
@@ -371,7 +371,7 @@ und eine Phase von
 \begin{align}
 \varphi(\Omega) &= \Omega + \arctan\left( \frac{- r_{0}  \sin\left( \Omega_{0} - \Omega \right)}{1 - r_{0}  \cos\left( \Omega_{0} - \Omega \right)} \right) = \Omega - \arctan\left( \frac{r_{0}  \sin\left( \Omega_{0} - \Omega \right)}{1 - r_{0}  \cos\left( \Omega_{0} - \Omega \right)} \right) \label{eq:8.49}
 \end{align}
-Beide Größen können in der komplexen Ebene geometrisch interpretiert werden. Bild \ref{fig:8.5} verdeutlicht die Geometrie für eine feste Kreisfrequenz Ω.
+Beide Größen können in der komplexen Ebene geometrisch interpretiert werden. Bild \ref{fig:8.5} verdeutlicht die Geometrie für eine feste Kreisfrequenz Ω.
 
 \begin{figure}
   \centering
@@ -382,21 +382,21 @@ für ein System mit einer komplexen Nullstelle im Einheitskreis}
   \label{fig:8.5}
 \end{figure}
 
-Der Betrag der Übertagungsfunktion \(A(Ω)\) ergibt sich nach dem Satz des Pythagoras aus dem rechtwinkligen Dreieck mit den Kantenlängen \textbar1 - r\textsubscript{0}cos(Ω - \(Ω_{0}\))\textbar{} und \textbar r\textsubscript{0}sin(Ω - \(Ω_{0}\))\textbar. Da der Einheitskreis periodisch durchlaufen wird, ergibt sich ein periodischer Amplitudengang. Die Phase des Frequenzgangs ϕ(Ω) kann ebenfalls über das rechtwinklige Dreieck berechnet werden. Um den Einfluss der Lage der Nullstelle zu verdeutlichen, wird das Systemverhalten anhand zweier Parameterstudien diskutiert.
+Der Betrag der Übertagungsfunktion \(A(Ω)\) ergibt sich nach dem Satz des Pythagoras aus dem rechtwinkligen Dreieck mit den Kantenlängen \textbar1 - r\textsubscript{0}cos(Ω - \(Ω_{0}\))\textbar{} und \textbar r\textsubscript{0}sin(Ω - \(Ω_{0}\))\textbar. Da der Einheitskreis periodisch durchlaufen wird, ergibt sich ein periodischer Amplitudengang. Die Phase des Frequenzgangs ϕ(Ω) kann ebenfalls über das rechtwinklige Dreieck berechnet werden. Um den Einfluss der Lage der Nullstelle zu verdeutlichen, wird das Systemverhalten anhand zweier Parameterstudien diskutiert.
 
 \subsection{Variation des Abstandes der Nullstelle vom Koordinatenursprung}\label{sec:8.3.2}
 
-In der ersten Parameterstudie wird der Abstand der Nullstelle vom Koordinatenursprung in den Schritten \(r_{1} = 0.5\), \(r_{2} = 0.75\) und \(r_{3} = 1\) variiert und der Einfluss auf Amplitudengang und Phasengang diskutiert. Der Winkel \(Ω_{0}\), den die Nullstelle in der komplexen Ebene besitzt, bleibt konstant auf\\
-\(Ω_{0} = π\)/2. Zur besseren Übersicht stellt Bild \ref{fig:8.6} die Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung in der komplexen Ebene dar.
+In der ersten Parameterstudie wird der Abstand der Nullstelle vom Koordinatenursprung in den Schritten \(r_{1} = 0.5\), \(r_{2} = 0.75\) und \(r_{3} = 1\) variiert und der Einfluss auf Amplitudengang und Phasengang diskutiert. Der Winkel \(Ω_{0}\), den die Nullstelle in der komplexen Ebene besitzt, bleibt konstant auf\\
+\(Ω_{0} = π\)/2. Zur besseren Übersicht stellt Bild \ref{fig:8.6} die Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung in der komplexen Ebene dar.
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung, \(Ω_{0} = π\)/2}]{./media/9_1_lage_der_nullstelle_bei_variatio.png}
-  \caption{Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung, \(Ω_{0} = π\)/2}
+  \includegraphics[alt={Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung, \(Ω_{0} = π\)/2}]{./media/9_1_lage_der_nullstelle_bei_variatio.png}
+  \caption{Lage der Nullstelle bei Variation des Abstandes vom Koordinatenursprung, \(Ω_{0} = π\)/2}
   \label{fig:8.6}
 \end{figure}
 
-Der Amplitudengang und der Phasengang berechnen sich für \(Ω_{0} = π\)/2 zu
+Der Amplitudengang und der Phasengang berechnen sich für \(Ω_{0} = π\)/2 zu
 \begin{align}
 A_{n}(\Omega) &= \sqrt{1 + r_{n}^{2} - 2  r_{n}  \cos\left( \frac{\pi}{2} - \Omega \right)} \label{eq:8.50}
 \end{align}
@@ -408,27 +408,27 @@ Für die verschiedenen Lagen der Nullstelle ergeben sich die in Bild \ref{fig:8.
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Amplituden- und Phasengang bei variiertem Abstand der Nullstelle vom Koordinatenursprung, \(Ω_{0} = π\)/2}]{./media/9_2_amplituden_und_phasengang_bei_va.png}
-  \caption{Amplituden- und Phasengang bei variiertem Abstand der Nullstelle vom Koordinatenursprung, \(Ω_{0} = π\)/2}
+  \includegraphics[alt={Amplituden- und Phasengang bei variiertem Abstand der Nullstelle vom Koordinatenursprung, \(Ω_{0} = π\)/2}]{./media/9_2_amplituden_und_phasengang_bei_va.png}
+  \caption{Amplituden- und Phasengang bei variiertem Abstand der Nullstelle vom Koordinatenursprung, \(Ω_{0} = π\)/2}
   \label{fig:8.7}
 \end{figure}
 
-Der Amplitudengang weist sein Minimum bei der Frequenz \(Ω = Ω_{0}\) = π/2 auf. In dem Fall wird das Argument der Kosinus-Funktion zu null und damit der Amplitudengang minimal. Der minimale Wert des Amplitudengangs beträgt
+Der Amplitudengang weist sein Minimum bei der Frequenz \(Ω = Ω_{0}\) = π/2 auf. In dem Fall wird das Argument der Kosinus-Funktion zu null und damit der Amplitudengang minimal. Der minimale Wert des Amplitudengangs beträgt
 \begin{align}
 A_{MIN}(\Omega) &= \sqrt{1 + r_{n}^{2} - 2  r_{n}} = 1 - r_{n} \label{eq:8.52}
 \end{align}
 Je näher die Nullstelle am Einheitskreis liegt, desto kleiner wird der Amplitudengang an der Stelle\\
-\(Ω = Ω_{0}\). Bei dem Radius \(r_{3} = 1\) wird der Amplitudengang zu null. Das Maximum des Amplitudengangs wird bei der Frequenz \(Ω = Ω_{0}\) - π= - π/2 erreicht. Bei dieser Frequenz wird das Argument der Kosinus-Funktion zu π und damit der Amplitudengang maximal. Der maximale Wert des Amplitudengangs beträgt
+\(Ω = Ω_{0}\). Bei dem Radius \(r_{3} = 1\) wird der Amplitudengang zu null. Das Maximum des Amplitudengangs wird bei der Frequenz \(Ω = Ω_{0}\) - π= - π/2 erreicht. Bei dieser Frequenz wird das Argument der Kosinus-Funktion zu π und damit der Amplitudengang maximal. Der maximale Wert des Amplitudengangs beträgt
 \begin{align}
 A_{MAX}(\Omega) &= \sqrt{1 + r_{n}^{2} + 2  r_{n}} = 1 + r_{n} \label{eq:8.53}
 \end{align}
-Der Phasengang springt für den Radius \(r_{3} = 1\) an der Stelle \(Ω = Ω_{0}\) = π/2, da das Argument der Arkustangensfunktion unendlich wird. Der Phasengang ist für \(r_{3}\) damit unstetig, ist aber ansonsten linear. Je weiter die Nullstelle vom Einheitskreis entfernt ist, desto stärker wird dieser Sprung abgeflacht. Unabhängig vom Radius beträgt der Phasengang bei der Frequenz \(Ω = Ω_{0}\) = - π/2
+Der Phasengang springt für den Radius \(r_{3} = 1\) an der Stelle \(Ω = Ω_{0}\) = π/2, da das Argument der Arkustangensfunktion unendlich wird. Der Phasengang ist für \(r_{3}\) damit unstetig, ist aber ansonsten linear. Je weiter die Nullstelle vom Einheitskreis entfernt ist, desto stärker wird dieser Sprung abgeflacht. Unabhängig vom Radius beträgt der Phasengang bei der Frequenz \(Ω = Ω_{0}\) = - π/2
 \begin{align}
 \varphi\left( - \frac{\pi}{2} \right) &= - \frac{\pi}{2} - \arctan\left( \frac{0}{1 + r} \right) = - \frac{\pi}{2} \label{eq:8.54}
 \end{align}
 \subsection{Variation des Phasenwinkels der Nullstelle}\label{sec:variation-des-phasenwinkels-der-nullstelle}
 
-In der zweiten Parameterstudie wird die Phasenlage der Nullstelle mit \(Ω_{1} = 0\), \(Ω_{2} = π\)/2 und \(Ω_{3} = π\) variiert. Der Radius bleibt konstant auf dem Wert \(r_{0} = 0.7\). Zur besseren Übersicht stellt Bild \ref{fig:8.8} die Lage der Nullstelle bei Variation des Phasenwinkes \(Ω_{n}\) der Nullstelle dar.
+In der zweiten Parameterstudie wird die Phasenlage der Nullstelle mit \(Ω_{1} = 0\), \(Ω_{2} = π\)/2 und \(Ω_{3} = π\) variiert. Der Radius bleibt konstant auf dem Wert \(r_{0} = 0.7\). Zur besseren Übersicht stellt Bild \ref{fig:8.8} die Lage der Nullstelle bei Variation des Phasenwinkes \(Ω_{n}\) der Nullstelle dar.
 
 \includegraphics[width=3.14961in,height=2.24803in,alt={Ein Bild, das Diagramm, Text, Reihe, Screenshot enthält. Automatisch generierte Beschreibung}]{./media/image185.png}
 
@@ -451,7 +451,7 @@ Für die verschiedenen Lagen der Nullstelle ergeben sich die in Bild \ref{fig:8.
   \label{fig:8.9}
 \end{figure}
 
-Durch die unterschiedlichen Phasenwinkel \(Ω_{0}\) verschiebt sich der Amplitudengang um \(Ω_{0}\) nach rechts, ansonsten bleibt Amplitudengang gleich. Der Phasengang verschiebt sich mit steigendem Phasenwinkel \(Ω_{0}\) einerseits nach rechts, aber wegen des Summanden Ω in Gleichung (\ref{eq:8.56}) auch nach oben.
+Durch die unterschiedlichen Phasenwinkel \(Ω_{0}\) verschiebt sich der Amplitudengang um \(Ω_{0}\) nach rechts, ansonsten bleibt Amplitudengang gleich. Der Phasengang verschiebt sich mit steigendem Phasenwinkel \(Ω_{0}\) einerseits nach rechts, aber wegen des Summanden Ω in Gleichung (\ref{eq:8.56}) auch nach oben.
 
 \subsection{Interpretationsbeispiel}\label{sec:interpretationsbeispiel}
 
@@ -482,7 +482,7 @@ Da der Zählergrad genauso groß ist wie der Nennergrad, ist das System sprungf�
   \label{fig:8.10}
 \end{figure}
 
-Die Pole des Systems haben einen Betrag von 0.7. Damit ist das System stabil, und der Frequenzgang kann durch die Substitution z = \(e^{jΩ}\) bestimmt werden.
+Die Pole des Systems haben einen Betrag von 0.7. Damit ist das System stabil, und der Frequenzgang kann durch die Substitution z = \(e^{jΩ}\) bestimmt werden.
 \begin{align}
 G(\Omega) &= \frac{\left( 1 - 0.9  e^{- j  \Omega} \right)  \left( 1 + 0.9  e^{- j  \Omega} \right)}{\left( 1 - j  0.7  e^{- j  \Omega} \right)  \left( 1 + j  0.7  e^{- j  \Omega} \right)} \label{eq:8.60}
 \end{align}
@@ -527,7 +527,7 @@ Er hat den Betrag von 1 und eine Phase von
 \begin{align}
 \varphi(\Omega) &= - \Omega  k_{0} \label{eq:8.65}
 \end{align}
-Die Phase ϕ ist eine lineare Funktion der normierten Kreisfrequenz Ω. Bild \ref{fig:8.12} zeigt den Phasengang und die Sprungantwort des idealen Totzeitgliedes.
+Die Phase ϕ ist eine lineare Funktion der normierten Kreisfrequenz Ω. Bild \ref{fig:8.12} zeigt den Phasengang und die Sprungantwort des idealen Totzeitgliedes.
 
 \begin{figure}
   \centering
@@ -558,11 +558,11 @@ und
 {y[ k] = 4  \cos\left( \frac{2  \pi}{10}  (k - 2) \right) = 4  \cos\left( \frac{2  \pi}{10}  k - \frac{4  \pi}{10} \right)
 }{= 4  \cos\left( \Omega_{0}  k + \varphi \right) = 4  \cos\left( \Omega_{0}  \left( k - k_{0} \right) \right)} \label{eq:8.67}
 \end{align}
-beschrieben werden. Die Phase ϕ des Ausgangssignals kann über eine Verschiebung \(k_{0}\) und der Frequenz \(Ω_{0}\) dargestellt werden als
+beschrieben werden. Die Phase ϕ des Ausgangssignals kann über eine Verschiebung \(k_{0}\) und der Frequenz \(Ω_{0}\) dargestellt werden als
 \begin{align}
 \varphi(\Omega) &= - \Omega_{0}  k_{0} \label{eq:8.68}
 \end{align}
-Bei der Anregung mit einer harmonischen Schwingung der Frequenz \(Ω_{0}\) ist für die Berechnung des Ausgangssignals nur der Frequenzgang des Systems an dieser Stelle \(Ω_{0}\) von Bedeutung. Deshalb hat eine Umrechnung der Zeitverschiebung \(k_{0}\) mit der Frequenz im Fall einer harmonischen Anregung lediglich normierenden Charakter. Die Phase ist in dem Fall gleichbedeutend mit einer zeitlichen Verschiebung der harmonischen Funktion.
+Bei der Anregung mit einer harmonischen Schwingung der Frequenz \(Ω_{0}\) ist für die Berechnung des Ausgangssignals nur der Frequenzgang des Systems an dieser Stelle \(Ω_{0}\) von Bedeutung. Deshalb hat eine Umrechnung der Zeitverschiebung \(k_{0}\) mit der Frequenz im Fall einer harmonischen Anregung lediglich normierenden Charakter. Die Phase ist in dem Fall gleichbedeutend mit einer zeitlichen Verschiebung der harmonischen Funktion.
 
 \subsection{\texorpdfstring{Anregung eines Systems mit zwei harmonischen Signalen unterschiedlicher Frequenz }{Anregung eines Systems mit zwei harmonischen Signalen unterschiedlicher Frequenz }}\label{anregung-eines-systems-mit-zwei-harmonischen-signalen-unterschiedlicher-frequenz}
 
@@ -574,7 +574,7 @@ und
 \begin{align}
 u_{2}[ k] &= U_{2}  \sin\left( \Omega_{2}  k \right) \label{eq:8.70}
 \end{align}
-besteht. Das Signal durchläuft ein System mit dem Frequenzgang \(G(Ω)\). Das Ausgangssignal ergibt sich aus der Summe der Folgen
+besteht. Das Signal durchläuft ein System mit dem Frequenzgang \(G(Ω)\). Das Ausgangssignal ergibt sich aus der Summe der Folgen
 \begin{align}
 y_{1}[ k] &= U_{1}  A\left( \Omega_{1} \right)  \sin\left( \Omega_{1}  k + \varphi\left( \Omega_{1} \right) \right) \label{eq:8.71}
 \end{align}
@@ -600,7 +600,7 @@ Die vorangegangenen Beispiele zeigen, dass der Phasengang für eine Verzögerung
 \begin{align}
 T_{G}(\Omega) &= - \frac{d\varphi}{d\Omega}  T_{A} \label{eq:8.77}
 \end{align}
-Im Allgemeinen ist die Gruppenlaufzeit eines Systems eine Funktion der Frequenz Ω und damit nicht konstant. Ist der Phasengang linear, ist seine Ableitung konstant. Damit ist auch die Gruppenlaufzeit eines Systems mit linearer Phase konstant.
+Im Allgemeinen ist die Gruppenlaufzeit eines Systems eine Funktion der Frequenz Ω und damit nicht konstant. Ist der Phasengang linear, ist seine Ableitung konstant. Damit ist auch die Gruppenlaufzeit eines Systems mit linearer Phase konstant.
 
 \begin{example}{Rekursives Tiefpass-Filter}
 \label{beispiel-rekursives-tiefpass-filter-5}
@@ -613,7 +613,7 @@ Der Phasengang wird in Gleichung (\ref{eq:8.32}) berechnet zu
 \begin{align}
 \varphi(\Omega) &= - \arctan\left( \frac{GF  \sin(\Omega)}{1 - GF  \cos(\Omega)} \right) \label{eq:8.79}
 \end{align}
-Die Ableitung nach Ω führt zu der Gruppenlaufzeit von
+Die Ableitung nach Ω führt zu der Gruppenlaufzeit von
 \begin{align}
 {T_{G} \left(\Omega \right)} &=  {-\frac{d\varphi }{d\Omega }  T_{A} =\frac{\frac{GF \cos \left(\Omega \right)}{1-GF \cos \left(\Omega \right)} -\frac{GF^{2}  \sin ^{2} \left(\Omega \right)}{\left(1-GF \cos \left(\Omega \right)\right)^{2} } }{1+\frac{GF^{2}  \sin ^{2} \left(\Omega \right)}{\left(1-GF \cos \left(\Omega \right)\right)^{2} } }  T_{A} } \\
 {} &=  {\frac{GF \cos \left(\Omega \right)-GF^{2} }{1-2 GF \cos \left(\Omega \right)+GF^{2} }  T_{A} }
@@ -672,11 +672,11 @@ Die Pol-Nullstellenverteilung des Systems sowie seine Impulsantwort sind in Bild
   \label{fig:8.15}
 \end{figure}
 
-Das System weist ausschließlich Pole im Koordinatenursprung auf und ist damit stabil. Der Frequenzgang ergibt sich damit aus der Übertragungsfunktion \(G(z)\) durch die Substitution z = \(e^{jΩ}\) zu
+Das System weist ausschließlich Pole im Koordinatenursprung auf und ist damit stabil. Der Frequenzgang ergibt sich damit aus der Übertragungsfunktion \(G(z)\) durch die Substitution z = \(e^{jΩ}\) zu
 \begin{align}
 G_{1}(\Omega) &= \frac{1}{9} + \frac{2}{9}  e^{- j  \Omega} + \frac{3}{9}  e^{- j  2  \Omega} + \frac{2}{9}  e^{- j  3  \Omega} + \frac{1}{9}  e^{- j  4  \Omega} \label{eq:8.85}
 \end{align}
-Statt der Aufteilung in einzelne Linearfaktoren kann es bei FIR-Systemen vorteilhaft sein, den Frequenzgang \(G(Ω)\) durch Umformungen in Betrag und Phase aufzuteilen. Dazu wird die mittlere Verzögerung des Filters, im Beispiel dieses FIR-Systems \(e^{-j2Ω}\), ausgeklammert und die dadurch symmetrisch werdenden Exponentialfunktionen mit der Eulerschen Formel als Winkelfunktionen ausgedrückt. Für das System ergibt sich
+Statt der Aufteilung in einzelne Linearfaktoren kann es bei FIR-Systemen vorteilhaft sein, den Frequenzgang \(G(Ω)\) durch Umformungen in Betrag und Phase aufzuteilen. Dazu wird die mittlere Verzögerung des Filters, im Beispiel dieses FIR-Systems \(e^{-j2Ω}\), ausgeklammert und die dadurch symmetrisch werdenden Exponentialfunktionen mit der Eulerschen Formel als Winkelfunktionen ausgedrückt. Für das System ergibt sich
 \begin{align}
 {G{}_{1} \left(\Omega \right)} &=  {\frac{1}{9} +\frac{2}{9}  e^{-j \Omega } +\frac{3}{9}  e^{-j 2 \Omega } +\frac{2}{9}  e^{-j 3 \Omega } +\frac{1}{9}  e^{-j 4 \Omega } } \\
 {} &=  {e^{-j 2 \Omega }  \left(\frac{1}{9}  e^{j 2 \Omega } +\frac{2}{9}  e^{j \Omega } +\frac{3}{9} +\frac{2}{9}  e^{-j \Omega } +\frac{1}{9}  e^{-j 2 \Omega } \right)} \\
@@ -684,7 +684,7 @@ Statt der Aufteilung in einzelne Linearfaktoren kann es bei FIR-Systemen vorteil
 {} &=  {e^{-j 2 \Omega }  \left(\frac{2}{9}  \cos \left(2 \Omega \right)+\frac{4}{9}  \cos \left(\Omega \right)+\frac{3}{9} \right)}
  \label{eq:8.86}
 \end{align}
-Der Klammerausdruck ist für alle Frequenzen im Bereich - π \textless{} Ω \textless{} π größer als null und hat demnach eine konstante Phase ϕ = 0. Da der Betrag der Exponentialfunktion mit imaginärem Argument eins ist, ergeben sich Amplituden- und Phasengang dieses FIR-Systems zu
+Der Klammerausdruck ist für alle Frequenzen im Bereich - π \textless{} Ω \textless{} π größer als null und hat demnach eine konstante Phase ϕ = 0. Da der Betrag der Exponentialfunktion mit imaginärem Argument eins ist, ergeben sich Amplituden- und Phasengang dieses FIR-Systems zu
 \begin{align}
 A_{1}(\Omega) &= \frac{2}{9}  \cos(2  \Omega) + \frac{4}{9}  \cos(\Omega) + \frac{3}{9} \label{eq:8.87}
 \end{align}
@@ -756,13 +756,13 @@ Für Filter mit endlicher Impulsantwort ergibt sich die Übertragungsfunktion di
 {} &=  {z^{-N/2}  \left(g_{1} \left[N/2\right]+\sum _{k=0}^{N/2-1}g_{1} \left[k\right] \left(z^{N/2-k} +z^{-\left(N/2+k\right)} \right) \right)}
  \label{eq:8.93}
 \end{align}
-Aufgrund der Stabilität von FIR-System ergibt sich der Frequenzgang durch die Substitution z = \(e^{jΩ}\) zu
+Aufgrund der Stabilität von FIR-System ergibt sich der Frequenzgang durch die Substitution z = \(e^{jΩ}\) zu
 \begin{align}
 {G_{1} \left(\Omega \right)} &=  {e^{-j \frac{\Omega  N}{2} }  \left(g_{1} \left[N/2\right]+\sum _{k=0}^{N/2-1}g_{1} \left[k\right] \left(e^{j \frac{\Omega  \left(N-2 k\right)}{2} } +e^{-j \frac{\Omega  \left(N-2 k\right)}{2} } \right) \right)} \\
 {} &=  {e^{-j \frac{\Omega  N}{2} }  \left(g_{1} \left[N/2\right]+2 \sum _{k=0}^{N/2-1}g_{1} \left[k\right] \cos \left(\frac{\Omega  \left(N-2 k\right)}{2} \right) \right)}
  \label{eq:8.94}
 \end{align}
-Der zweite Faktor in Gleichung (\ref{eq:8.94}) ist reell und kann positive und negative Werte annehmen. Da er stetig in Ω ist, weist er im Punkt seines Vorzeichenwechsels einen Betrag von null auf. Damit besitzt der Frequenzgang \(G_{1}(Ω)\) eine abschnittsweise lineare Phase, die bei Vorzeichenwechseln des Frequenzgangs um π springt. An diesen Stellen ist aber der Betrag der Übertragungsfunktion null. Das Filter weist damit im gesamten Durchlassbereich eine lineare Phase auf. Als Beispiel wird ein Filter mit der Impulsantwort
+Der zweite Faktor in Gleichung (\ref{eq:8.94}) ist reell und kann positive und negative Werte annehmen. Da er stetig in Ω ist, weist er im Punkt seines Vorzeichenwechsels einen Betrag von null auf. Damit besitzt der Frequenzgang \(G_{1}(Ω)\) eine abschnittsweise lineare Phase, die bei Vorzeichenwechseln des Frequenzgangs um π springt. An diesen Stellen ist aber der Betrag der Übertragungsfunktion null. Das Filter weist damit im gesamten Durchlassbereich eine lineare Phase auf. Als Beispiel wird ein Filter mit der Impulsantwort
 \begin{align}
 g_{1}[ k] &= \frac{1}{3.7}  \left( \delta[ k] + 2.7  \delta[ k - 1] + 3.7  \delta[ k - 2] + 2.7  \delta[ k - 3] + \delta[ k - 4] \right) \label{eq:8.95}
 \end{align}
@@ -777,13 +777,13 @@ eines FIR-Filters mit gerader Ordnung und achsensymmetrischer Impulsantwort}
   \label{fig:8.19}
 \end{figure}
 
-Der Amplitudengang wird für Ω = ± 2/3π und Ω = ± 5/6π zu null, und es finden Vorzeichenwechsel statt. Deshalb springt der Phasengang an diesen Stellen um π. Der Phasengang ist abschnittsweise linear.
+Der Amplitudengang wird für Ω = ± 2/3π und Ω = ± 5/6π zu null, und es finden Vorzeichenwechsel statt. Deshalb springt der Phasengang an diesen Stellen um π. Der Phasengang ist abschnittsweise linear.
 
 Die an dem Beispiel gewonnenen Ergebnisse lassen sich auf weitere FIR-Systeme verallgemeinern. FIR-Systeme, bei denen die Nullstellen ausschließlich auf dem Einheitskreis liegen, weisen einen linearen Phasengang auf.
 
 \subsubsection{Weitere Symmetriebedingungen für einen linearen Phasengang}\label{sec:weitere-symmetriebedingungen-fuxfcr-einen-linearen-phasengang}
 
-In Abschnitt \ref{sec:8.3.2} wird der Frequenzgang zeitdiskreter Systeme mit gebrochen rationaler Übertragungsfunktion diskutiert. Er setzt sich aus den Frequenzgängen einzelner Linearfaktoren zusammen. Liegen die Nullstellen dieser Linearfaktoren auf dem Einheitskreis, sind die zugehörigen Phasengänge linear zur Frequenz Ω. Das Beispiel in Abschnitt \ref{sec:8.4.6} bestätigt diesen Zusammenhang.
+In Abschnitt \ref{sec:8.3.2} wird der Frequenzgang zeitdiskreter Systeme mit gebrochen rationaler Übertragungsfunktion diskutiert. Er setzt sich aus den Frequenzgängen einzelner Linearfaktoren zusammen. Liegen die Nullstellen dieser Linearfaktoren auf dem Einheitskreis, sind die zugehörigen Phasengänge linear zur Frequenz Ω. Das Beispiel in Abschnitt \ref{sec:8.4.6} bestätigt diesen Zusammenhang.
 
 Zusätzlich zu den Nullstellen auf dem Einheitskreis können Nullstellen-Konstellationen wie in Gleichung (\ref{eq:8.96}) auftreten.
 \begin{align}
@@ -816,7 +816,7 @@ Die Summanden werden so sortiert, dass Paare von Exponentialfunktionen eine Kosi
 {} & {} & {+e^{-j 2 \Omega }  \left(r_{0}^{2} +4 \cos ^{2} \left(\Omega _{0} \right)+\frac{1}{r_{0}^{2} } -4 \frac{1}{r_{0} }  \cos \left(\Omega _{0} \right) \cos \left(\Omega \right)\right)}
  \label{eq:8.99}
 \end{align}
-Der Faktor \(e^{-j2Ω}\) repräsentiert die lineare Phasenverschiebung. Der zweite Faktor ist reell. Um zu zeigen, dass in dem Intervall - π ≤ Ω ≤ π keine Phasensprünge auftreten, werden die Nullstellen berechnet. Unter Berücksichtigung von
+Der Faktor \(e^{-j2Ω}\) repräsentiert die lineare Phasenverschiebung. Der zweite Faktor ist reell. Um zu zeigen, dass in dem Intervall - π ≤ Ω ≤ π keine Phasensprünge auftreten, werden die Nullstellen berechnet. Unter Berücksichtigung von
 \begin{align}
 \cos(2  \Omega) &= 2  \cos^{2}(\Omega) - 1 \label{eq:8.100}
 \end{align}
@@ -826,7 +826,7 @@ ergibt sich als Bedingung für die Nullstellen
 {} &=  {\cos ^{2} \left(\Omega \right)-\left(r_{0} +\frac{1}{r_{0} } \right) \cos \left(\Omega _{0} \right) \cos \left(\Omega \right)+\frac{1}{4}  \left(r_{0} -\frac{1}{r_{0} } \right)^{2} +\cos ^{2} \left(\Omega _{0} \right)}
  \label{eq:8.101}
 \end{align}
-Es handelt sich um eine quadratische Gleichung in cos(Ω). Die Lösung der quadratischen Gleichungen ergibt
+Es handelt sich um eine quadratische Gleichung in cos(Ω). Die Lösung der quadratischen Gleichungen ergibt
 \begin{align}
 \cos(\Omega) &= \frac{1}{2}  \left( r_{0} + \frac{1}{r_{0}} \right)  \cos\left( \Omega_{0} \right) \pm \sqrt{\frac{1}{4}  \left( r_{0} + \frac{1}{r_{0}} \right)^{2}  \cos^{2}\left( \Omega_{0} \right) - \frac{1}{4}  \left( r_{0} - \frac{1}{r_{0}} \right)^{2} + \cos^{2}\left( \Omega_{0} \right)} \label{eq:8.102}
 \end{align}
@@ -837,7 +837,7 @@ Das Argument der Wurzel ist negativ.
 }{= \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)  \cos^{2}\left( \Omega_{0} \right) + \frac{1}{2}  \cos^{2}\left( \Omega_{0} \right) - \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)^{2} + \frac{1}{2} - \cos^{2}\left( \Omega_{0} \right)
 }{= \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)  \left( \cos^{2}\left( \Omega_{0} \right) - 1 \right) + \frac{1}{2}  \left( 1 - \cos^{2}\left( \Omega_{0} \right) \right) = - \frac{1}{4}  \left( r_{0} - \frac{1}{r_{0}} \right)^{2}  \sin^{2}\left( \Omega_{0} \right) < 0} \label{eq:8.103}
 \end{align}
-Es existieren also keine reellen Nullstellen, sodass der Ausdruck nach der Exponentialfunktion keine Vorzeichenwechsel aufweist. Nullstellen-Konstellationen wie in Gleichung (\ref{eq:8.96}) besitzen damit eine lineare Phase. In Bild \ref{fig:8.20} sind Impulsantwort, Pol-Nullstellen-Diagramm, Amplituden- und Phasengang für ein Beispiel mit \(r_{0} = 0.75\) und \(Ω_{0} = 2\)/3π dargestellt.
+Es existieren also keine reellen Nullstellen, sodass der Ausdruck nach der Exponentialfunktion keine Vorzeichenwechsel aufweist. Nullstellen-Konstellationen wie in Gleichung (\ref{eq:8.96}) besitzen damit eine lineare Phase. In Bild \ref{fig:8.20} sind Impulsantwort, Pol-Nullstellen-Diagramm, Amplituden- und Phasengang für ein Beispiel mit \(r_{0} = 0.75\) und \(Ω_{0} = 2\)/3π dargestellt.
 
 \begin{figure}
   \centering
@@ -875,7 +875,7 @@ symmetrisch zum Einheitskreis
 
 \subsection{Vergleich von Tiefpassfiltern mit linearer und nichtlinearer Phase}\label{sec:8.4.7}
 
-Die Diskussion der Beispiele im letzten Abschnitt zeigt, dass Systeme mit linearem Phasengang Eingangssignale zwar verzögern, jedoch nicht in ihrer Form verzerren. Im Folgenden wird analysiert, welcher Unterschied zwischen zwei Tiefpass-Filtern besteht, die eine lineare beziehungsweise eine nichtlineare Phase besitzen. Das Filter mit linearer Phase wird als FIR-Filter realisiert, das Filter mit nichtlinearer Phase als IIR-Filter. Beide Filter werden so entworfen, dass sie bei einer Frequenz von \(Ω = π\)/5 eine Dämpfung von maximal 1~dB aufweisen und bei einer Frequenz von \(Ω = 1\).1π/5 eine Dämpfung von mindestens 40~dB besitzen. Die Forderung führt zu Filtern hoher Ordnung, an denen die Unterschiede zwischen linearem und nichtlinearem Phasengang deutlicher zu erkennen sind. Amplituden- und Phasengang der beiden Filter sind in Bild \ref{fig:8.21} dargestellt.
+Die Diskussion der Beispiele im letzten Abschnitt zeigt, dass Systeme mit linearem Phasengang Eingangssignale zwar verzögern, jedoch nicht in ihrer Form verzerren. Im Folgenden wird analysiert, welcher Unterschied zwischen zwei Tiefpass-Filtern besteht, die eine lineare beziehungsweise eine nichtlineare Phase besitzen. Das Filter mit linearer Phase wird als FIR-Filter realisiert, das Filter mit nichtlinearer Phase als IIR-Filter. Beide Filter werden so entworfen, dass sie bei einer Frequenz von \(Ω = π\)/5 eine Dämpfung von maximal 1~dB aufweisen und bei einer Frequenz von \(Ω = 1\).1π/5 eine Dämpfung von mindestens 40~dB besitzen. Die Forderung führt zu Filtern hoher Ordnung, an denen die Unterschiede zwischen linearem und nichtlinearem Phasengang deutlicher zu erkennen sind. Amplituden- und Phasengang der beiden Filter sind in Bild \ref{fig:8.21} dargestellt.
 
 \begin{figure}
   \centering
@@ -886,7 +886,7 @@ Die Diskussion der Beispiele im letzten Abschnitt zeigt, dass Systeme mit linear
 
 Die Amplitudengänge entsprechen den Vorgaben aus dem Filterdesign. Die Phasengänge weichen stark voneinander ab. Das FIR-Filter hat einen linearen Phasenverlauf, dem an den Nullstellen des Amplitudengangs zusätzlich Phasensprünge überlagert sind. Im Gegensatz dazu hat das IIR-Filter einen nichtlinearen Phasenverlauf, dem ebenfalls Phasensprünge überlagert sind. Auch die Absolutwerte der Phase sind stark unterschiedlich.
 
-Zunächst wird analysiert, wie zwei Wellenpakete mit unterschiedlicher Frequenz \(Ω_{1} = π\)/50 und \(Ω_{2}\)~=~π/15 das Filter durchlaufen. Bild \ref{fig:8.22} zeigt die Systemreaktion der Tiefpass-Filter auf die Anregung.
+Zunächst wird analysiert, wie zwei Wellenpakete mit unterschiedlicher Frequenz \(Ω_{1} = π\)/50 und \(Ω_{2}\)~=~π/15 das Filter durchlaufen. Bild \ref{fig:8.22} zeigt die Systemreaktion der Tiefpass-Filter auf die Anregung.
 
 \begin{figure}
   \centering
@@ -951,7 +951,7 @@ Ihre Pol-Nullstellen-Diagramme sind in Bild \ref{fig:8.24}, Amplituden- und Phas
   \label{fig:8.25}
 \end{figure}
 
-Die Systeme haben denselben Amplitudengang \(A(Ω)\). Ihre Phasengänge ϕ(Ω) unterscheiden sich jedoch erheblich. Die unterschiedlichen Phasengänge führen erwartungsgemäß zu unterschiedlichen Signalverzögerungen, die zum Beispiel an den beiden Sprungantworten in Bild \ref{fig:8.26} abgelesen werden können.
+Die Systeme haben denselben Amplitudengang \(A(Ω)\). Ihre Phasengänge ϕ(Ω) unterscheiden sich jedoch erheblich. Die unterschiedlichen Phasengänge führen erwartungsgemäß zu unterschiedlichen Signalverzögerungen, die zum Beispiel an den beiden Sprungantworten in Bild \ref{fig:8.26} abgelesen werden können.
 
 \begin{figure}
   \centering
@@ -974,11 +974,11 @@ auf. Ein Beispiel für einen Allpass ist ein System mit einer Verzögerung um \(
 \begin{align}
 G(\Omega) &= e^{- j  k_{0}  \Omega} \label{eq:8.108}
 \end{align}
-Der Frequenzgang des Systems mit zeitlicher Verzögerung hat einen konstanten Betrag von \(A(Ω)\) = 1 und eine Phase von ϕ(Ω) = - k\textsubscript{0}Ω. Allpässe wirken sich damit nur auf die Phase des Eingangssignals aus. Allpässe mit gebrochen rationalen Übertragungsfunktionen besitzen Nullstellen außerhalb des Einheitskreises. Sie haben die Struktur
+Der Frequenzgang des Systems mit zeitlicher Verzögerung hat einen konstanten Betrag von \(A(Ω)\) = 1 und eine Phase von ϕ(Ω) = - k\textsubscript{0}Ω. Allpässe wirken sich damit nur auf die Phase des Eingangssignals aus. Allpässe mit gebrochen rationalen Übertragungsfunktionen besitzen Nullstellen außerhalb des Einheitskreises. Sie haben die Struktur
 \begin{align}
 G(z) &= \frac{z^{- 1} - \alpha^{*}}{1 - \alpha  z^{- 1}} = \frac{1 - \alpha^{*}  z}{z - \alpha} \label{eq:8.109}
 \end{align}
-Beim Allpass gehört zu jedem Pol innerhalb des Einheitskreises eine Nullstelle außerhalb des Einheitskreises mit gleicher Phase \(Ω_{0}\) und reziprokem Betrag 1/\(r_{0}\). Sämtliche Nullstellen eines stabilen Allpass liegen außerhalb des Einheitskreises. Bild \ref{fig:8.27} stellt die Lage des Pols und der Nullstelle an einem Beispiel dar.
+Beim Allpass gehört zu jedem Pol innerhalb des Einheitskreises eine Nullstelle außerhalb des Einheitskreises mit gleicher Phase \(Ω_{0}\) und reziprokem Betrag 1/\(r_{0}\). Sämtliche Nullstellen eines stabilen Allpass liegen außerhalb des Einheitskreises. Bild \ref{fig:8.27} stellt die Lage des Pols und der Nullstelle an einem Beispiel dar.
 
 \begin{figure}
   \centering
@@ -995,7 +995,7 @@ zu
 \begin{align}
 G(\Omega) &= \frac{e^{- j  \Omega} - r_{0}  e^{- j  \Omega_{0}}}{1 - r_{0}  e^{j  \Omega_{0}}  e^{- j  \Omega}} = e^{- j  \Omega}  \frac{1 - r_{0}  e^{j  \left( \Omega - \Omega_{0} \right)}}{1 - r_{0}  e^{- j  \left( \Omega - \Omega_{0} \right)}} \label{eq:8.111}
 \end{align}
-Zähler und Nenner des Frequenzgangs sind konjugiert komplex zueinander, sie haben demnach denselben Betrag. Die Exponentialfunktion mit imaginärem Argument hat ebenfalls den Betrag 1. Der Amplitudengang \(A(Ω)\) hat damit den konstanten Betrag von \(A = 1\). Der Phasengang ergibt sich zu
+Zähler und Nenner des Frequenzgangs sind konjugiert komplex zueinander, sie haben demnach denselben Betrag. Die Exponentialfunktion mit imaginärem Argument hat ebenfalls den Betrag 1. Der Amplitudengang \(A(Ω)\) hat damit den konstanten Betrag von \(A = 1\). Der Phasengang ergibt sich zu
 \begin{align}
 {\varphi \left(\Omega \right)} &=  {-\Omega +\arctan \left(\frac{r_{0}  \sin \left(\Omega _{0} -\Omega \right)}{1-r_{0}  \cos \left(\Omega _{0} -\Omega \right)} \right)-\arctan \left(\frac{-r_{0}  \sin \left(\Omega _{0} -\Omega \right)}{1-r_{0}  \cos \left(\Omega _{0} -\Omega \right)} \right)} \\
 {} &=  {-\Omega +2 \arctan \left(\frac{r_{0}  \sin \left(\Omega _{0} -\Omega \right)}{1-r_{0}  \cos \left(\Omega _{0} -\Omega \right)} \right)}

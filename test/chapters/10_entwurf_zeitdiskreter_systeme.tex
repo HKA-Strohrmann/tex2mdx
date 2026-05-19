@@ -90,7 +90,7 @@ im Frequenzbereich bei impulsinvariantem Entwurf für \(T = 5\) und \(T_{A} = 1\
   \label{fig:9.2}
 \end{figure}
 
-Die beiden Amplitudengänge stimmen, abgesehen von dem unterschiedlichen Verstärkungsfaktor, im Bereich kleiner Frequenzen sehr gut überein. Die Abweichungen im Frequenzbereich π/2 \textless{} Ω \textless{} π sind auf die periodische Wiederholung des Spektrums zurückzuführen. Da der Amplitudengang an der Stelle \(Ω = π\) noch nicht vollständig verschwindet, wird die periodische Fortsetzung in das Basisband gefaltet. Dieser Effekt sinkt mit steigender Zeitkonstante T des Systems, da damit die eigentlich erforderliche Bandbegrenzung des Systems besser realisiert wird. Alternativ kann die Abtastzeit reduziert werden.
+Die beiden Amplitudengänge stimmen, abgesehen von dem unterschiedlichen Verstärkungsfaktor, im Bereich kleiner Frequenzen sehr gut überein. Die Abweichungen im Frequenzbereich π/2 \textless{} Ω \textless{} π sind auf die periodische Wiederholung des Spektrums zurückzuführen. Da der Amplitudengang an der Stelle \(Ω = π\) noch nicht vollständig verschwindet, wird die periodische Fortsetzung in das Basisband gefaltet. Dieser Effekt sinkt mit steigender Zeitkonstante T des Systems, da damit die eigentlich erforderliche Bandbegrenzung des Systems besser realisiert wird. Alternativ kann die Abtastzeit reduziert werden.
 
 Die beiden Phasengänge stimmen nur im Bereich sehr kleiner Frequenzen überein. Eigentliche Ursache für die hohen Abweichungen im Phasengang sind die durch den Abtastvorgang entstehenden zusätzlichen Nullstellen in der Übertragungsfunktion. Bild \ref{fig:9.3} vergleicht die Pol-Nullstellen-Diagramme des zeitkontinuierlichen und des zeitdiskreten Systems.
 
@@ -101,7 +101,7 @@ Die beiden Phasengänge stimmen nur im Bereich sehr kleiner Frequenzen überein.
   \label{fig:9.3}
 \end{figure}
 
-Beide Systeme weisen einen einfachen reellen Pol auf. Die zusätzliche Nullstelle im zeitdiskreten System führt bei normierten Frequenzen Ω = ± π zu einer Phase ϕ = 0.
+Beide Systeme weisen einen einfachen reellen Pol auf. Die zusätzliche Nullstelle im zeitdiskreten System führt bei normierten Frequenzen Ω = ± π zu einer Phase ϕ = 0.
 
 ▪
 
@@ -318,7 +318,7 @@ Die Pole liegen erwartungsgemäß im Inneren des Einheitskreises, das System ist
 \begin{align}
 G(1) &= \text{79734}  \frac{1 + 0.6587}{1 - 1.7833 + 1.2002 - 0.2846} = \text{999650} \label{eq:9.31}
 \end{align}
-Bei einem direkten Vergleich der beiden Systeme muss mit diesem Faktor entsprechend normiert werden. Der Frequenzgang \(G(Ω)\) berechnet sich zu
+Bei einem direkten Vergleich der beiden Systeme muss mit diesem Faktor entsprechend normiert werden. Der Frequenzgang \(G(Ω)\) berechnet sich zu
 \begin{align}
 G(\Omega) &= 0.07976  \frac{e^{j  2  \Omega} + 0.6587  e^{j  \Omega}}{e^{j  3  \Omega} - 1.7833  e^{j  2  \Omega} + 1.2002  e^{j  \Omega} - 0.2846} \label{eq:9.32}
 \end{align}
@@ -332,8 +332,8 @@ Bild \ref{fig:9.7} zeigt den normierten Frequenzgang des zeitdiskreten Systems i
 \end{figure}
 
 Der Amplitudengang ist für das zeitdiskrete und das zeitkontinuierliche Filter identisch. Die\\
-3~dB-Grenzfrequenz des zeitdiskreten Filters beträgt 10~kHz und stimmt mit der 3-dB-Grenzgfrequenz des zeitkontinuierlichen Filters überein. Da der Amplitudengang für \(Ω = π\) nahe null ist, wirkt sich die periodische Wiederholung nicht auf das Basisband aus. Der Phasengang stimmt bis zu der Frequenz\\
-\(Ω = π\)/2~gut überein. Bei größeren Frequenzen führt die periodische Wiederholung des Phasengangs zu einem Phasenanstieg.
+3~dB-Grenzfrequenz des zeitdiskreten Filters beträgt 10~kHz und stimmt mit der 3-dB-Grenzgfrequenz des zeitkontinuierlichen Filters überein. Da der Amplitudengang für \(Ω = π\) nahe null ist, wirkt sich die periodische Wiederholung nicht auf das Basisband aus. Der Phasengang stimmt bis zu der Frequenz\\
+\(Ω = π\)/2~gut überein. Bei größeren Frequenzen führt die periodische Wiederholung des Phasengangs zu einem Phasenanstieg.
 
 Mit der Übertragungsfunktion \(G(z)\) kann das Filter als Differenzengleichung realisiert werden. Ausgehend von der Übertragungsfunktion ergibt sich nach der Division von Zähler und Nenner durch die höchste Potenz von z die Gleichung
 \begin{align}
@@ -509,7 +509,7 @@ mit dem Forward-Euler-Verfahren}
   \label{fig:9.11}
 \end{figure}
 
-Nach der Definitionsgleichung der z-Transformation wird die imaginäre Achse der Laplace-Ebene auf den Einheitskreis der z-Ebene abgebildet. Mit dem Forward-Euler-Verfahren wird die imaginäre Achse der Laplace-Ebene im Gegensatz dazu auf die Gerade 1 + jΩ abgebildet. Die negative s-Halbebene wird in den Bereich Re(z) \textless{} 1 abgebildet. Bei dem Forward-Euler-Verfahren kann ein stabiles zeitkontinuierliches System \(G(s)\) in ein instabiles zeitdiskretes System \(G(z)\) abgebildet werden. Aus diesem Grund wird dieses Verfahren im Folgenden nicht weiterverfolgt.
+Nach der Definitionsgleichung der z-Transformation wird die imaginäre Achse der Laplace-Ebene auf den Einheitskreis der z-Ebene abgebildet. Mit dem Forward-Euler-Verfahren wird die imaginäre Achse der Laplace-Ebene im Gegensatz dazu auf die Gerade 1 + jΩ abgebildet. Die negative s-Halbebene wird in den Bereich Re(z) \textless{} 1 abgebildet. Bei dem Forward-Euler-Verfahren kann ein stabiles zeitkontinuierliches System \(G(s)\) in ein instabiles zeitdiskretes System \(G(z)\) abgebildet werden. Aus diesem Grund wird dieses Verfahren im Folgenden nicht weiterverfolgt.
 
 \subsection{Trapezregel und bilineare Transformation}\label{sec:9.2.3}
 
@@ -585,7 +585,7 @@ z-Ebene ab, die linke s-Halbebene wird in das Innere des Einheitskreises der z-E
 \begin{align}
 z &= e^{j  \Omega} \label{eq:9.62}
 \end{align}
-führt zu dem Zusammenhang zwischen der Kreisfrequenz ω des zeitkontinuierlichen Systems und der normierten Kreisfrequenz \(Ω_{B}\) des zeitdiskreten Systems, das sich aus der bilinearen Transformation ergibt.
+führt zu dem Zusammenhang zwischen der Kreisfrequenz ω des zeitkontinuierlichen Systems und der normierten Kreisfrequenz \(Ω_{B}\) des zeitdiskreten Systems, das sich aus der bilinearen Transformation ergibt.
 \begin{align}
 \Omega_{B} &= 2  \arctan\left( \frac{\omega  T_{A}}{2} \right) = 2  \arctan\left( \frac{\Omega}{2} \right) \label{eq:9.63}
 \end{align}
@@ -700,7 +700,7 @@ Die in Abschnitt \ref{sec:9.2.3} beschriebene bilineare Transformation kann so m
 \begin{align}
 s &= V  \frac{z - 1}{z + 1} \label{eq:9.80}
 \end{align}
-Dabei ist V ein noch zu bestimmender Parameter. Die Frequenzverzerrung ergibt sich nach einer Transformation in den Frequenzbereich mit s = jω und z = \(e^{jΩp}\) zu
+Dabei ist V ein noch zu bestimmender Parameter. Die Frequenzverzerrung ergibt sich nach einer Transformation in den Frequenzbereich mit s = jω und z = \(e^{jΩp}\) zu
 \begin{align}
 {j \omega } &=  {V \frac{e^{j \Omega _{P} } -1}{e^{j \Omega _{P} } +1} =V \frac{e^{j \frac{\Omega _{P} }{2} } }{e^{j \frac{\Omega _{P} }{2} } }  \frac{e^{j \frac{\Omega _{P} }{2} } -e^{-j \frac{\Omega _{P} }{2} } }{e^{j \frac{\Omega _{P} }{2} } +e^{j- \frac{\Omega _{P} }{2} } } =V \frac{2 j}{2}  \frac{\sin \left(\frac{\Omega _{P} }{2} \right)}{\cos \left(\frac{\Omega _{P} }{2} \right)} } \\
 {} &=  {j V tan\left(\frac{\Omega _{P} }{2} \right)=j V tan\left(\frac{\omega _{P}  T_{A} }{2} \right)}
@@ -718,11 +718,11 @@ erfüllt werden. Es ergibt sich die bilineare Transformation mit Prewarping:
 \begin{align}
 s &= V  \frac{z - 1}{z + 1} = \frac{\omega_{0}}{tan\left( \frac{\omega_{0}  T_{A}}{2} \right)}  \frac{z - 1}{z + 1} \label{eq:9.84}
 \end{align}
-Auch die bilineare Transformation mit Prewarping bildet die imaginäre Achse der s-Ebene auf den Einheitskreis der z-Ebene ab, die linke s-Halbebene wird in das Innere des Einheitskreises der z-Ebene abgebildet. Damit bleibt ein stabiles System bei der bilinearen Transformation mit Prewarping ein stabiles System. Gleichung (\ref{eq:9.81}) wird dazu verwendet, den Zusammenhang zwischen der Kreisfrequenz ω des zeitkontinuierlichen Systems und der normierten Kreisfrequenz \(Ω_{P}\) des zeitdiskreten Systems mit Prewarping zu bestimmen.
+Auch die bilineare Transformation mit Prewarping bildet die imaginäre Achse der s-Ebene auf den Einheitskreis der z-Ebene ab, die linke s-Halbebene wird in das Innere des Einheitskreises der z-Ebene abgebildet. Damit bleibt ein stabiles System bei der bilinearen Transformation mit Prewarping ein stabiles System. Gleichung (\ref{eq:9.81}) wird dazu verwendet, den Zusammenhang zwischen der Kreisfrequenz ω des zeitkontinuierlichen Systems und der normierten Kreisfrequenz \(Ω_{P}\) des zeitdiskreten Systems mit Prewarping zu bestimmen.
 \begin{align}
 \omega &= V  tan\left( \frac{\Omega_{P}}{2} \right) \label{eq:9.85}
 \end{align}
-Auflösen nach der normierten Kreisfrequenz \(Ω_{P}\) führt zu
+Auflösen nach der normierten Kreisfrequenz \(Ω_{P}\) führt zu
 \begin{align}
 \Omega_{P} &= 2  \arctan\left( \frac{\omega}{V} \right) = 2  \arctan\left( tan\left( \frac{\omega_{0}  T_{A}}{2} \right)  \frac{\omega}{\omega_{0}} \right) \label{eq:9.86}
 \end{align}
@@ -730,12 +730,12 @@ An der Frequenz \(ω = ω_{0}\) vereinfacht sich der Ausdruck zu
 \begin{align}
 \Omega_{P0} &= 2  \arctan\left( \frac{\omega_{0}}{V} \right) = 2  \arctan\left( tan\left( \frac{\omega_{0}  T_{A}}{2} \right)  \frac{\omega_{0}}{\omega_{0}} \right) = 2  \frac{\omega_{0}  T_{A}}{2} = \omega_{0}  T_{A} = \Omega_{0} \label{eq:9.87}
 \end{align}
-und die beiden normierten Kreisfrequenzen \(Ω_{P0}\) und \(Ω_{0}\) sind identisch. In Bild \ref{fig:9.15} wird die Verzerrung der Frequenzachse bei der bilinearen Transformation mit Prewarping für \(Ω_{0} = π\)/2~grafisch dargestellt.
+und die beiden normierten Kreisfrequenzen \(Ω_{P0}\) und \(Ω_{0}\) sind identisch. In Bild \ref{fig:9.15} wird die Verzerrung der Frequenzachse bei der bilinearen Transformation mit Prewarping für \(Ω_{0} = π\)/2~grafisch dargestellt.
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Verzerrung der Frequenzachse durch die bilineare Transformation mit Prewarping für \(Ω_{0} = π\)/2}]{./media/10_8_verzerrung_der_frequenzachse_du.png}
-  \caption{Verzerrung der Frequenzachse durch die bilineare Transformation mit Prewarping für \(Ω_{0} = π\)/2}
+  \includegraphics[alt={Verzerrung der Frequenzachse durch die bilineare Transformation mit Prewarping für \(Ω_{0} = π\)/2}]{./media/10_8_verzerrung_der_frequenzachse_du.png}
+  \caption{Verzerrung der Frequenzachse durch die bilineare Transformation mit Prewarping für \(Ω_{0} = π\)/2}
   \label{fig:9.15}
 \end{figure}
 
@@ -835,11 +835,11 @@ entworfene Butterworth-Filter dritter Ordnung}
   \label{fig:9.17}
 \end{figure}
 
-Während die Pole eine ähnliche Lage haben wie bei dem impulsinvarianten Entwurf, liegt an dem Punkt z = - 1 eine Nullstelle dritter Ordnung. Dadurch weist der Amplitudengang an der Stelle Ω = ± π exakt den Wert 0 auf. Die Pole der Übertragungsfunktion liegen auch bei diesem Verfahren im Inneren des Einheitskreises, das System ist demnach stabil. Die Verstärkung des zeitdiskreten Systems errechnet sich zu
+Während die Pole eine ähnliche Lage haben wie bei dem impulsinvarianten Entwurf, liegt an dem Punkt z = - 1 eine Nullstelle dritter Ordnung. Dadurch weist der Amplitudengang an der Stelle Ω = ± π exakt den Wert 0 auf. Die Pole der Übertragungsfunktion liegen auch bei diesem Verfahren im Inneren des Einheitskreises, das System ist demnach stabil. Die Verstärkung des zeitdiskreten Systems errechnet sich zu
 \begin{align}
 G(1) &= \text{0.0181}  \frac{2^{3}}{1 - \text{1.760} + \text{1.183} - \text{0.2781}} = 1 \label{eq:9.96}
 \end{align}
-Der Frequenzgang \(G(Ω)\) ergibt sich durch die Substitution z = \(e^{jΩ}\) zu
+Der Frequenzgang \(G(Ω)\) ergibt sich durch die Substitution z = \(e^{jΩ}\) zu
 \begin{align}
 G(\Omega) &= \text{0.0181}  \frac{e^{j  3  \Omega} + 3  e^{j  2  \Omega} + 3  e^{j  \Omega} + 1}{e^{j  3  \Omega} - \text{1.760}  e^{j  2  \Omega} + \text{1.183}  e^{j  \Omega} - \text{0.2781}} \label{eq:9.97}
 \end{align}
@@ -889,15 +889,15 @@ Nichtrekursive Filter besitzen unter den in Abschnitt \ref{sec:8.4.6} beschriebe
 
 \subsection{Idealer Filtercharakteristiken}\label{sec:9.3.1}
 
-Bei der Herleitung des Frequenzgangs in Kapitel \ref{sec:8.1.3} wird gezeigt, dass sich das Spektrum des Ausgangssignals \(Y(Ω)\) aus dem Produkt der Spektren von Impulsantwort \(G(Ω)\) und Eingangssignal \(U(Ω)\) ergibt.
+Bei der Herleitung des Frequenzgangs in Kapitel \ref{sec:8.1.3} wird gezeigt, dass sich das Spektrum des Ausgangssignals \(Y(Ω)\) aus dem Produkt der Spektren von Impulsantwort \(G(Ω)\) und Eingangssignal \(U(Ω)\) ergibt.
 \begin{align}
 Y(\Omega) &= G(\Omega)  U(\Omega) \label{eq:9.101}
 \end{align}
-Der Frequenzgang \(G(Ω)\) kann dazu genutzt werden, Spektralanteile zu unterdrücken oder zu verstärken. Die Verstärkung beziehungsweise die Unterdrückung von Frequenzbereichen kann am Amplitudengang abgelesen werden. Analog zu zeitkontinuierlichen Filtern ergeben sich vier unterschiedliche ideale Filter, nämlich Tiefpass, Hochpass, Bandpass und Bandsperre. Im Gegensatz zu zeitkontinuierlichen Systemen muss dabei auf die Periodizität des Frequenzgangs geachtet werden.
+Der Frequenzgang \(G(Ω)\) kann dazu genutzt werden, Spektralanteile zu unterdrücken oder zu verstärken. Die Verstärkung beziehungsweise die Unterdrückung von Frequenzbereichen kann am Amplitudengang abgelesen werden. Analog zu zeitkontinuierlichen Filtern ergeben sich vier unterschiedliche ideale Filter, nämlich Tiefpass, Hochpass, Bandpass und Bandsperre. Im Gegensatz zu zeitkontinuierlichen Systemen muss dabei auf die Periodizität des Frequenzgangs geachtet werden.
 
 \subsubsection{Idealer Tiefpass}\label{sec:idealer-tiefpass}
 
-Das ideale Tiefpass-Filter weist eine Übertragungsfunktion auf, die niederfrequente Anteile bis zu einer Grenzfrequenz \(Ω_{G}\) ungedämpft durchlässt und hochfrequente Anteile oberhalb der Grenzfrequenz \(Ω_{G}\) sperrt. Die Übertragungsfunktion des idealen Tiefpass-Filters lautet
+Das ideale Tiefpass-Filter weist eine Übertragungsfunktion auf, die niederfrequente Anteile bis zu einer Grenzfrequenz \(Ω_{G}\) ungedämpft durchlässt und hochfrequente Anteile oberhalb der Grenzfrequenz \(Ω_{G}\) sperrt. Die Übertragungsfunktion des idealen Tiefpass-Filters lautet
 \begin{align}
 G_{TP}(\Omega) = \left\{ \begin{aligned}
  & 1\text{   f}\text{ü}\text{r }|\Omega| < \Omega_{G} \\
@@ -912,18 +912,18 @@ Amplitudengang und Impulsantwort des idealen Tiefpass-Filters sind in Bild \ref{
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Amplitudengang und Impulsantwort des idealen Tiefpass-Filters mit \(Ω_{G} = π\)/3}]{./media/10_9_amplitudengang_und_impulsantwor.png}
-  \caption{Amplitudengang und Impulsantwort des idealen Tiefpass-Filters mit \(Ω_{G} = π\)/3}
+  \includegraphics[alt={Amplitudengang und Impulsantwort des idealen Tiefpass-Filters mit \(Ω_{G} = π\)/3}]{./media/10_9_amplitudengang_und_impulsantwor.png}
+  \caption{Amplitudengang und Impulsantwort des idealen Tiefpass-Filters mit \(Ω_{G} = π\)/3}
   \label{fig:9.20}
 \end{figure}
 
 Die Impulsantwort \(g_{TP}\){[}k{]} ist nicht auf den Bereich k ≥ 0 beschränkt, sie ist demnach nicht kausal und besitzt eine unendliche Länge. Das ideale Tiefpass-Filter ist deshalb technisch nicht realisierbar.
 
-Neben der Eigenschaft der frequenzselektiven Dämpfung muss das ideale Tiefpass-Filter zumindest im Durchlassbereich einen Phasengang von ϕ = 0 aufweisen. Es wird sich zeigen, dass kausale Systeme immer eine Phase ϕ(Ω) ≠ 0 aufweisen. Es wird sich außerdem zeigen, dass eine lineare Phase im Durchlassbereich nur zu einer Verschiebung des Signals führt und das Signal darüber hinaus nicht verzerrt wird. Dadurch kann die Forderung an den Phasengang abgeschwächt werden.
+Neben der Eigenschaft der frequenzselektiven Dämpfung muss das ideale Tiefpass-Filter zumindest im Durchlassbereich einen Phasengang von ϕ = 0 aufweisen. Es wird sich zeigen, dass kausale Systeme immer eine Phase ϕ(Ω) ≠ 0 aufweisen. Es wird sich außerdem zeigen, dass eine lineare Phase im Durchlassbereich nur zu einer Verschiebung des Signals führt und das Signal darüber hinaus nicht verzerrt wird. Dadurch kann die Forderung an den Phasengang abgeschwächt werden.
 
 \subsubsection{Idealer Hochpass}\label{sec:idealer-hochpass}
 
-Das ideale Hochpass-Filter weist eine Übertragungsfunktion auf, die niederfrequente Anteile bis zu einer Grenzfrequenz \(Ω_{G}\) sperrt und hochfrequente Anteile oberhalb der Grenzfrequenz \(Ω_{G}\) ungedämpft durchlässt. Die Übertragungsfunktion des idealen Hochpass-Filters lautet damit
+Das ideale Hochpass-Filter weist eine Übertragungsfunktion auf, die niederfrequente Anteile bis zu einer Grenzfrequenz \(Ω_{G}\) sperrt und hochfrequente Anteile oberhalb der Grenzfrequenz \(Ω_{G}\) ungedämpft durchlässt. Die Übertragungsfunktion des idealen Hochpass-Filters lautet damit
 \begin{align}
 G_{HP}(\Omega) = \left\{ \begin{aligned}
  & \text{0   f}\text{ü}\text{r }|\Omega| < \Omega_{G} \\
@@ -942,8 +942,8 @@ Amplitudengang und Impulsantwort des idealen Hochpass-Filters sind in Bild \ref{
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Amplitudengang und Impulsantwort des idealen Hochpass-Filters mit \(Ω_{G} = π\)/3}]{./media/10_10_amplitudengang_und_impulsantwo.png}
-  \caption{Amplitudengang und Impulsantwort des idealen Hochpass-Filters mit \(Ω_{G} = π\)/3}
+  \includegraphics[alt={Amplitudengang und Impulsantwort des idealen Hochpass-Filters mit \(Ω_{G} = π\)/3}]{./media/10_10_amplitudengang_und_impulsantwo.png}
+  \caption{Amplitudengang und Impulsantwort des idealen Hochpass-Filters mit \(Ω_{G} = π\)/3}
   \label{fig:9.21}
 \end{figure}
 
@@ -951,14 +951,14 @@ Auch die Impulsantwort \(g_{HP}\){[}k{]} ist nicht auf den Bereich k ≥ 0 besch
 
 \subsubsection{Ideale Bandsperre und idealer Bandpass}\label{sec:ideale-bandsperre-und-idealer-bandpass}
 
-Neben dem idealen Hoch- und Tiefpass existieren die ideale Bandsperre und der ideale Bandpass. Die ideale Bandsperre sperrt in einem Bereich zwischen den Frequenzen \(Ω_{G1}\) und \(Ω_{G2}\). Sie besitzt die Übertragungsfunktion
+Neben dem idealen Hoch- und Tiefpass existieren die ideale Bandsperre und der ideale Bandpass. Die ideale Bandsperre sperrt in einem Bereich zwischen den Frequenzen \(Ω_{G1}\) und \(Ω_{G2}\). Sie besitzt die Übertragungsfunktion
 \begin{align}
 G_{BS}(\Omega) = \left\{ \begin{aligned}
  & \text{1   f}\text{ü}\text{r }|\Omega| < \Omega_{G1}\text{ und f}\text{ü}\text{r }\Omega_{G2} < |\Omega| < \pi \\
  & \text{0   f}\text{ü}\text{r }\Omega_{G1} < |\Omega| < \Omega_{G2}\ 
 \end{aligned} \right.\ \label{eq:9.107}
 \end{align}
-Der ideale Bandpass lässt Signalanteile in einem Bereich zwischen den Frequenzen \(Ω_{G1}\) und \(Ω_{G2}\) durch. Er hat folgende Übertragungsfunktion:
+Der ideale Bandpass lässt Signalanteile in einem Bereich zwischen den Frequenzen \(Ω_{G1}\) und \(Ω_{G2}\) durch. Er hat folgende Übertragungsfunktion:
 \begin{align}
 G_{BP}(\Omega) = \left\{ \begin{aligned}
  & \text{1   f}\text{ü}\text{r }\Omega_{G1} < |\Omega| < \Omega_{G2} \\
@@ -1057,7 +1057,7 @@ G(\Omega) &= \sum_{k = 0}^{N}{g[ k]  e^{- j  k  \Omega}} \label{eq:9.117}
 \end{align}
 bestimmt werden.
 
-Bild \ref{fig:9.25} stellt Amplituden- und Phasengang des Filters dar. Zum besseren Vergleich des Ergebnisses mit der Spezifikation werden Amplituden- und Phasengang als Funktion der Kreisfrequenz ω und nicht der normierten Kreisfrequenz Ω dargestellt.
+Bild \ref{fig:9.25} stellt Amplituden- und Phasengang des Filters dar. Zum besseren Vergleich des Ergebnisses mit der Spezifikation werden Amplituden- und Phasengang als Funktion der Kreisfrequenz ω und nicht der normierten Kreisfrequenz Ω dargestellt.
 
 \begin{figure}
   \centering
@@ -1090,7 +1090,7 @@ Bild \ref{fig:9.24} stellt die Abtastwerte für das oben beschriebene Beispiel b
   \caption{Abtastwerte bei einem impulsinvarianten Filterentwurf und ungerader Filterordnung \(N = 9\)}
 \end{figure}
 
-Aus der Impulsantwort \(g[k]\) kann wieder die Übertragungsfunktion \(G(z)\) und der Frequenzgang des Filters \(G(Ω)\) bestimmt werden.
+Aus der Impulsantwort \(g[k]\) kann wieder die Übertragungsfunktion \(G(z)\) und der Frequenzgang des Filters \(G(Ω)\) bestimmt werden.
 
 \begin{figure}
   \centering
@@ -1141,7 +1141,7 @@ In Abschnitt \ref{sec:9.3.1} werden FIR-Filter ausgehend von der Impulsantwort e
 g[ k] &= \frac{1}{2  \pi}  \int_{- \pi}^{\pi}{G(\Omega)  e^{j  k  \Omega}\ d\Omega} \label{eq:9.121}
 \end{align}
 Dabei ist die Impulsantwort \(g[k]\) nicht zwingend kausal und besitzt außerdem eine unendlich große Länge. Um diese beiden Einschränkungen zu umgehen, wird die Impulsantwort für den Bereich\\
-- N/2 ≤ k ≤ N/2 berechnet und anschließend um \(k_{0} = N\)/2 nach rechts verschoben. Da der Wert \(k_{0}\) ein ganzzahliger Wert sein muss, lassen sich mit dem hier beschriebenen Verfahren nur FIR-Filter gerader Ordnung implementieren. Das Verfahren wird an dem Beispiel aus Abschnitt \ref{sec:9.3.1} verdeutlicht, bei dem ein Filter mit einer Grenzfrequenz von \(ω_{G} = 1000\) rad/s mit einer Abtastzeit von \(T_{A} = 1\,\text{ms}\) und eine Ordnung \(N = 8\) realisiert werden soll. Die Grenzfrequenz \(ω_{G}\) entspricht der normierten Grenzfrequenz \(Ω_{G}\) = \(ω_{G}\)\(T_{A} = 1\). Damit berechnen sich die Koeffizienten \(g[k]\) zu
+- N/2 ≤ k ≤ N/2 berechnet und anschließend um \(k_{0} = N\)/2 nach rechts verschoben. Da der Wert \(k_{0}\) ein ganzzahliger Wert sein muss, lassen sich mit dem hier beschriebenen Verfahren nur FIR-Filter gerader Ordnung implementieren. Das Verfahren wird an dem Beispiel aus Abschnitt \ref{sec:9.3.1} verdeutlicht, bei dem ein Filter mit einer Grenzfrequenz von \(ω_{G} = 1000\) rad/s mit einer Abtastzeit von \(T_{A} = 1\,\text{ms}\) und eine Ordnung \(N = 8\) realisiert werden soll. Die Grenzfrequenz \(ω_{G}\) entspricht der normierten Grenzfrequenz \(Ω_{G}\) = \(ω_{G}\)\(T_{A} = 1\). Damit berechnen sich die Koeffizienten \(g[k]\) zu
 \begin{align}
 {g\left[k\right]} &=  {\frac{1}{2 \pi }  \int _{-\pi }^{\pi }G\left(\Omega \right) e^{j k \Omega } {\; }d\Omega  =\frac{1}{2 \pi }  \int _{-\Omega _{G} }^{\Omega _{G} }e^{j k \Omega } {\; }d\Omega  } \\
 {} &=  {\frac{1}{2 \pi }  \frac{1}{j k}  \left. e^{j k \Omega } \right|_{-\Omega _{G} }^{\Omega _{G} } =\frac{\sin \left(\Omega _{G}  k\right)}{\pi  k} }
@@ -1161,7 +1161,7 @@ Bis auf den Proportionalitätsfaktor 1/\(T_{A}\) entspricht die Impulsantwort de
     \toprule
     Schritt & Beschreibung \\
     \midrule
-    1 & Definition des idealen Frequenzgangs \(G(Ω)\) \\
+    1 & Definition des idealen Frequenzgangs \(G(Ω)\) \\
     2 & Bestimmung der N + 1 Werte der Impulsantwort \(g[k]\) für - N/2 ≤ k ≤ N/2 \\
     & \(g\lbrack k\rbrack = \frac{1}{2  \pi}  \int_{- \pi}^{\pi}{G(\Omega)  e^{j  k  \Omega}\ d\Omega}\) \\
     3 & Verschiebung der Impulsantwort um \(k_{0} = N\)/2 zur Generierung einer kausalen Impulsantwort \\
@@ -1183,7 +1183,7 @@ Nach den Rechenregeln zur Fourier-Transformation für Signalfolgen in Abschnitt 
 \begin{align}
 G_{w}(\Omega) &= G(\Omega)*W(\Omega) = \frac{1}{2  \pi}  \int_{- \pi}^{\pi}{G(\Theta)  W(\Omega - \Theta)\ d\Theta} \label{eq:9.125}
 \end{align}
-Durch die Faltung des Spektrums \(G(Ω)\) mit dem Spektrum der Fensterfunktion \(W(Ω)\) wird der Frequenzgang verändert. Wäre das Fenster \(w[k]\) konstant und unendlich lang, ergäbe sich für das Spektrum \(W(Ω)\) eine periodische Impulsfolge δ(Ω - k2π). Im Frequenzbereich - π ≤ Ω ≤ π liegt der Impuls an der Stelle \(Ω = 0\). Die Faltung eines Spektrums mit einem Impuls an der Stelle \(Ω = 0\) verändert das Spektrum nicht, sodass ein Filter mit einer unendlich langen Impulsantwort \(g_{w}\){[}k{]} zu dem eigentlich gewünschten Frequenzgang \(G(Ω)\) führen würde. Mit dieser Forderung ist allerdings bei der Implementierung ein unendlich hoher Rechenaufwand verbunden, sodass dieser Ansatz ausscheidet. Deshalb ist das Ziel, eine Fensterung zu finden, die bei einer endlichen Länge der Fensterfunktion \(w[k]\) ein möglichst schmales Spektrum besitzt, das der Impulsfunktion möglichst nahekommt.
+Durch die Faltung des Spektrums \(G(Ω)\) mit dem Spektrum der Fensterfunktion \(W(Ω)\) wird der Frequenzgang verändert. Wäre das Fenster \(w[k]\) konstant und unendlich lang, ergäbe sich für das Spektrum \(W(Ω)\) eine periodische Impulsfolge δ(Ω - k2π). Im Frequenzbereich - π ≤ Ω ≤ π liegt der Impuls an der Stelle \(Ω = 0\). Die Faltung eines Spektrums mit einem Impuls an der Stelle \(Ω = 0\) verändert das Spektrum nicht, sodass ein Filter mit einer unendlich langen Impulsantwort \(g_{w}\){[}k{]} zu dem eigentlich gewünschten Frequenzgang \(G(Ω)\) führen würde. Mit dieser Forderung ist allerdings bei der Implementierung ein unendlich hoher Rechenaufwand verbunden, sodass dieser Ansatz ausscheidet. Deshalb ist das Ziel, eine Fensterung zu finden, die bei einer endlichen Länge der Fensterfunktion \(w[k]\) ein möglichst schmales Spektrum besitzt, das der Impulsfunktion möglichst nahekommt.
 
 Zur Diskussion unterschiedlicher Fensterfunktionen ist in Bild \ref{fig:9.28} das Spektrum des Rechteck-Fensters dargestellt.
 
@@ -1199,7 +1199,7 @@ Das Spektrum besteht aus einem Hauptschwinger (Main-Lobe) und den Nebenschwinger
 \begin{itemize}
 \item
   Breite des Hauptmaximums\\
-  Die Breite des Hauptmaximums ist der Frequenzbereich zwischen \(Ω = 0\) und dem ersten Nulldurchgang des Spektrums \(Ω_{S}\). Eine gute Fensterfunktion hat eine geringe Breite des Hauptmaximums, da dadurch bei der Faltung das Spektrum der gefensterten Funktion weniger stark verbreitert wird.
+  Die Breite des Hauptmaximums ist der Frequenzbereich zwischen \(Ω = 0\) und dem ersten Nulldurchgang des Spektrums \(Ω_{S}\). Eine gute Fensterfunktion hat eine geringe Breite des Hauptmaximums, da dadurch bei der Faltung das Spektrum der gefensterten Funktion weniger stark verbreitert wird.
 \item
   Relative Amplitude des ersten Nebenmaximums\\
   Die relative Amplitude des Nebenmaximums ist das Verhältnis von Maximum des Nebenmaximums \(A_{SL}\) zu dem Hauptmaximum \(A_{ML}\). Die relative Amplitude wird in dB angegeben.
@@ -1230,7 +1230,7 @@ Das Rechteckfenster und der normierte Amplitudengang sind in Bild \ref{fig:9.29}
   \label{fig:9.29}
 \end{figure}
 
-Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 13~dB.
+Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 13~dB.
 
 \subsubsection{Dreieck- oder Bartlett-Fenster}\label{sec:dreieck--oder-bartlett-fenster}
 
@@ -1251,7 +1251,7 @@ Das Dreieckfenster und der normierte Amplitudengang sind in Bild \ref{fig:9.30} 
   \label{fig:9.30}
 \end{figure}
 
-Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 25~dB.
+Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - 25~dB.
 
 \subsubsection{Hann-Fenster}\label{sec:hann-fenster}
 
@@ -1272,7 +1272,7 @@ Das Hann-Fenster und sein Spektrum sind in Bild \ref{fig:9.31} dargestellt.
   \label{fig:9.31}
 \end{figure}
 
-Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - 32~dB deutlich größer als bei dem Rechteckfenster.
+Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - 32~dB deutlich größer als bei dem Rechteckfenster.
 
 \subsubsection{Hamming-Fenster}\label{sec:hamming-fenster}
 
@@ -1293,7 +1293,7 @@ Das Hamming-Fenster und sein Spektrum sind in Bild \ref{fig:9.32} dargestellt.
   \label{fig:9.32}
 \end{figure}
 
-Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - 42~dB und ist nochmals deutlich größer als bei dem Hann-Fenster.
+Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - 42~dB und ist nochmals deutlich größer als bei dem Hann-Fenster.
 
 \subsubsection{Vergleich der Fensterfunktionen}\label{sec:vergleich-der-fensterfunktionen}
 
@@ -1309,7 +1309,7 @@ Tabelle \ref{tab:9.8} stellt die berechneten Kennwerte der unterschiedlichen Fen
 Funktion
  & 
 Breite des 
-Hauptmaximums \(Ω_{S}\)
+Hauptmaximums \(Ω_{S}\)
  & 
 Relative Amplitude 
 der Nebenmaxima \(a_{REL}\) \\
@@ -1410,13 +1410,13 @@ Der Remez-Entwurf nutzt das Alternantentheorem für einen Filterentwurfs. Der Am
 \begin{align}
 A(\Omega) &= \sum_{n = 0}^{N}{a_{n}  \cos^{n}(\Omega)} \label{eq:9.139}
 \end{align}
-Die Abweichung des Tschebyscheff-Polynoms \(A(Ω)\) von einer definierten Zielfunktion \(H(Ω)\) wird mit einem Gewichtungsfaktor \(W(Ω)\) gewichtet, der in unterschiedlichen Teilbereichen unterschiedlich groß sein kann. Es ergibt sich die Fehlerfunktion
+Die Abweichung des Tschebyscheff-Polynoms \(A(Ω)\) von einer definierten Zielfunktion \(H(Ω)\) wird mit einem Gewichtungsfaktor \(W(Ω)\) gewichtet, der in unterschiedlichen Teilbereichen unterschiedlich groß sein kann. Es ergibt sich die Fehlerfunktion
 \begin{align}
 E(\Omega) &= W(\Omega)  \left( H(\Omega) - A(\Omega) \right) \label{eq:9.140}
 \end{align}
-Nach dem Alternantentheorem ist der maximale absolute Fehler minimal, wenn die Fehlerfunktion \(E(Ω)\) mindestens N + 2~Alternanten aufweist.
+Nach dem Alternantentheorem ist der maximale absolute Fehler minimal, wenn die Fehlerfunktion \(E(Ω)\) mindestens N + 2~Alternanten aufweist.
 
-Die vorgegebene Zielfunktion \(H(Ω)\) besteht aus konstanten Bereichen. Typischerweise weist sie im Durchlassbereich den Wert 1 und im Sperrbereich den Wert null auf, im Übergangsbereich zwischen Durchlass- und Sperrbereich ist sie nicht definiert. In Bild \ref{fig:9.37} links ist die Zielfunktion eingezeichnet. Die abschnittsweise definierten Geraden werden von ihrem jeweiligen Toleranzband mit einem Fehler von ± \(δ_{D}\) beziehungsweise ± \(δ_{S}\) umschlossen. Die Abschnitte und Fehler definieren den Bereich, auf den das Alternantentheorem angewendet wird. Nach dem Alternantentheorem müssen mindestens N + 2 lokale Minima und Maxima an den Stellen
+Die vorgegebene Zielfunktion \(H(Ω)\) besteht aus konstanten Bereichen. Typischerweise weist sie im Durchlassbereich den Wert 1 und im Sperrbereich den Wert null auf, im Übergangsbereich zwischen Durchlass- und Sperrbereich ist sie nicht definiert. In Bild \ref{fig:9.37} links ist die Zielfunktion eingezeichnet. Die abschnittsweise definierten Geraden werden von ihrem jeweiligen Toleranzband mit einem Fehler von ± \(δ_{D}\) beziehungsweise ± \(δ_{S}\) umschlossen. Die Abschnitte und Fehler definieren den Bereich, auf den das Alternantentheorem angewendet wird. Nach dem Alternantentheorem müssen mindestens N + 2 lokale Minima und Maxima an den Stellen
 \begin{align}
 \Omega_{1} < \Omega_{2} < ... < \Omega_{N + 2} \label{eq:9.141}
 \end{align}
@@ -1424,7 +1424,7 @@ existieren, bei denen die Fehlerfunktion ein wechselndes Vorzeichen hat.
 \begin{align}
 \ E\left( \Omega_{n} \right) &= - E\left( \Omega_{n + 1} \right) \label{eq:9.142}
 \end{align}
-Ist diese Bedingung erfüllt, ist der maximale absolute Fehler minimiert. Bild \ref{fig:9.37} zeigt den Amplitudengangs eines Tiefpasses, der mit einem Polynom \(A(Ω)\) der Ordnung \(N = 4\) realisiert wurde, und die dazugehörige Fehlerfunktion \(E(Ω)\). An den Toleranzgrenzen des Tiefpasses ist zu erkennen, dass das Polynom N + 2 = 6~Alternanten aufweist. Das Polynom \(A(Ω)\) liegt gleichwellig in den jeweiligen Toleranzbereichen. Nach dem Alternantentheorem ist der kleinstmögliche Fehler gefunden.
+Ist diese Bedingung erfüllt, ist der maximale absolute Fehler minimiert. Bild \ref{fig:9.37} zeigt den Amplitudengangs eines Tiefpasses, der mit einem Polynom \(A(Ω)\) der Ordnung \(N = 4\) realisiert wurde, und die dazugehörige Fehlerfunktion \(E(Ω)\). An den Toleranzgrenzen des Tiefpasses ist zu erkennen, dass das Polynom N + 2 = 6~Alternanten aufweist. Das Polynom \(A(Ω)\) liegt gleichwellig in den jeweiligen Toleranzbereichen. Nach dem Alternantentheorem ist der kleinstmögliche Fehler gefunden.
 
 \begin{figure}
   \centering
@@ -1435,19 +1435,19 @@ Ist diese Bedingung erfüllt, ist der maximale absolute Fehler minimiert. Bild \
 
 \subsection{Remez-Austauschalgorithmus}\label{sec:remez-austauschalgorithmus}
 
-Das in Abschnitt \ref{sec:9.4.1} beschriebene Alternantentheorem liefert eine Bedingung für einen minimalen Fehler. Auch wenn das Theorem nicht explizit angibt, wie das optimale Polynom zu finden ist, dient es als Basis für einen Algorithmus zur Ermittlung eines solchen Polynoms. Aus dem Alternantentheorem geht hervor, dass das optimale Polynom N-ter Ordnung eine Fehlerfunktion \(E(Ω)\) besitzt.
+Das in Abschnitt \ref{sec:9.4.1} beschriebene Alternantentheorem liefert eine Bedingung für einen minimalen Fehler. Auch wenn das Theorem nicht explizit angibt, wie das optimale Polynom zu finden ist, dient es als Basis für einen Algorithmus zur Ermittlung eines solchen Polynoms. Aus dem Alternantentheorem geht hervor, dass das optimale Polynom N-ter Ordnung eine Fehlerfunktion \(E(Ω)\) besitzt.
 \begin{align}
 E(\Omega) &= W(\Omega)  \left( H(\Omega) - A(\Omega) \right) \label{eq:9.143}
 \end{align}
-Mit Forderung nach gleichwelligem Verhalten des Polynoms in den vorgegebenen Teilbereichen kann ein Gleichungssystem aufgestellt werden. An den Stellen der gesuchten Alternanten \(Ω_{n}\) weist das Polynom den größten begangenen Fehler δ auf. Dieser alterniert um die vorgegebene Zielfunktion \(H(Ω)\). Für die Alternanten \(Ω_{n}\) mit den Indizes \(n = 1\) \ldots{} N + 2 kann jeweils eine Gleichung
+Mit Forderung nach gleichwelligem Verhalten des Polynoms in den vorgegebenen Teilbereichen kann ein Gleichungssystem aufgestellt werden. An den Stellen der gesuchten Alternanten \(Ω_{n}\) weist das Polynom den größten begangenen Fehler δ auf. Dieser alterniert um die vorgegebene Zielfunktion \(H(Ω)\). Für die Alternanten \(Ω_{n}\) mit den Indizes \(n = 1\) \ldots{} N + 2 kann jeweils eine Gleichung
 \begin{align}
 \delta  ( - 1)^{n + 1} &= W\left( \Omega_{n} \right)  \left( H\left( \Omega_{n} \right) - A\left( \Omega_{n} \right) \right) \label{eq:9.144}
 \end{align}
-aufgestellt werden. Durch die Gewichtung \(W(Ω)\) kann der Fehler \(\delta\) in allen Teilbereichen als gleich groß angenommen werden. Mit der Definition der Tschebyscheff-Polynome N-ter Ordnung
+aufgestellt werden. Durch die Gewichtung \(W(Ω)\) kann der Fehler \(\delta\) in allen Teilbereichen als gleich groß angenommen werden. Mit der Definition der Tschebyscheff-Polynome N-ter Ordnung
 \begin{align}
 A(\Omega) &= \sum_{k = 0}^{N}{a_{k}  \cos^{k}(\Omega)} \label{eq:9.145}
 \end{align}
-ergibt sich für jede Alternante \(Ω_{n}\) eine Gleichung der Form
+ergibt sich für jede Alternante \(Ω_{n}\) eine Gleichung der Form
 \begin{align}
 \delta  ( - 1)^{n + 1} &= W\left( \Omega_{n} \right)  \left( H\left( \Omega_{n} \right) - A\left( \Omega_{n} \right) \right) = W\left( \Omega_{n} \right)  \left( H\left( \Omega_{n} \right) - \sum_{k = 0}^{N}{a_{k}  \cos^{k}\left( \Omega_{n} \right)} \right) \label{eq:9.146}
 \end{align}
@@ -1484,22 +1484,22 @@ H\left( \Omega_{2} \right) \\
 H\left( \Omega_{N + 2} \right)
 \end{pmatrix} \label{eq:9.148}
 \end{align}
-Das Gleichungssystem kann nach den gesuchten Koeffizient \(a_{k}\) und der maximale Feher δ aufgelöst werden. Da weder die Frequenzstützstellen \(Ω_{n}\) noch die Polynomkoeffizienten \(a_{k}\) bekannt sind, erfolgt die Berechnung der Koeffizienten iterativ.
+Das Gleichungssystem kann nach den gesuchten Koeffizient \(a_{k}\) und der maximale Feher δ aufgelöst werden. Da weder die Frequenzstützstellen \(Ω_{n}\) noch die Polynomkoeffizienten \(a_{k}\) bekannt sind, erfolgt die Berechnung der Koeffizienten iterativ.
 
 \subsubsection{Schätzen der initialen Positionen für die Alternanten}\label{sec:schuxe4tzen-der-initialen-positionen-fuxfcr-die-alternanten}
 
-Das Verfahren beginnt mit dem Schätzen von N + 2 Frequenzstützstellen \(Ω_{n}\) in den Bereichen, in denen das Alternantentheorem angewendet werden soll. In Bild \ref{fig:9.38} ist der erste Iterationsschritt für ein Tschebyscheff-Polynom sechsten Grades dargestellt. Für die initiale Berechnung werden acht Frequenzstützstellen \(Ω_{n}\) gleichmäßig auf die Bereiche verteilt. Es ergeben sich vier Alternanten, die auf den Rändern der Toleranzbereiche liegen. Das Alternantentheorem ist nicht erfüllt, das Minimum des Fehlers ist noch nicht erreicht.
+Das Verfahren beginnt mit dem Schätzen von N + 2 Frequenzstützstellen \(Ω_{n}\) in den Bereichen, in denen das Alternantentheorem angewendet werden soll. In Bild \ref{fig:9.38} ist der erste Iterationsschritt für ein Tschebyscheff-Polynom sechsten Grades dargestellt. Für die initiale Berechnung werden acht Frequenzstützstellen \(Ω_{n}\) gleichmäßig auf die Bereiche verteilt. Es ergeben sich vier Alternanten, die auf den Rändern der Toleranzbereiche liegen. Das Alternantentheorem ist nicht erfüllt, das Minimum des Fehlers ist noch nicht erreicht.
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Initialisierung der Stützstellen \(Ω_{n}\) beim Remez-Algorithmus und Bestimmung der Extremwerte}]{./media/10_22_initialisierung_der_sttzstelle.png}
-  \caption{Initialisierung der Stützstellen \(Ω_{n}\) beim Remez-Algorithmus und Bestimmung der Extremwerte}
+  \includegraphics[alt={Initialisierung der Stützstellen \(Ω_{n}\) beim Remez-Algorithmus und Bestimmung der Extremwerte}]{./media/10_22_initialisierung_der_sttzstelle.png}
+  \caption{Initialisierung der Stützstellen \(Ω_{n}\) beim Remez-Algorithmus und Bestimmung der Extremwerte}
   \label{fig:9.38}
 \end{figure}
 
-\subsubsection{\texorpdfstring{Austausch der Stützstellen \(Ω_{n}\)}{Austausch der Stützstellen Ωn}}\label{austausch-der-stuxfctzstellen-ux3c9n}
+\subsubsection{\texorpdfstring{Austausch der Stützstellen \(Ω_{n}\)}{Austausch der Stützstellen Ωn}}\label{austausch-der-stuxfctzstellen-ux3c9n}
 
-Für den zweiten Iterationsschritt werden die zuvor geschätzten Frequenzen ausgetauscht. Die neuen Werte ergeben sich aus den Extremstellen des Polynoms sowie den beiden Eckfrequenzen \(Ω_{4} = Ω_{D}\) und \(Ω_{5} = Ω_{S}\). Nach Austauschen der Frequenzen wird das Gleichungssystem aus (\ref{eq:9.148}) wieder aufgestellt, ausgerechnet und die Alternanten neu bestimmt. Dieses Schema wird so lange wiederholt, bis das Polynom acht Alternanten aufweist und das Alternantentheorem erfüllt ist. Das Ergebnis ist in Bild \ref{fig:9.39} dargestellt.
+Für den zweiten Iterationsschritt werden die zuvor geschätzten Frequenzen ausgetauscht. Die neuen Werte ergeben sich aus den Extremstellen des Polynoms sowie den beiden Eckfrequenzen \(Ω_{4} = Ω_{D}\) und \(Ω_{5} = Ω_{S}\). Nach Austauschen der Frequenzen wird das Gleichungssystem aus (\ref{eq:9.148}) wieder aufgestellt, ausgerechnet und die Alternanten neu bestimmt. Dieses Schema wird so lange wiederholt, bis das Polynom acht Alternanten aufweist und das Alternantentheorem erfüllt ist. Das Ergebnis ist in Bild \ref{fig:9.39} dargestellt.
 
 \begin{figure}
   \centering
@@ -1531,9 +1531,9 @@ Der Remez-Entwurf ist ein Filterentwurf, der auf dem Remez-Austauschalgorithmus 
   \caption{Toleranzschema am Beispiel eines Tiefpasses}
 \end{figure}
 
-Der Durchlassbereich liegt beim Tiefpass in Bereich 0 ≤ Ω ≤ \(Ω_{D}\). In dem Bereich weist die Zielfunktion den Wert 1 auf. Die Zielfunktion wird von einem Toleranzbereich von ± \(δ_{D}\) umschlossen. Der Sperrbereich umfasst den Bereich \(Ω_{S}\) ≤ Ω ≤ π und weist ein Toleranzband von ± \(δ_{S}\) auf. Das Toleranzschema spezifiziert den Verlauf des Amplitudengangs nur in den Teilbereichen des Durchlass- und Sperrbereichs. In dem Bereich zwischen den beiden Eckfrequenzen \(Ω_{D}\) und \(Ω_{S}\) kann die Approximationsfunktion eine beliebige Form annehmen. Es wird sich aber zeigen, dass das approximierte Polynom wegen der Kosinusfunktionen als Basis ein gutmütiges Verhalten aufweisen wird.
+Der Durchlassbereich liegt beim Tiefpass in Bereich 0 ≤ Ω ≤ \(Ω_{D}\). In dem Bereich weist die Zielfunktion den Wert 1 auf. Die Zielfunktion wird von einem Toleranzbereich von ± \(δ_{D}\) umschlossen. Der Sperrbereich umfasst den Bereich \(Ω_{S}\) ≤ Ω ≤ π und weist ein Toleranzband von ± \(δ_{S}\) auf. Das Toleranzschema spezifiziert den Verlauf des Amplitudengangs nur in den Teilbereichen des Durchlass- und Sperrbereichs. In dem Bereich zwischen den beiden Eckfrequenzen \(Ω_{D}\) und \(Ω_{S}\) kann die Approximationsfunktion eine beliebige Form annehmen. Es wird sich aber zeigen, dass das approximierte Polynom wegen der Kosinusfunktionen als Basis ein gutmütiges Verhalten aufweisen wird.
 
-Die beiden Fehlergrenzen \(δ_{D}\) und \(δ_{S}\) ermöglichen unterschiedliche Fehlertoleranzen in Durchlass- und Sperrbereich. Sie führen zu einer Gewichtung \(W(Ω)\) des Fehlers.
+Die beiden Fehlergrenzen \(δ_{D}\) und \(δ_{S}\) ermöglichen unterschiedliche Fehlertoleranzen in Durchlass- und Sperrbereich. Sie führen zu einer Gewichtung \(W(Ω)\) des Fehlers.
 \begin{align}
 W(\Omega) = \left\{ \begin{aligned}
  & \frac{\delta_{S}}{\delta_{D}}für0 \leq \Omega \leq \Omega_{D} \\
@@ -1556,19 +1556,19 @@ und
 \begin{align}
 \delta_{D} \geq \frac{\delta  \delta_{D}}{\delta_{S}} \label{eq:9.152}
 \end{align}
-entscheidet darüber, ob die Anzahl von Stützstellen in Durchlass oder Sperrbereich erhöht werden muss. Gegebenenfalls wird die Anzahl der Stützstellen angepasst und der Remez-Austauschalgorithmus erneut durchgeführt. Als Ergebnis liegt ein Amplitudengang \(A(Ω)\) vor, der aus Tschebyscheff-Polynomen besteht und das Toleranzschema erfüllt.
+entscheidet darüber, ob die Anzahl von Stützstellen in Durchlass oder Sperrbereich erhöht werden muss. Gegebenenfalls wird die Anzahl der Stützstellen angepasst und der Remez-Austauschalgorithmus erneut durchgeführt. Als Ergebnis liegt ein Amplitudengang \(A(Ω)\) vor, der aus Tschebyscheff-Polynomen besteht und das Toleranzschema erfüllt.
 
 \subsubsection{Bestimmung von Impulsantwort und Übertragungsfunktion}\label{sec:bestimmung-von-impulsantwort-und-uxfcbertragungsfunktion}
 
-Aus der Darstellung des Amplitudengangs \(A(Ω)\) als Tschebyscheff-Polynom kann eine Realisierungsform abgeleitet werden. Der Amplitudengang \(A(Ω)\) wird dazu über komplexe Exponentialfunktionen dargestellt als
+Aus der Darstellung des Amplitudengangs \(A(Ω)\) als Tschebyscheff-Polynom kann eine Realisierungsform abgeleitet werden. Der Amplitudengang \(A(Ω)\) wird dazu über komplexe Exponentialfunktionen dargestellt als
 \begin{align}
 A(\Omega) &= \sum_{k = 0}^{N}{a_{k}  \cos^{k}(\Omega)} = a_{0} + \sum_{k = 1}^{N}\left( \frac{1}{2}  \left( e^{j  \Omega} + e^{- j  \Omega} \right) \right)^{k} \label{eq:9.153}
 \end{align}
-Es entstehen Summenden mit komplexen Exponentialfunktionen und Argumenten von -- jΩN \ldots{} jΩN. Durch Umsortieren ergibt sich die Darstellung
+Es entstehen Summenden mit komplexen Exponentialfunktionen und Argumenten von -- jΩN \ldots{} jΩN. Durch Umsortieren ergibt sich die Darstellung
 \begin{align}
 A(\Omega) &= \sum_{k = - N}^{N}{g_{N}[ k]  e^{- j  \Omega  k}} \label{eq:9.154}
 \end{align}
-Sie kann als Fourier-Transformierte der beidseitig begrenzenten Signalfolge \(g_{N}\){[}k{]} interpretiert werden. Die Signalfolge \(g_{N}\){[}k{]} ist die Impulsantwort eines Filters mit dem Amplitudengang \(A(Ω)\). Das Filter ist jedoch nicht kausal. Durch eine Verschiebung der Impulsantwort um N Takte nach rechts ergibt sich die gesuchte Impulsantwort des zu implementierenden Filters.
+Sie kann als Fourier-Transformierte der beidseitig begrenzenten Signalfolge \(g_{N}\){[}k{]} interpretiert werden. Die Signalfolge \(g_{N}\){[}k{]} ist die Impulsantwort eines Filters mit dem Amplitudengang \(A(Ω)\). Das Filter ist jedoch nicht kausal. Durch eine Verschiebung der Impulsantwort um N Takte nach rechts ergibt sich die gesuchte Impulsantwort des zu implementierenden Filters.
 \begin{align}
 g[ k] &= g_{N}[ k - N] \label{eq:9.155}
 \end{align}
@@ -1602,7 +1602,7 @@ Als Anwendungsbeispiel für den Remez-Entwurf wird ein Hochpass-Filter entworfen
   \label{fig:9.43}
 \end{figure}
 
-Der Sperrbereich liegt in Bereich 0 ≤ Ω ≤ \(Ω_{S} = 0.2\)·π. In dem Bereich weist die Zielfunktion den Wert 0 auf. Die Zielfunktion wird von einem Toleranzbereich von ± \(δ_{S}\) = ± 0.1 umschlossen. Der Durchlassbereich umfasst den Bereich 0.3·\(π = Ω_{D}\) ≤ Ω ≤ π und weist ein Toleranzband von ± \(δ_{D}\) = ± 0.29 auf. Die beiden Fehlergrenzen \(δ_{D}\) und \(δ_{S}\) führen zu einer Gewichtung \(W(Ω)\) des Fehlers.
+Der Sperrbereich liegt in Bereich 0 ≤ Ω ≤ \(Ω_{S} = 0.2\)·π. In dem Bereich weist die Zielfunktion den Wert 0 auf. Die Zielfunktion wird von einem Toleranzbereich von ± \(δ_{S}\) = ± 0.1 umschlossen. Der Durchlassbereich umfasst den Bereich 0.3·\(π = Ω_{D}\) ≤ Ω ≤ π und weist ein Toleranzband von ± \(δ_{D}\) = ± 0.29 auf. Die beiden Fehlergrenzen \(δ_{D}\) und \(δ_{S}\) führen zu einer Gewichtung \(W(Ω)\) des Fehlers.
 \begin{align}
 W(\Omega) = \left\{ \begin{aligned}
  & \frac{\delta_{D}}{\delta_{S}} = 2.9für0 \leq \Omega \leq \Omega_{S} \\
