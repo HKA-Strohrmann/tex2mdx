@@ -67,7 +67,7 @@ beziehungsweise kurz
 \begin{align}
 X_{n} &= \sum\limits_{k = 0}^{N - 1}{x[ k]  e^{- j  \left( 2  \pi  \frac{n}{N}  k \right)}}\ \label{eq:10.10}
 \end{align}
-Aus einem Vergleich von den Gleichungen (\ref{eq:10.8}) und (\ref{eq:10.9}) wird deutlich, dass die Diskrete-Fourier-Transformation an den Frequenzen
+Aus einem Vergleich von den Gleichungen \eqref{eq:10.8} und \eqref{eq:10.9} wird deutlich, dass die Diskrete-Fourier-Transformation an den Frequenzen
 \begin{align}
 \Omega_{n} &= \frac{2  \pi  n}{N} \label{eq:10.11}
 \end{align}
@@ -133,11 +133,11 @@ Die maximale Frequenz der Diskreten-Fourier-Transformierten wird deshalb schon m
 
 \subsubsection{Spektrale Auflösung der Diskreten-Fourier-Transformation}\label{sec:spektrale-aufluxf6sung-der-diskreten-fourier-transformation}
 
-Der Abstand zweier Frequenzwerte einer Diskreten-Fourier-Transformierten errechnet sich nach Gleichung (\ref{eq:10.14}) zu
+Der Abstand zweier Frequenzwerte einer Diskreten-Fourier-Transformierten errechnet sich nach Gleichung \eqref{eq:10.14} zu
 \begin{align}
 \Delta\omega &= \frac{2  \pi}{T_{A}  N} \label{eq:10.18}
 \end{align}
-Für eine gute spektrale Auflösung, also kleine Frequenzabstände Δω, muss die Anzahl N von Abtastwerten hoch gewählt werden. Wird für die Anzahl N nach Gleichung (\ref{eq:10.18}) das Verhältnis von Beobachtungszeit zur Abtastzeit eingesetzt, ergibt sich für die Auflösung
+Für eine gute spektrale Auflösung, also kleine Frequenzabstände Δω, muss die Anzahl N von Abtastwerten hoch gewählt werden. Wird für die Anzahl N nach Gleichung \eqref{eq:10.18} das Verhältnis von Beobachtungszeit zur Abtastzeit eingesetzt, ergibt sich für die Auflösung
 \begin{align}
 \Delta\omega &= \frac{2  \pi}{T_{A}  \frac{T_{B}}{T_{A}}} = \frac{2  \pi}{T_{B}} \label{eq:10.19}
 \end{align}
@@ -150,7 +150,7 @@ An dem Beispiel der Impulsantwort eines Verzögerungsglieds zweiter Ordnung wird
 \begin{align}
 G(s) &= \frac{1}{1 + 2  d  T  s + T^{2}  s^{2}} \label{eq:10.20}
 \end{align}
-mit \(T = \qty{31}{\milli\second}\) und \(d = 0.06\) erzeugt. Bild \ref{fig:10.3} zeigt die zeitkontinuierliche Impulsantwort.
+mit \(T = \SI{31}{\milli\second}\) und \(d = 0.06\) erzeugt. Bild \ref{fig:10.3} zeigt die zeitkontinuierliche Impulsantwort.
 
 \begin{fixedfigure}
   \includegraphics[alt={Darstellung der Impulsantwort eines Systems 2. Ordnung mit komplexem Polpaar}]{new media/12_3_darstellung_der_impulsantwort_e.png}
@@ -158,7 +158,7 @@ mit \(T = \qty{31}{\milli\second}\) und \(d = 0.06\) erzeugt. Bild \ref{fig:10.3
   \label{fig:10.3}
 \end{fixedfigure}
 
-Die Impulsantwort wird für eine Dauer von \qty{2}{\second} mit \(T_{A} = \qty{1}{\milli\second}\) abgetastet. Die entsprechenden Folgenwerte \(x[k]\) werden mit Hilfe der Diskreten-Fourier-Transformation transformiert. Das Ergebnis ist die Diskrete-Fourier-Transformierte \(X_{n}\). Ihr Betrag ist in Bild \ref{fig:10.4} dargestellt.
+Die Impulsantwort wird für eine Dauer von \SI{2}{\second} mit \(T_{A} = \SI{1}{\milli\second}\) abgetastet. Die entsprechenden Folgenwerte \(x[k]\) werden mit Hilfe der Diskreten-Fourier-Transformation transformiert. Das Ergebnis ist die Diskrete-Fourier-Transformierte \(X_{n}\). Ihr Betrag ist in Bild \ref{fig:10.4} dargestellt.
 
 \begin{fixedfigure}
   \includegraphics[alt={Darstellung der Diskreten-Fourier-Transformierten für die Impulsantwort eines PT2-Glieds}]{new media/12_4_darstellung_der_diskretenfourie.png}
@@ -166,7 +166,7 @@ Die Impulsantwort wird für eine Dauer von \qty{2}{\second} mit \(T_{A} = \qty{1
   \label{fig:10.4}
 \end{fixedfigure}
 
-Die Signale werden mit einer Abtastzeit von \(T_{A} = \qty{0.001}{\second}\) abgetastet. Wegen der Symmetrie des Spektrums ist die maximal auswertbare Frequenz die halbe Abtastfrequenz
+Die Signale werden mit einer Abtastzeit von \(T_{A} = \SI{0.001}{\second}\) abgetastet. Wegen der Symmetrie des Spektrums ist die maximal auswertbare Frequenz die halbe Abtastfrequenz
 \begin{align}
 \frac{\omega_{A}}{2} &= \frac{\pi}{T_{A}} = 3141\ rad/s \label{eq:10.21}
 \end{align}
@@ -192,7 +192,7 @@ Zu der Diskreten-Fourier-Transformation existiert eine inverse Diskrete-Fourier-
 \begin{align}
 x[ k] &= \frac{1}{N}  \sum\limits_{n = 0}^{N - 1}X_{n}  e^{j  \left( 2  \pi  \frac{n}{N}  k \right)} \label{eq:10.22}
 \end{align}
-Zum Beweis dieser Umkehrformel wird in Gleichung (\ref{eq:10.22}) die Gleichung zur Bestimmung der Fourier-Koeffizienten \(X_{n}\)
+Zum Beweis dieser Umkehrformel wird in Gleichung \eqref{eq:10.22} die Gleichung zur Bestimmung der Fourier-Koeffizienten \(X_{n}\)
 \begin{align}
 X_{n} &= \sum\limits_{k = 0}^{N - 1}{x[ k]  e^{- j  \left( 2  \pi  \frac{n}{N}  k \right)}}\ \label{eq:10.23}
 \end{align}
@@ -209,7 +209,7 @@ N-mal aufsummiert, das Ergebnis beträgt damit N. Für ein bestimmtes k existier
 \begin{align}
 x[ k] &= \frac{1}{N}  \sum\limits_{m = 0}^{N - 1}{x[ m]}  \sum\limits_{n = 0}^{N - 1}e^{j  2  \pi  \frac{n}{N}  (k - m)} = \frac{1}{N}  x[ k]  N = x[ k] \label{eq:10.26}
 \end{align}
-Anhand der Gleichung (\ref{eq:10.22}) zur Rücktransformation wird deutlich, dass die zu dem diskreten Spektrum \(X_{n}\) gehörende Folge \(x[k]\) ebenfalls periodisch in N ist.
+Anhand der Gleichung \eqref{eq:10.22} zur Rücktransformation wird deutlich, dass die zu dem diskreten Spektrum \(X_{n}\) gehörende Folge \(x[k]\) ebenfalls periodisch in N ist.
 \begin{align}
 x[ k + N] &= \frac{1}{N}  \sum\limits_{n = 0}^{N - 1}X_{n}  e^{j  \left( 2  \pi  \frac{n}{N}  (k + N) \right)} = \frac{1}{N}  \sum\limits_{n = 0}^{N - 1}X_{n}  e^{j  \left( 2  \pi  \frac{n}{N}  k \right)}  e^{j  \left( 2  \pi  \frac{n}{N}  N \right)} = \frac{1}{N}  \sum\limits_{n = 0}^{N - 1}X_{n}  e^{j  \left( 2  \pi  \frac{n}{N}  k \right)} = x[ k] \label{eq:10.27}
 \end{align}
@@ -636,7 +636,7 @@ auf. Signalfolge und Spektrum sind für \(Ω_{0} = π\)/5 in Bild \ref{fig:10.15
   \label{fig:10.15}
 \end{figure}
 
-Zur Berechnung des Spektrums mit der Diskreten-Fourier-Transformation muss die Signalfolge begrenzt werden. Dazu wird das Signal mit einer Rechteckfolge \(w[k]\) multipliziert. Bei einer Begrenzung des Abtastvorgangs auf 2 volle Periodendauern (\(N = 20\) = \qty{2}{\newton}\textsubscript{0}) wird das Spektrum des Signals \(X(Ω)\) mit dem Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) gefaltet. Weil das Spektrum des Signals \(X(Ω)\) aus zwei Impulsen besteht, wird das Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) an die Stelle der Impulse gefaltet. Damit ergibt sich Bild \ref{fig:10.16}.
+Zur Berechnung des Spektrums mit der Diskreten-Fourier-Transformation muss die Signalfolge begrenzt werden. Dazu wird das Signal mit einer Rechteckfolge \(w[k]\) multipliziert. Bei einer Begrenzung des Abtastvorgangs auf 2 volle Periodendauern (\(N = 20\) = \SI{2}{\newton}\textsubscript{0}) wird das Spektrum des Signals \(X(Ω)\) mit dem Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) gefaltet. Weil das Spektrum des Signals \(X(Ω)\) aus zwei Impulsen besteht, wird das Spektrum der zugehörigen Fensterfunktion \(W(Ω)\) an die Stelle der Impulse gefaltet. Damit ergibt sich Bild \ref{fig:10.16}.
 
 \begin{figure}
   \centering
@@ -742,7 +742,7 @@ Das Rechteckfenster und der normierte Amplitudengang sind in Bild \ref{fig:10.22
   \label{fig:10.22}
 \end{figure}
 
-Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - \qty{13}{\decibel}.
+Das Hauptmaximum des Rechteckfensters hat eine Breite von \(Ω_{S} = 2\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - \SI{13}{\decibel}.
 
 \subsubsection{Dreieck- oder Bartlett-Fenster}\label{sec:dreieck--oder-bartlett-fenster-1}
 
@@ -763,7 +763,7 @@ Das Dreieckfenster und der normierte Amplitudengang sind in Bild \ref{fig:10.23}
   \label{fig:10.23}
 \end{figure}
 
-Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - \qty{25}{\decibel}.
+Das Hauptmaximum des Dreieckfensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt \(a_{REL}\) = - \SI{25}{\decibel}.
 
 \subsubsection{Hann-Fenster}\label{sec:hann-fenster-1}
 
@@ -784,7 +784,7 @@ Das Hann-Fenster und sein Spektrum sind in Bild \ref{fig:10.24} dargestellt.
   \label{fig:10.24}
 \end{figure}
 
-Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - \qty{32}{\decibel} deutlich größer als bei dem Rechteckfenster.
+Das Hauptmaximum des Hann-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N und ist damit doppelt so breit wie bei dem Rechteckfenster. Die relative Amplitude des Nebenmaximums ist mit \(a_{REL}\) = - \SI{32}{\decibel} deutlich größer als bei dem Rechteckfenster.
 
 \subsubsection{Hamming-Fenster}\label{sec:hamming-fenster-1}
 
@@ -805,7 +805,7 @@ Das Hamming-Fenster und sein Spektrum sind in Bild \ref{fig:10.25} dargestellt.
   \label{fig:10.25}
 \end{figure}
 
-Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - \qty{42}{\decibel} und ist nochmals deutlich größer als bei dem Hann-Fenster.
+Das Hauptmaximum des Hamming-Fensters hat eine Breite von \(Ω_{S} = 4\)·π/N. Die relative Amplitude des Nebenmaximums beträgt mit \(a_{REL}\) = - \SI{42}{\decibel} und ist nochmals deutlich größer als bei dem Hann-Fenster.
 
 \subsubsection{Vergleich der Fensterfunktionen}\label{sec:vergleich-der-fensterfunktionen-1}
 
@@ -826,10 +826,10 @@ Hauptmaximums \(Ω_{S}\)
 Relative Amplitude 
 der Nebenmaxima \(a_{REL}\) \\
     \midrule
-    Rechteck & 2·π / N & - \qty{13}{\decibel} \\
-    Dreieck & 4·π / N & - \qty{25}{\decibel} \\
-    Hann & 4·π / N & - \qty{32}{\decibel} \\
-    Hamming & 4·π / N & - \qty{42}{\decibel} \\
+    Rechteck & 2·π / N & - \SI{13}{\decibel} \\
+    Dreieck & 4·π / N & - \SI{25}{\decibel} \\
+    Hann & 4·π / N & - \SI{32}{\decibel} \\
+    Hamming & 4·π / N & - \SI{42}{\decibel} \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -928,11 +928,11 @@ Im Gegensatz dazu zeigt der Vergleich der Fälle 1 und 3, dass durch eine Vergr�
   \includegraphics[alt={Vergleich der Diskreten-Fourier-Transformierten\\
 Fall 1: Signalfolge der Länge \(N_{1} = 16\)\\
 Fall 2: Signalfolge der Länge \(N_{1}\) mit Zero-Padding \(M = 16\)\\
-Fall 3: Signalfolge der Länge \(N_{2}\) = \qty{2}{\newton}\textsubscript{1} = 32}]{new media/12_29_vergleich_der_diskretenfourier.png}
+Fall 3: Signalfolge der Länge \(N_{2}\) = \SI{2}{\newton}\textsubscript{1} = 32}]{new media/12_29_vergleich_der_diskretenfourier.png}
   \caption{Vergleich der Diskreten-Fourier-Transformierten\\
 Fall 1: Signalfolge der Länge \(N_{1} = 16\)\\
 Fall 2: Signalfolge der Länge \(N_{1}\) mit Zero-Padding \(M = 16\)\\
-Fall 3: Signalfolge der Länge \(N_{2}\) = \qty{2}{\newton}\textsubscript{1} = 32}
+Fall 3: Signalfolge der Länge \(N_{2}\) = \SI{2}{\newton}\textsubscript{1} = 32}
   \label{fig:10.29}
 \end{figure}
 
@@ -988,7 +988,7 @@ x[ 1] \\
 x[ N - 1]
 \end{pmatrix} \label{eq:10.83}
 \end{align}
-Die Summe aus Gleichung (\ref{eq:10.81}) kann über das Produkt einer Matrix \textbf{W} mit dem Vektor \ul{x} aufgefasst werden. Es ergibt sich
+Die Summe aus Gleichung \eqref{eq:10.81} kann über das Produkt einer Matrix \textbf{W} mit dem Vektor \ul{x} aufgefasst werden. Es ergibt sich
 \begin{align}
 \overset{\underbar{}}{X} = \begin{pmatrix}
 X_{0} \\

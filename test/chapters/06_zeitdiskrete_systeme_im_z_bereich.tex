@@ -118,7 +118,7 @@ ergibt sich die Lösung im z-Bereich
 \begin{align}
 Y(z) &= (1 - GF)  U_{0}  \left( \frac{z^{2}}{(z - 1)  (z - GF)} \right) + \frac{z}{z - GF}  y[ 0] \label{eq:6.18}
 \end{align}
-Der erste Term der z-Transformierten ist identisch zu dem Fall ohne Anfangsbedingungen in Gleichung (\ref{eq:6.8}). Der zweite Teil beschreibt das Systemverhalten aufgrund der Anfangsbedingung und kann mit der Korrespondenztafel in den Zeitbereich zurücktransformiert werden. Es ergibt sich das Ausgangssignal
+Der erste Term der z-Transformierten ist identisch zu dem Fall ohne Anfangsbedingungen in Gleichung \eqref{eq:6.8}. Der zweite Teil beschreibt das Systemverhalten aufgrund der Anfangsbedingung und kann mit der Korrespondenztafel in den Zeitbereich zurücktransformiert werden. Es ergibt sich das Ausgangssignal
 \begin{align}
 y[ k] &= \left( 1 - GF^{k + 1} \right)  U_{0}  \sigma[ k] + y[ 0]  GF^{k}  \sigma[ k] \label{eq:6.19}
 \end{align}
@@ -305,15 +305,15 @@ Auch nach dieser Korrektur sind die Sprungantworten nicht identisch, da die Flä
 
 Gegeben ist ein zeitkontinuierliches System mit der Impulsantwort
 \begin{align}
-g(t) &= 2  e^{- \frac{}{}\frac{t}{\qty{10}{\milli\second}}}  \sigma(t) \label{eq:6.46}
+g(t) &= 2  e^{- \frac{}{}\frac{t}{\SI{10}{\milli\second}}}  \sigma(t) \label{eq:6.46}
 \end{align}
-Das System wird mit einer Abtastzeit \(T_{A} = \qty{1}{\milli\second}\) abgetastet. Es ergeben sich die Folgenwerte
+Das System wird mit einer Abtastzeit \(T_{A} = \SI{1}{\milli\second}\) abgetastet. Es ergeben sich die Folgenwerte
 \begin{align}
 g[ k] &= 2  e^{- \frac{k}{10}}  \sigma[ k] \label{eq:6.47}
 \end{align}
 Die Sprungantwort des zeitkontinuierlichen Systems lautet
 \begin{align}
-h(t) &= \int_{0}^{t}{2  e^{- \frac{\tau}{\qty{10}{\milli\second}}}d\tau} = - \qty{20}{\milli\second}  \left. \ e^{- \frac{\tau}{\qty{10}{\milli\second}}} \right|_{0}^{t} = \qty{20}{\milli\second}  \left( 1 - e^{- \frac{t}{\qty{10}{\milli\second}}} \right)  \sigma(t) \label{eq:6.48}
+h(t) &= \int_{0}^{t}{2  e^{- \frac{\tau}{\SI{10}{\milli\second}}}d\tau} = - \SI{20}{\milli\second}  \left. \ e^{- \frac{\tau}{\SI{10}{\milli\second}}} \right|_{0}^{t} = \SI{20}{\milli\second}  \left( 1 - e^{- \frac{t}{\SI{10}{\milli\second}}} \right)  \sigma(t) \label{eq:6.48}
 \end{align}
 Die Sprungantwort des zeitdiskreten Systems errechnet sich zu
 \begin{align}
@@ -321,7 +321,7 @@ h[ k] &= \sum\limits_{\kappa = 0}^{k}{2  e^{- \frac{\kappa}{10}}} = 2  {\sum\lim
 \end{align}
 Durch die Multiplikation der Sprungantwort mit der Abtastzeit \(T_{A}\) ergibt sich die Näherung
 \begin{align}
-h\left( k  T_{A} \right) \approx h[ k]  T_{A} &= \qty{2}{\milli\second}  \frac{1 - e^{- \frac{k + 1}{10}}}{1 - e^{- \frac{1}{10}}} \label{eq:6.50}
+h\left( k  T_{A} \right) \approx h[ k]  T_{A} &= \SI{2}{\milli\second}  \frac{1 - e^{- \frac{k + 1}{10}}}{1 - e^{- \frac{1}{10}}} \label{eq:6.50}
 \end{align}
 Die Impuls- und Sprungantworten sind in Bild \ref{fig:6.4} dargestellt.
 
@@ -368,7 +368,7 @@ Es ergibt sich die in Bild \ref{fig:6.5} gezeigte kanonische Darstellungsform vo
   \label{fig:6.5}
 \end{figure}
 
-Durch Erweiterung der Übertragungsfunktion (\ref{eq:6.52}) mit \(z^{N}\) ergibt sich eine Übertragungsfunktion, bei der für \(d_{0}\) ≠ 0 Zähler- und Nennergrad identisch sind.
+Durch Erweiterung der Übertragungsfunktion \eqref{eq:6.52} mit \(z^{N}\) ergibt sich eine Übertragungsfunktion, bei der für \(d_{0}\) ≠ 0 Zähler- und Nennergrad identisch sind.
 \begin{align}
 G(z) &= \frac{Y(z)}{U(z)} = \frac{z^{N}  \sum\limits_{l = 0}^{L}{d_{l}  z^{- l}}}{z^{N}  \sum\limits_{n = 0}^{N}{c_{n}  z^{- n}}} = \frac{\sum\limits_{m = 0}^{M}{b_{m}  z^{m}}}{\sum\limits_{n = 0}^{N}{a_{n}  z^{n}}} \label{eq:6.54}
 \end{align}
@@ -392,8 +392,8 @@ Y(z) &= U(z) + \left( 4  U(z) - 3  Y(z) - 2  Y(z)  z^{- 1} \right)  z^{- 1} \lab
 Bild \ref{fig:6.6} zeigt die kanonische Darstellungsform des Systems mit Speichergliedern.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Kanonisches Blockschaltbild Systems mit der Differenzengleichung (\ref{eq:6.55})}]{new media/6_6_kanonisches_blockschaltbild_syst.pdf}
-  \captionof{figure}{Kanonisches Blockschaltbild Systems mit der Differenzengleichung (\ref{eq:6.55})}
+  \includegraphics[alt={Kanonisches Blockschaltbild Systems mit der Differenzengleichung \eqref{eq:6.55}}]{new media/6_6_kanonisches_blockschaltbild_syst.pdf}
+  \captionof{figure}{Kanonisches Blockschaltbild Systems mit der Differenzengleichung \eqref{eq:6.55}}
   \label{fig:6.6}
 \end{fixedfigure}
 
@@ -426,7 +426,7 @@ die Übertragungsfunktion
 \begin{align}
 G(s) &= \frac{Y(s)}{U(s)} = \frac{\sum\limits_{m = 0}^{M}{b_{m}  s^{m}}}{\sum\limits_{n = 0}^{N}{a_{n}  s^{n}}} \label{eq:6.63}
 \end{align}
-bestimmt. Die Interpretation des Systems erfolgt anhand dieser Darstellungsform mit Zähler- und Nennerpolynom. Da die Differentiation im Zeitbereich nicht kausal ist, kann diese Darstellungsform jedoch nicht zur Simulation zeitkontinuierlicher LTI-Systeme verwendet werden. Deshalb wird im Abschnitt 3.5 von Teil A dieser Buchreihe die Differentialgleichung N-mal integriert. Analog zu Gleichung (\ref{eq:6.52}) ergibt sich der Ausdruck
+bestimmt. Die Interpretation des Systems erfolgt anhand dieser Darstellungsform mit Zähler- und Nennerpolynom. Da die Differentiation im Zeitbereich nicht kausal ist, kann diese Darstellungsform jedoch nicht zur Simulation zeitkontinuierlicher LTI-Systeme verwendet werden. Deshalb wird im Abschnitt 3.5 von Teil A dieser Buchreihe die Differentialgleichung N-mal integriert. Analog zu Gleichung \eqref{eq:6.52} ergibt sich der Ausdruck
 \begin{align}
 G(s) &= \frac{Y(s)}{U(s)} = \frac{\sum\limits_{m = 0}^{M}{b_{m}  s^{m}}}{\sum\limits_{n = 0}^{N}{a_{n}  s^{n}}} = \frac{\frac{1}{s^{N}}  \sum\limits_{m = 0}^{M}{b_{m}  s^{m}}}{\frac{1}{s^{N}}  \sum\limits_{n = 0}^{N}{a_{n}  s^{n}}} = \frac{\sum\limits_{m = 0}^{M}{b_{m}  s^{m - N}}}{\sum\limits_{n = 0}^{N}{a_{n}  s^{n - N}}} = \frac{\sum\limits_{l = 0}^{N}{d_{l}  s^{- l}}}{\sum\limits_{n = 0}^{N}{c_{n}  s^{- n}}} \label{eq:6.64}
 \end{align}
@@ -474,7 +474,7 @@ Damit lautet die Übertragungsfunktion
 \end{align}
 Auf Basis dieser Darstellung und den Polen des Systems
 \begin{align}
-\alpha_{1,2} &= - \frac{D}{\qty{2}{\meter}} \pm \sqrt{\frac{D^{2}}{\qty{4}{\meter}^{2}} - \frac{c}{m}} \label{eq:6.72}
+\alpha_{1,2} &= - \frac{D}{\SI{2}{\meter}} \pm \sqrt{\frac{D^{2}}{\SI{4}{\meter}^{2}} - \frac{c}{m}} \label{eq:6.72}
 \end{align}
 können die Systemeigenschaften diskutiert werden. Andererseits erfolgt die Systemsimulation über eine Darstellungsform
 \begin{align}
@@ -543,8 +543,8 @@ auf. Sie besitzt die Nullstellen \(β_{1}\) = - 1.5 und \(β_{2} = 0\), sowie di
 \(α_{2} = 0.5\). Es ergibt sich das in Bild \ref{fig:6.9} dargestellte Pol-Nullstellen-Diagramm.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Pol-Nullstellen-Diagramm des Systems aus Gleichung (\ref{eq:6.77})}]{new media/6_9_polnullstellendiagramm_des_syste.png}
-  \captionof{figure}{Pol-Nullstellen-Diagramm des Systems aus Gleichung (\ref{eq:6.77})}
+  \includegraphics[alt={Pol-Nullstellen-Diagramm des Systems aus Gleichung \eqref{eq:6.77}}]{new media/6_9_polnullstellendiagramm_des_syste.png}
+  \captionof{figure}{Pol-Nullstellen-Diagramm des Systems aus Gleichung \eqref{eq:6.77}}
   \label{fig:6.9}
 \end{fixedfigure}
 
@@ -734,7 +734,7 @@ auf. Damit das System reelle Koeffizienten \(a_{n}\) und \(b_{m}\) besitzt, müs
 \begin{align}
 {g\left[k\right]} &=  {A e^{j \varphi _{A} }  \left(r e^{j \varphi } \right)^{k-1}  \sigma \left[k-1\right]+A e^{-j \varphi _{A} }  \left(r e^{-j \varphi } \right)^{k-1}  \sigma \left[k-1\right]} \\
 {} &=  {A r^{k-1} \left(e^{j \varphi _{A} }  e^{j \varphi  \left(k-1\right)} +e^{-j \varphi _{A} }  e^{-j \varphi  \left(k-1\right)} \right) \sigma \left[k-1\right]} \\
-{} &=  {\qty{2}{\ampere} r^{k-1}  \cos \left(\varphi  \left(k-1\right)+\varphi _{A} \right) \sigma \left[k-1\right]}
+{} &=  {\SI{2}{\ampere} r^{k-1}  \cos \left(\varphi  \left(k-1\right)+\varphi _{A} \right) \sigma \left[k-1\right]}
  \label{eq:6.105}
 \end{align}
 Die Folge ist eine gedämpfte harmonische Folge. Die Phasenlage ϕ des Polpaares definiert, mit welcher Frequenz die Folge schwingt. Der Betrag der Pole r ist für das Abfallen beziehungsweise Ansteigen der Amplitude verantwortlich. Die Koeffizienten A und A* bestimmen über die Amplitude und Phasenlage der Impulsantwort. Die Impulsantwort ist wieder unendlich lang, es handelt sich also erwartungsgemäß um ein IIR-System.

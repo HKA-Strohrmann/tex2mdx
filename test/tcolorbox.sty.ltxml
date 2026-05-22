@@ -1,0 +1,8 @@
+use LaTeXML::Package;
+use strict;
+use warnings;
+
+# Supress Errors from tcolorbox
+
+# Always end LaTeXML binding files with a true value
+1;

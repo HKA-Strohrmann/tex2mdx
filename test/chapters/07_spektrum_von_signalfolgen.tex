@@ -59,7 +59,7 @@ Ein abgetastetes Signal \(x_{A}(t)\)
 \begin{align}
 x_{A}(t) &= \sum\limits_{k = - \infty}^{\infty}{x(t)  \delta\left( t - k  T_{A} \right)} = \sum\limits_{k = - \infty}^{\infty}{x[ k]  \delta\left( t - k  T_{A} \right)} \label{eq:7.8}
 \end{align}
-ist zu jedem Zeitpunkt definiert. Sein Spektrum berechnet sich mit Gleichung (\ref{eq:7.7}) zu
+ist zu jedem Zeitpunkt definiert. Sein Spektrum berechnet sich mit Gleichung \eqref{eq:7.7} zu
 \begin{align}
 X_{A}(\omega) &= \int_{- \infty}^{\infty}{x_{A}(t)  \ }e^{- j  \omega  t}\ dt = \int_{- \infty}^{\infty}{\left( \sum\limits_{k = - \infty}^{\infty}{x(t)  \delta\left( t - k  T_{A} \right)} \right)  \ }e^{- j  \omega  t}\ dt \label{eq:7.9}
 \end{align}
@@ -69,11 +69,11 @@ Die Reihenfolge von Summation und Integration kann vertauscht werden. Mit der Au
 {} &=  {\sum\limits _{k=-\infty }^{\infty }x\left[k\right] e^{-j \omega  k T_{A} }  {\; } \int _{-\infty }^{\infty }\delta \left(t-k T_{A} \right){\; } dt=\sum\limits _{k=-\infty }^{\infty }x\left[k\right] e^{-j \omega  k T_{A} }  }
  \label{eq:7.10}
 \end{align}
-Gleichung (\ref{eq:7.10}) weist der Folge von Abtastwerten \(x[k]\) ein Spektrum \(X_{A}(ω)\) zu. Dabei tritt die Frequenz ω immer in Kombination mit der Abtastzeit \(T_{A}\) auf. Deshalb wird bei Signalfolgen das Spektrum als Funktion der normierten Kreisfrequenz
+Gleichung \eqref{eq:7.10} weist der Folge von Abtastwerten \(x[k]\) ein Spektrum \(X_{A}(ω)\) zu. Dabei tritt die Frequenz ω immer in Kombination mit der Abtastzeit \(T_{A}\) auf. Deshalb wird bei Signalfolgen das Spektrum als Funktion der normierten Kreisfrequenz
 \begin{align}
 \Omega &= \omega  T_{A} = \frac{\omega}{f_{A}} \label{eq:7.11}
 \end{align}
-dargestellt. Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung (\ref{eq:7.10}) periodisch in 2∙π. Deshalb ist auch das Spektrum der Folge \(x[k]\) periodisch in 2∙π. Es ist damit ausreichend, das Spektrum in den Grenzen von - π \ldots{} + π darzustellen. Durch die Normierung über die Abtastzeit \(T_{A}\)
+dargestellt. Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung \eqref{eq:7.10} periodisch in 2∙π. Deshalb ist auch das Spektrum der Folge \(x[k]\) periodisch in 2∙π. Es ist damit ausreichend, das Spektrum in den Grenzen von - π \ldots{} + π darzustellen. Durch die Normierung über die Abtastzeit \(T_{A}\)
 \begin{align}
 \omega &= \frac{\Omega}{T_{A}} \label{eq:7.12}
 \end{align}
@@ -116,7 +116,7 @@ Bei der Darstellung in kartesischen Koordinaten wird die Fourier-Transformierte 
 
 \subsection{\texorpdfstring{Fourier-Transformation von grundlegenden Signalfolgen }{Fourier-Transformation von grundlegenden Signalfolgen }}\label{fourier-transformation-von-grundlegenden-signalfolgen}
 
-Wie bei der z-Transformation werden zunächst einige Korrespondenzen der Fourier-Transformation von Signalfolgen direkt über die Definitionsgleichung (\ref{eq:7.13}) berechnet. Dabei ergibt sich das Spektrum einer Signalfolge durch Auswertung einer in der Regel unendlichen, oft aber endlichen Reihe.
+Wie bei der z-Transformation werden zunächst einige Korrespondenzen der Fourier-Transformation von Signalfolgen direkt über die Definitionsgleichung \eqref{eq:7.13} berechnet. Dabei ergibt sich das Spektrum einer Signalfolge durch Auswertung einer in der Regel unendlichen, oft aber endlichen Reihe.
 
 \subsubsection{Impulsfolge}\label{sec:impulsfolge-1}
 
@@ -771,7 +771,7 @@ und durch Auflösen
 \begin{align}
 X_{2}(\Omega) &= \frac{1}{1 - e^{- j  \Omega}} \label{eq:7.96}
 \end{align}
-Durch Superposition von Gleichung (\ref{eq:7.93}) und Gleichung (\ref{eq:7.96}) ergibt sich die Fourier-Transformierte des diskreten Einheitssprungs zu
+Durch Superposition von Gleichung \eqref{eq:7.93} und Gleichung \eqref{eq:7.96} ergibt sich die Fourier-Transformierte des diskreten Einheitssprungs zu
 \begin{align}
 F\left( \sigma[ k] \right) &= \frac{1}{1 - e^{- j  \Omega}} + \pi  \sum\limits_{\nu = - \infty}^{\infty}{\delta(\Omega - 2  \pi  \nu)} \label{eq:7.97}
 \end{align}

@@ -4,16 +4,25 @@ import typer
 from typing import Annotated
 
 from . import ui
-
+from .preprocess_tex import replace_documentclass
 from .latexml import convert_latex_to_html, LaTeXMLOutput
 
 
 app = typer.Typer(help="CLI for LaTeX to HTML conversion")
 
+import importlib.metadata
+__version__ = importlib.metadata.version('tex2html')
+def version_callback(value: bool):
+    if value:
+        print(f"Current Version: {__version__}")
+        raise typer.Exit()
+
 @app.command()
 def main(
     input_file: Annotated[str, typer.Argument(help="Input LaTeX file")],
     output_file: Annotated[str, typer.Option("--output-file", help="Output file")] = "html/output.html",
+    splitat: Annotated[str, typer.Option("--splitat", help="LaTeXML splitat option (e.g., 'chapter', 'section')")] = "chapter",
+    version: Annotated[bool | None, typer.Option("--version", callback=version_callback, is_eager=True)] = None,
 ) -> typer.Exit:
     """Convert a LaTeX file to HTML."""    
     input_path = Path(input_file)
@@ -30,8 +39,10 @@ def main(
         ui.console.print(f"Cleared output directory '{output_dir}'.")    
     output_dir.mkdir(parents=True, exist_ok=True)
 
+
     try:
-        result = convert_latex_to_html(input_path, output_path, output_dir)
+        replace_documentclass(input_path)
+        result = convert_latex_to_html(input_path, output_path, splitat)
         
         if result.is_fatal:
             return typer.Exit(code=result.returncode if result.returncode > 0 else 1)

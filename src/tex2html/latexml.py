@@ -3,7 +3,7 @@ from pathlib import Path
 import subprocess
 import typer
 
-from .log_handling import list_missing_packages, list_undefined_macros
+from .log_handling import list_missing_packages, list_undefined_macros, list_unresolved_errors
 from . import ui
 
 
@@ -21,13 +21,13 @@ class LaTeXMLOutput:
     returncode: int
     missing_packages: list[str]
     undefined_macros: list[str]
+    unresolved_errors: list[str]
     is_fatal: bool  # True if conversion completely failed or timed out
 
 
-def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path) -> LaTeXMLOutput:
+def convert_latex_to_html(input_file: Path, output_file: Path, splitat: str) -> LaTeXMLOutput:
     """Convert LaTeX file to HTML using LaTeXML."""
-    log_path = output_dir / "_stdout.txt"
-
+    log_path = output_file.with_suffix(".log")
     ui.console.print(f"Logfile is at '{log_path}'.")
 
     # Build LaTeXML command
@@ -39,7 +39,7 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
         "--noinvisibletimes",
         "--format=html5",
         "--navigationtoc=context",
-        "--splitat=section",
+        f"--splitat={splitat}",
         f"--log={log_path}",
         f"--timeout={LATEXML_TIMEOUT_SEC}",
         f"--css={CSS_URL}",
@@ -48,8 +48,8 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
     ]
     for binding in CUSTOM_BINDINGS:
         latexml_config.append(f"--preload={binding}")
-    for path in LATEXML_PATHS:
-        latexml_config.append(f"--path={path}")
+    # for path in LATEXML_PATHS:
+    #     latexml_config.append(f"--path={path}")
     latexml_config.append(str(input_file))
 
     ui.console.print(f"Command: {' '.join(latexml_config)}")
@@ -57,7 +57,6 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
     returncode = -1
     is_fatal = False
 
-    # 1. Provide visual feedback during the long conversion process
     with ui.console.status("[bold blue]Running LaTeXML conversion (this may take a while)...[/bold blue]"):
         try:
             result = subprocess.run(
@@ -73,19 +72,11 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
                 ui.console.print("[dim]Output: [/dim]")
                 ui.console.print(f"[dim]{result.stderr.strip()}[/dim]")
 
-            # LaTeXML semantics: 0=Success, 1=Warnings, 2=Errors (partial output), 3+=Fatal
             if returncode == 0:
                 ui.console.print(f"[bold green]Successfully written LaTeXML conversion to {output_file.name}[/bold green]")
-            elif returncode == 1:
-                ui.console.print(f"[bold yellow]Converted with warnings. Exit code: {returncode}[/bold yellow]")
             else:
                 ui.console.print(f"[bold red]LaTeXML encountered a fatal error (Exit code {returncode})[/bold red]")
                 is_fatal = True
-
-            if "LaTeXML died!" in result.stderr:
-                ui.console.print(f"[bold red]LaTeXML process died unexpectedly.[/bold red]")
-                is_fatal = True
-            
 
         except subprocess.TimeoutExpired:
             ui.console.print(f"[bold red]LaTeXML conversion timed out after {LATEXML_TIMEOUT_SEC}s[/bold red]")
@@ -97,9 +88,9 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
             ui.console.print(f"[bold red]Unexpected execution error:[/bold red] {e}")
             is_fatal = True
 
-    # 2. Safely parse logs (only if the process actually ran and created the file)
     missing_packages = []
     undefined_macros = []
+    unresolved_errors = []
     
     if log_path.exists():
         missing_packages = list_missing_packages(log_path)
@@ -110,9 +101,14 @@ def convert_latex_to_html(input_file: Path, output_file: Path, output_dir: Path)
         if undefined_macros:
             ui.console.print(f"[yellow]  Undefined macros:[/yellow] {', '.join(undefined_macros)}")
 
+        # unresolved_errors = list_unresolved_errors(log_path)
+        # if unresolved_errors:
+        #     ui.console.print(f"[yellow]  Unresolved errors:[/yellow] {', '.join(unresolved_errors)}")
+
     return LaTeXMLOutput(
         returncode=returncode,
         missing_packages=missing_packages,
         undefined_macros=undefined_macros,
         is_fatal=is_fatal,
+        unresolved_errors=unresolved_errors,
     )

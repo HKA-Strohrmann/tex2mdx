@@ -162,12 +162,12 @@ u_{A}[ k] &= \frac{T_{A}  u_{E}[ k] + T_{A}  u_{E}[ k - 1] - T_{A}  u_{A}[ k - 1
 Die aktuelle Ausgangsspannung \(u_{A}\){[}k{]} berechnet sich aus dem aktuellen und einem vergangenen Wert der Eingangsspannung \(u_{E}\){[}k{]} und einem vergangenen Wert der Ausgangsspannung \(u_{A}\){[}k{]}. Bild \ref{fig:4.6} zeigt den Vergleich zwischen dem zeitkontinuierlichen und dem zeitdiskreten System bei unterschiedlichen Abtastzeiten.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \qty{100}{\micro\second})}]{new media/4_6_vergleich_zwischen_zeitkontinuie.png}
-  \captionof{figure}{Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \qty{100}{\micro\second})}
+  \includegraphics[alt={Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \SI{100}{\micro\second})}]{new media/4_6_vergleich_zwischen_zeitkontinuie.png}
+  \captionof{figure}{Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \SI{100}{\micro\second})}
   \label{fig:4.6}
 \end{fixedfigure}
 
-Die Abtastzeit von \(T_{A} = \qty{10}{\micro\second}\) ist deutlich kleiner als die Zeitkonstante des Systems mit \(T = \qty{100}{\micro\second}\). Aus diesem Grund ist die Approximationsgüte im links dargestellten Fall hoch. Die im rechten Bildteil diskutierte Abtastzeit von \(T_{A} = \qty{100}{\micro\second}\) entspricht der Zeitkonstante des Systems. Aus diesem Grund ist die Approximation der Ableitung mit einem Differenzenquotienten unzureichend, die Approximationsgüte ist deutlich schlechter als bei einer Abtastzeit von \(T_{A} = \qty{10}{\micro\second}\). Das Beispiel zeigt, dass zeitkontinuierliche Systeme zeitdiskret nachgebildet werden können. Die lineare Differentialgleichung erster Ordnung
+Die Abtastzeit von \(T_{A} = \SI{10}{\micro\second}\) ist deutlich kleiner als die Zeitkonstante des Systems mit \(T = \SI{100}{\micro\second}\). Aus diesem Grund ist die Approximationsgüte im links dargestellten Fall hoch. Die im rechten Bildteil diskutierte Abtastzeit von \(T_{A} = \SI{100}{\micro\second}\) entspricht der Zeitkonstante des Systems. Aus diesem Grund ist die Approximation der Ableitung mit einem Differenzenquotienten unzureichend, die Approximationsgüte ist deutlich schlechter als bei einer Abtastzeit von \(T_{A} = \SI{10}{\micro\second}\). Das Beispiel zeigt, dass zeitkontinuierliche Systeme zeitdiskret nachgebildet werden können. Die lineare Differentialgleichung erster Ordnung
 \begin{align}
 u_{A}(t) + R  C  \frac{du_{A}}{dt} &= u_{E}(t) \label{eq:4.17}
 \end{align}
@@ -297,7 +297,7 @@ gilt dann die Gleichung
 {} &=  {\nu _{1}  \sum\limits _{l=0}^{L}d_{l}  u_{1} \left[k-l\right] +\nu _{2}  \sum\limits _{l=0}^{L}d_{l}  u_{2} \left[k-l\right] }
  \label{eq:4.32}
 \end{align}
-Für jede der beiden Summen kann der Ausdruck aus (\ref{eq:4.29}) beziehungsweise (\ref{eq:4.30}) eingesetzt werden, und es ergibt sich
+Für jede der beiden Summen kann der Ausdruck aus \eqref{eq:4.29} beziehungsweise \eqref{eq:4.30} eingesetzt werden, und es ergibt sich
 \begin{align}
 {\sum\limits _{l=0}^{L}d_{l}  u\left[k-l\right] } &=  {\nu _{1}  \sum\limits _{n=0}^{N}c_{n}  y_{1} \left[k-n\right] +\nu _{2}  \sum\limits _{n=0}^{N}c_{n}  y_{2} \left[k-n\right] } \\
 {} &=  {\sum\limits _{n=0}^{N}c_{n}  \left(\nu _{1}  y_{1} \left[k-n\right]+\nu _{2}  y_{2} \left[k-n\right]\right) =\sum\limits _{n=0}^{N}c_{n}  y\left[k-n\right] }
@@ -325,7 +325,7 @@ Ist der Koeffizient \(c_{0}\) ≠ 0, kann ohne Beschränkung der Allgemeinheit d
 \begin{align}
 y[ k] &= \sum\limits_{l = 0}^{L}{d_{l}  u[ k - l]} - \sum\limits_{n = 1}^{N}{c_{n}  y[ k - n]} \label{eq:4.37}
 \end{align}
-Da alle Indizes l und n größer gleich null sind, ist ein System, das durch eine lineare Differenzengleichung der Form aus Gleichung (\ref{eq:4.37}) beschrieben werden kann, ein kausales System. Ist in der Differenzengleichung (\ref{eq:4.36}) der Koeffizient \(c_{0} = 0\), kann nicht nach \(y[k]\) aufgelöst werden. Wird nach\\
+Da alle Indizes l und n größer gleich null sind, ist ein System, das durch eine lineare Differenzengleichung der Form aus Gleichung \eqref{eq:4.37} beschrieben werden kann, ein kausales System. Ist in der Differenzengleichung \eqref{eq:4.36} der Koeffizient \(c_{0} = 0\), kann nicht nach \(y[k]\) aufgelöst werden. Wird nach\\
 \(y[k - 1]\) aufgelöst, ergibt sich die Gleichung
 \begin{align}
 y[ k - 1] &= \frac{1}{c_{1}}  \left( \sum\limits_{l = 0}^{L}{d_{l}  u[ k - l]} - \sum\limits_{n = 2}^{N}{c_{n}  y[ k - n]} \right) \label{eq:4.38}
@@ -503,7 +503,7 @@ y_{H}[ k] &= Y_{1}  \lambda_{1}^{k} + Y_{2}  k  \lambda_{1}^{k} + ... + Y_{N_{1}
 \begin{example}{Sprungantwort eines Tiefpasses - Berechnung der allgemeinen homogenen Lösung}
 \label{beispiel-sprungantwort-eines-tiefpasses---berechnung-der-allgemeinen-homogenen-luxf6sung}
 
-Das praktische Vorgehen wird am Beispiel des rekursiven Tiefpasses dargestellt. Es soll die Systemreaktion auf einen Sprung am Eingang des Filters berechnet werden. Die Differenzengleichung für den Filter lautet nach Gleichung (\ref{eq:4.1})
+Das praktische Vorgehen wird am Beispiel des rekursiven Tiefpasses dargestellt. Es soll die Systemreaktion auf einen Sprung am Eingang des Filters berechnet werden. Die Differenzengleichung für den Filter lautet nach Gleichung \eqref{eq:4.1}
 \begin{align}
 y[ k] &= (1 - GF)  u[ k] + GF  y[ k - 1] \label{eq:4.53}
 \end{align}
@@ -623,7 +623,7 @@ Für das vorliegende Beispiel wird vorgegeben, dass das Ausgangssignal für k \t
 \begin{align}
 y[ 0] &= (1 - GF) + GF  0 = 1 - GF \label{eq:4.71}
 \end{align}
-Der Wert \(Y_{0}\) in Gleichung (\ref{eq:4.70}) muss über die Anfangsbedingungen \(y[0]\) = 1 - GF bestimmt werden.
+Der Wert \(Y_{0}\) in Gleichung \eqref{eq:4.70} muss über die Anfangsbedingungen \(y[0]\) = 1 - GF bestimmt werden.
 \begin{align}
 y[ 0] &= Y_{0}  GF^{0} + 1 - GF^{1} = Y_{0} + 1 - GF = 1 - GF \label{eq:4.72}
 \end{align}
@@ -684,7 +684,7 @@ Bei der Einführung des Begriffes der Stabilität in Abschnitt \ref{sec:4.2.3} w
 \begin{align}
 y_{H}[ k] &= Y_{1}  \lambda_{1}^{k} + Y_{2}  \lambda_{2}^{k} + ... + Y_{N}  \lambda_{N}^{k} \label{eq:4.74}
 \end{align}
-Damit die homogene Lösung zu null wird, müssen alle Lösungen \(λ_{n}\) einen Betrag \textbar \(λ_{n}\)\textbar{} \textless{} 1 aufweisen. Besitzt ein Wert \(λ_{n}\) einen Betrag \textbar \(λ_{n}\)\textbar{} \textgreater{} 1, divergiert der entsprechende Summand aus Gleichung~(\ref{eq:4.74}), und folglich divergiert auch die Lösung der homogenen Differentialgleichung.
+Damit die homogene Lösung zu null wird, müssen alle Lösungen \(λ_{n}\) einen Betrag \textbar \(λ_{n}\)\textbar{} \textless{} 1 aufweisen. Besitzt ein Wert \(λ_{n}\) einen Betrag \textbar \(λ_{n}\)\textbar{} \textgreater{} 1, divergiert der entsprechende Summand aus Gleichung~\eqref{eq:4.74}, und folglich divergiert auch die Lösung der homogenen Differentialgleichung.
 
 Liegt mit \(λ_{1}\) eine P-fache Lösung der charakteristischen Gleichung vor, weisen die zugehörigen Summanden der homogenen Lösung Terme der Form
 \begin{align}

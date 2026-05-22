@@ -15,5 +15,8 @@ _build/
 */svg-inkscape/
 *.log
 
+# test files
+test/test.tex
+
 # html builds
 */html/

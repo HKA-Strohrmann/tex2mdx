@@ -171,7 +171,7 @@ An dem Frequenzgang kann das Amplitudenverhältnis von Ein- und Ausgangssignal s
 \begin{align}
 G(\Omega) &= \sum\limits_{k = - \infty}^{\infty}{g[ k]  e^{- j  k  \Omega}} \label{eq:8.27}
 \end{align}
-Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung (\ref{eq:8.27}) periodisch in 2∙π. Damit ist der Frequenzgang eines zeitdiskreten Systems analog zu dem Spektrum von Signalfolgen periodisch in 2∙π. Deshalb ist es ausreichend, den Frequenzgang in einem Bereich von - π \ldots{} + π darzustellen. Der Frequenzgang kann in kartesischen Koordinaten oder Polar-Koordinaten dargestellt werden. Bei der Darstellung in kartesischen Koordinaten wird der Frequenzgang in Realteil \(G_{R}(Ω)\) und Imaginärteil \(G_{I}(Ω)\) zerlegt. Bei der Darstellung in Polarkoordinaten wird der Frequenzgang mit Betrag \textbar \(G(Ω)\)\textbar{} und Phase ϕ(Ω) dargestellt.
+Wegen der Periodizität der Exponentialfunktion mit imaginärem Argument ist jeder Summand der Summe in Gleichung \eqref{eq:8.27} periodisch in 2∙π. Damit ist der Frequenzgang eines zeitdiskreten Systems analog zu dem Spektrum von Signalfolgen periodisch in 2∙π. Deshalb ist es ausreichend, den Frequenzgang in einem Bereich von - π \ldots{} + π darzustellen. Der Frequenzgang kann in kartesischen Koordinaten oder Polar-Koordinaten dargestellt werden. Bei der Darstellung in kartesischen Koordinaten wird der Frequenzgang in Realteil \(G_{R}(Ω)\) und Imaginärteil \(G_{I}(Ω)\) zerlegt. Bei der Darstellung in Polarkoordinaten wird der Frequenzgang mit Betrag \textbar \(G(Ω)\)\textbar{} und Phase ϕ(Ω) dargestellt.
 \begin{align}
 G(\Omega) &= G_{R}(\Omega) + j  G_{I}(\Omega) = \left| G(\Omega) \right|  e^{j  \varphi(\Omega)} = A(\Omega)  e^{j  \varphi(\Omega)} \label{eq:8.28}
 \end{align}
@@ -297,17 +297,17 @@ Ein rekursives zeitdiskretes Filter mit dem Frequenzgang
 \begin{align}
 G_{D}(\Omega) &= \frac{1 - GF}{1 - GF  e^{- j  \Omega}} \label{eq:8.39}
 \end{align}
-mit einem Gedächtnisfaktor GF = 0.9 wird mit einer Abtastzeit \(T_{A} = \qty{1}{\milli\second}\) betrieben. Die Filterwirkung wird mit einem Tiefpass erster Ordnung verglichen, der eine Zeitkonstante \(T = \qty{10}{\milli\second}\) aufweist.
+mit einem Gedächtnisfaktor GF = 0.9 wird mit einer Abtastzeit \(T_{A} = \SI{1}{\milli\second}\) betrieben. Die Filterwirkung wird mit einem Tiefpass erster Ordnung verglichen, der eine Zeitkonstante \(T = \SI{10}{\milli\second}\) aufweist.
 \begin{align}
 G_{K}(\omega) &= \frac{1}{1 + j  \omega  T} \label{eq:8.40}
 \end{align}
 Bild \ref{fig:8.4} stellt das Bode-Diagramm für die Tiefpass-Filter dar.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Bode-Diagramm eines zeitdiskreten rekursiven Tiefpassfilters mit GF = 0.9 und \(T_{A} = \qty{1}{\milli\second}\)\\
-und eines zeitkontinuierlichen Tiefpass-Filters mit \(T = \qty{10}{\milli\second}\)}]{new media/9_4_bodediagramm_eines_zeitdiskreten.png}
-  \captionof{figure}{Bode-Diagramm eines zeitdiskreten rekursiven Tiefpassfilters mit GF = 0.9 und \(T_{A} = \qty{1}{\milli\second}\)\\
-und eines zeitkontinuierlichen Tiefpass-Filters mit \(T = \qty{10}{\milli\second}\)}
+  \includegraphics[alt={Bode-Diagramm eines zeitdiskreten rekursiven Tiefpassfilters mit GF = 0.9 und \(T_{A} = \SI{1}{\milli\second}\)\\
+und eines zeitkontinuierlichen Tiefpass-Filters mit \(T = \SI{10}{\milli\second}\)}]{new media/9_4_bodediagramm_eines_zeitdiskreten.png}
+  \captionof{figure}{Bode-Diagramm eines zeitdiskreten rekursiven Tiefpassfilters mit GF = 0.9 und \(T_{A} = \SI{1}{\milli\second}\)\\
+und eines zeitkontinuierlichen Tiefpass-Filters mit \(T = \SI{10}{\milli\second}\)}
   \label{fig:8.4}
 \end{fixedfigure}
 
@@ -445,13 +445,13 @@ Für die verschiedenen Lagen der Nullstelle ergeben sich die in Bild \ref{fig:8.
   \label{fig:8.9}
 \end{figure}
 
-Durch die unterschiedlichen Phasenwinkel \(Ω_{0}\) verschiebt sich der Amplitudengang um \(Ω_{0}\) nach rechts, ansonsten bleibt Amplitudengang gleich. Der Phasengang verschiebt sich mit steigendem Phasenwinkel \(Ω_{0}\) einerseits nach rechts, aber wegen des Summanden Ω in Gleichung (\ref{eq:8.56}) auch nach oben.
+Durch die unterschiedlichen Phasenwinkel \(Ω_{0}\) verschiebt sich der Amplitudengang um \(Ω_{0}\) nach rechts, ansonsten bleibt Amplitudengang gleich. Der Phasengang verschiebt sich mit steigendem Phasenwinkel \(Ω_{0}\) einerseits nach rechts, aber wegen des Summanden Ω in Gleichung \eqref{eq:8.56} auch nach oben.
 
 \subsection{Interpretationsbeispiel}\label{sec:interpretationsbeispiel}
 
 Die Berechnung und Interpretation des Frequenzgangs von Systemen höherer Ordnung wird an einem rekursiven IIR-System erläutert. Dabei wird außerdem der Zusammenhang von Zeitbereich, z-Bereich und Frequenzbereich vertieft.
 
-Gegeben ist ein zeitdiskretes System, das mit einer Abtastzeit von \(T_{A} = \qty{5}{\milli\second}\) arbeitet und die Übertragungsfunktion
+Gegeben ist ein zeitdiskretes System, das mit einer Abtastzeit von \(T_{A} = \SI{5}{\milli\second}\) arbeitet und die Übertragungsfunktion
 \begin{align}
 G(z) &= \frac{z^{2} - 0.81}{z^{2} + 0.49} = \frac{(z - 0.9)  (z + 0.9)}{(z - j  0.7)  (z + j  0.7)} \label{eq:8.57}
 \end{align}
@@ -603,7 +603,7 @@ In Kapitel \ref{sec:8.1} wird der Frequenzgang des rekursiven Tiefpasses erster 
 \begin{align}
 G(\Omega) &= \frac{1 - GF}{1 - GF  e^{- j  \Omega}} \label{eq:8.78}
 \end{align}
-Der Phasengang wird in Gleichung (\ref{eq:8.32}) berechnet zu
+Der Phasengang wird in Gleichung \eqref{eq:8.32} berechnet zu
 \begin{align}
 \varphi(\Omega) &= - \arctan\left( \frac{GF  \sin(\Omega)}{1 - GF  \cos(\Omega)} \right) \label{eq:8.79}
 \end{align}
@@ -613,11 +613,11 @@ Die Ableitung nach Ω führt zu der Gruppenlaufzeit von
 {} &=  {\frac{GF \cos \left(\Omega \right)-GF^{2} }{1-2 GF \cos \left(\Omega \right)+GF^{2} }  T_{A} }
  \label{eq:8.80}
 \end{align}
-Bild \ref{fig:8.14} zeigt die Gruppenlaufzeit eines rekursiven Filters 1. Ordnung für GF = 0.9 und eine Abtastzeit von \(T_{A} = \qty{1}{\milli\second}\).
+Bild \ref{fig:8.14} zeigt die Gruppenlaufzeit eines rekursiven Filters 1. Ordnung für GF = 0.9 und eine Abtastzeit von \(T_{A} = \SI{1}{\milli\second}\).
 
 \begin{fixedfigure}
-  \includegraphics[alt={Gruppenlaufzeit eines rekursiven Filters (GF = 0.9, \(T_{A} = \qty{1}{\milli\second}\))}]{new media/9_14_gruppenlaufzeit_eines_rekursive.png}
-  \captionof{figure}{Gruppenlaufzeit eines rekursiven Filters (GF = 0.9, \(T_{A} = \qty{1}{\milli\second}\))}
+  \includegraphics[alt={Gruppenlaufzeit eines rekursiven Filters (GF = 0.9, \(T_{A} = \SI{1}{\milli\second}\))}]{new media/9_14_gruppenlaufzeit_eines_rekursive.png}
+  \captionof{figure}{Gruppenlaufzeit eines rekursiven Filters (GF = 0.9, \(T_{A} = \SI{1}{\milli\second}\))}
   \label{fig:8.14}
 \end{fixedfigure}
 
@@ -628,7 +628,7 @@ Das Filter weist nur im Bereich kleiner Frequenzen ω eine konstante Gruppenlauf
 \begin{example}{Totzeitglied}
 \label{beispiel-totzeitglied}
 
-Das Totzeitglied besitzt nach Gleichung (\ref{eq:8.68}) einen Phasengang von
+Das Totzeitglied besitzt nach Gleichung \eqref{eq:8.68} einen Phasengang von
 \begin{align}
 \varphi(\Omega) &= - \Omega  k_{0} \label{eq:8.81}
 \end{align}
@@ -755,7 +755,7 @@ Aufgrund der Stabilität von FIR-System ergibt sich der Frequenzgang durch die S
 {} &=  {e^{-j \frac{\Omega  N}{2} }  \left(g_{1} \left[N/2\right]+2 \sum\limits _{k=0}^{N/2-1}g_{1} \left[k\right] \cos \left(\frac{\Omega  \left(N-2 k\right)}{2} \right) \right)}
  \label{eq:8.94}
 \end{align}
-Der zweite Faktor in Gleichung (\ref{eq:8.94}) ist reell und kann positive und negative Werte annehmen. Da er stetig in Ω ist, weist er im Punkt seines Vorzeichenwechsels einen Betrag von null auf. Damit besitzt der Frequenzgang \(G_{1}(Ω)\) eine abschnittsweise lineare Phase, die bei Vorzeichenwechseln des Frequenzgangs um π springt. An diesen Stellen ist aber der Betrag der Übertragungsfunktion null. Das Filter weist damit im gesamten Durchlassbereich eine lineare Phase auf. Als Beispiel wird ein Filter mit der Impulsantwort
+Der zweite Faktor in Gleichung \eqref{eq:8.94} ist reell und kann positive und negative Werte annehmen. Da er stetig in Ω ist, weist er im Punkt seines Vorzeichenwechsels einen Betrag von null auf. Damit besitzt der Frequenzgang \(G_{1}(Ω)\) eine abschnittsweise lineare Phase, die bei Vorzeichenwechseln des Frequenzgangs um π springt. An diesen Stellen ist aber der Betrag der Übertragungsfunktion null. Das Filter weist damit im gesamten Durchlassbereich eine lineare Phase auf. Als Beispiel wird ein Filter mit der Impulsantwort
 \begin{align}
 g_{1}[ k] &= \frac{1}{3.7}  \left( \delta[ k] + 2.7  \delta[ k - 1] + 3.7  \delta[ k - 2] + 2.7  \delta[ k - 3] + \delta[ k - 4] \right) \label{eq:8.95}
 \end{align}
@@ -778,7 +778,7 @@ Die an dem Beispiel gewonnenen Ergebnisse lassen sich auf weitere FIR-Systeme ve
 
 In Abschnitt \ref{sec:8.3.2} wird der Frequenzgang zeitdiskreter Systeme mit gebrochen rationaler Übertragungsfunktion diskutiert. Er setzt sich aus den Frequenzgängen einzelner Linearfaktoren zusammen. Liegen die Nullstellen dieser Linearfaktoren auf dem Einheitskreis, sind die zugehörigen Phasengänge linear zur Frequenz Ω. Das Beispiel in Abschnitt \ref{sec:8.4.6} bestätigt diesen Zusammenhang.
 
-Zusätzlich zu den Nullstellen auf dem Einheitskreis können Nullstellen-Konstellationen wie in Gleichung (\ref{eq:8.96}) auftreten.
+Zusätzlich zu den Nullstellen auf dem Einheitskreis können Nullstellen-Konstellationen wie in Gleichung \eqref{eq:8.96} auftreten.
 \begin{align}
 {G\left(z\right)} &=  {\frac{\left(z-r_{0}  e^{j \Omega _{0} } \right) \left(z-r_{0}  e^{-j \Omega _{0} } \right) \left(z-\frac{1}{r_{0} }  e^{j \Omega _{0} } \right) \left(z-\frac{1}{r_{0} }  e^{-j \Omega _{0} } \right)}{z^{4} } } \\
 {} &=  {\left(1-\frac{r_{0}  e^{j \Omega _{0} } }{z} \right) \left(1-\frac{r_{0}  e^{-j \Omega _{0} } }{z} \right) \left(1-\frac{e^{j \Omega _{0} } }{r_{0}  z} \right) \left(1-\frac{e^{-j \Omega _{0} } }{r_{0}  z} \right)}
@@ -830,7 +830,7 @@ Das Argument der Wurzel ist negativ.
 }{= \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)  \cos^{2}\left( \Omega_{0} \right) + \frac{1}{2}  \cos^{2}\left( \Omega_{0} \right) - \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)^{2} + \frac{1}{2} - \cos^{2}\left( \Omega_{0} \right)
 }{= \frac{1}{4}  \left( r_{0}^{2} + \frac{1}{r_{0}^{2}} \right)  \left( \cos^{2}\left( \Omega_{0} \right) - 1 \right) + \frac{1}{2}  \left( 1 - \cos^{2}\left( \Omega_{0} \right) \right) = - \frac{1}{4}  \left( r_{0} - \frac{1}{r_{0}} \right)^{2}  \sin^{2}\left( \Omega_{0} \right) < 0} \label{eq:8.103}
 \end{align}
-Es existieren also keine reellen Nullstellen, sodass der Ausdruck nach der Exponentialfunktion keine Vorzeichenwechsel aufweist. Nullstellen-Konstellationen wie in Gleichung (\ref{eq:8.96}) besitzen damit eine lineare Phase. In Bild \ref{fig:8.20} sind Impulsantwort, Pol-Nullstellen-Diagramm, Amplituden- und Phasengang für ein Beispiel mit \(r_{0} = 0.75\) und \(Ω_{0} = 2\)/3π dargestellt.
+Es existieren also keine reellen Nullstellen, sodass der Ausdruck nach der Exponentialfunktion keine Vorzeichenwechsel aufweist. Nullstellen-Konstellationen wie in Gleichung \eqref{eq:8.96} besitzen damit eine lineare Phase. In Bild \ref{fig:8.20} sind Impulsantwort, Pol-Nullstellen-Diagramm, Amplituden- und Phasengang für ein Beispiel mit \(r_{0} = 0.75\) und \(Ω_{0} = 2\)/3π dargestellt.
 
 \begin{figure}
   \centering
@@ -841,7 +841,7 @@ eines FIR-Filters mit symmetrischer Lage von Nullstellen um den Einheitskreis}
   \label{fig:8.20}
 \end{figure}
 
-Die numerische Berechnung bestätigt, dass die mit Gleichung (\ref{eq:8.96}) beschriebene Nullstellenkonstellation ebenfalls zu einem System mit linearem Phasengang führt.
+Die numerische Berechnung bestätigt, dass die mit Gleichung \eqref{eq:8.96} beschriebene Nullstellenkonstellation ebenfalls zu einem System mit linearem Phasengang führt.
 
 \subsubsection{\texorpdfstring{Zusammenfassung von Bedingungen an FIR-Systeme mit linearem Phasengang }{Zusammenfassung von Bedingungen an FIR-Systeme mit linearem Phasengang }}\label{zusammenfassung-von-bedingungen-an-fir-systeme-mit-linearem-phasengang}
 
@@ -868,7 +868,7 @@ symmetrisch zum Einheitskreis
 
 \subsection{Vergleich von Tiefpassfiltern mit linearer und nichtlinearer Phase}\label{sec:8.4.7}
 
-Die Diskussion der Beispiele im letzten Abschnitt zeigt, dass Systeme mit linearem Phasengang Eingangssignale zwar verzögern, jedoch nicht in ihrer Form verzerren. Im Folgenden wird analysiert, welcher Unterschied zwischen zwei Tiefpass-Filtern besteht, die eine lineare beziehungsweise eine nichtlineare Phase besitzen. Das Filter mit linearer Phase wird als FIR-Filter realisiert, das Filter mit nichtlinearer Phase als IIR-Filter. Beide Filter werden so entworfen, dass sie bei einer Frequenz von \(Ω = π\)/5 eine Dämpfung von maximal \qty{1}{\decibel} aufweisen und bei einer Frequenz von \(Ω = 1\).1π/5 eine Dämpfung von mindestens \qty{40}{\decibel} besitzen. Die Forderung führt zu Filtern hoher Ordnung, an denen die Unterschiede zwischen linearem und nichtlinearem Phasengang deutlicher zu erkennen sind. Amplituden- und Phasengang der beiden Filter sind in Bild \ref{fig:8.21} dargestellt.
+Die Diskussion der Beispiele im letzten Abschnitt zeigt, dass Systeme mit linearem Phasengang Eingangssignale zwar verzögern, jedoch nicht in ihrer Form verzerren. Im Folgenden wird analysiert, welcher Unterschied zwischen zwei Tiefpass-Filtern besteht, die eine lineare beziehungsweise eine nichtlineare Phase besitzen. Das Filter mit linearer Phase wird als FIR-Filter realisiert, das Filter mit nichtlinearer Phase als IIR-Filter. Beide Filter werden so entworfen, dass sie bei einer Frequenz von \(Ω = π\)/5 eine Dämpfung von maximal \SI{1}{\decibel} aufweisen und bei einer Frequenz von \(Ω = 1\).1π/5 eine Dämpfung von mindestens \SI{40}{\decibel} besitzen. Die Forderung führt zu Filtern hoher Ordnung, an denen die Unterschiede zwischen linearem und nichtlinearem Phasengang deutlicher zu erkennen sind. Amplituden- und Phasengang der beiden Filter sind in Bild \ref{fig:8.21} dargestellt.
 
 \begin{figure}
   \centering

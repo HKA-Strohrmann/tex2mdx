@@ -65,3 +65,21 @@ def list_undefined_macros(log_path: Path) -> list[str]:
         macros.extend(items)
     
     return macros
+
+def list_unresolved_errors(log_path: Path) -> list[str]:
+    """Extract unresolved error messages from LaTeXML log output, excluding undefined errors."""
+    if not log_path.exists():
+        return []
+
+    text = log_path.read_text()
+    # Match Error: lines that don't contain undefined: (using negative lookahead)
+    pattern = re.compile(r"Error:(?!undefined:)([^\n]+)", flags=re.IGNORECASE)
+    matches = pattern.findall(text)
+    
+    errors = []
+    for match in matches:
+        error_msg = match.strip()
+        if error_msg:
+            errors.append(error_msg)
+    
+    return errors

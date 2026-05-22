@@ -10,9 +10,9 @@ Da die ideale Abtastung von Signalen nur in der Theorie existiert und in der Pra
 
 \section{Quantisierungsfehler der Amplitude}\label{sec:2.1}
 
-Bei der Digitalisierung von Signalen muss die Amplitude einer festen Quantisierungsstufe zugeordnet werden. Entscheidend für die Quantisierung des Signals ist die Auflösung des Analog-Digital-Wandlers (AD-Wandlers), die üblicherweise in Bit angegeben wird. Beispielsweise wird mit einem 12-Bit-AD-Wandler ein definierter Messbereich in \(2^{12} = 4096\) Intervalle eingeteilt. Bei einem Messbereich von \qty{5}{\volt} ergäben sich demnach bei einer Auflösung von 12 Bit Quantisierungsstufen von.
+Bei der Digitalisierung von Signalen muss die Amplitude einer festen Quantisierungsstufe zugeordnet werden. Entscheidend für die Quantisierung des Signals ist die Auflösung des Analog-Digital-Wandlers (AD-Wandlers), die üblicherweise in Bit angegeben wird. Beispielsweise wird mit einem 12-Bit-AD-Wandler ein definierter Messbereich in \(2^{12} = 4096\) Intervalle eingeteilt. Bei einem Messbereich von \SI{5}{\volt} ergäben sich demnach bei einer Auflösung von 12 Bit Quantisierungsstufen von.
 \begin{align}
-\Delta U &= \frac{\qty{5}{\volt}}{2^{12}} = \frac{\qty{5}{\volt}}{4096} = \qty{1.2}{\milli\volt} \label{eq:2.1}
+\Delta U &= \frac{\SI{5}{\volt}}{2^{12}} = \frac{\SI{5}{\volt}}{4096} = \SI{1.2}{\milli\volt} \label{eq:2.1}
 \end{align}
 In der Praxis wird die Quantisierung der Amplitude gerne vernachlässigt, weil die entstehenden Fehler durch eine hohe Auflösung des verwendeten Analog-Digital-Wandlers klein gehalten werden können. Die existierende Abweichung zwischen dem wertdiskreten und wertkontinuierlichen Signal wird als Quantisierungsfehler modelliert. Bild \ref{fig:2.1} verdeutlicht den Quantisierungsfehler an zwei Beispielen.
 
@@ -74,12 +74,12 @@ Der Faktor nk ist dabei ein ganzzahliger Wert. Das bedeutet, dass die Abtastwert
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Abtastwerte für ein harmonisches Signal mit der Frequenz \(f_{01} = \qty{1}{\kilo\hertz}\) und \(f_{02} = \qty{11}{\kilo\hertz}\)}]{new media/2_4_abtastwerte_fr_ein_harmonisches.png}
-  \caption{Abtastwerte für ein harmonisches Signal mit der Frequenz \(f_{01} = \qty{1}{\kilo\hertz}\) und \(f_{02} = \qty{11}{\kilo\hertz}\)}
+  \includegraphics[alt={Abtastwerte für ein harmonisches Signal mit der Frequenz \(f_{01} = \SI{1}{\kilo\hertz}\) und \(f_{02} = \SI{11}{\kilo\hertz}\)}]{new media/2_4_abtastwerte_fr_ein_harmonisches.png}
+  \caption{Abtastwerte für ein harmonisches Signal mit der Frequenz \(f_{01} = \SI{1}{\kilo\hertz}\) und \(f_{02} = \SI{11}{\kilo\hertz}\)}
   \label{fig:2.4}
 \end{figure}
 
-Das Signal wird mit einer Frequenz \(f_{A} = \qty{10}{\kilo\hertz}\) abgetastet. Die Abtastwerte sind für ein Signal mit einer Frequenz \(f_{1}\)~=~1~kHz und einem Signal mit einer Frequenz \(f_{2} = \qty{11}{\kilo\hertz}\) identisch.
+Das Signal wird mit einer Frequenz \(f_{A} = \SI{10}{\kilo\hertz}\) abgetastet. Die Abtastwerte sind für ein Signal mit einer Frequenz \(f_{1}\)~=~1~kHz und einem Signal mit einer Frequenz \(f_{2} = \SI{11}{\kilo\hertz}\) identisch.
 
 Der hier für harmonische Schwingungen dargestellte Sachverhalt gilt auch für nicht harmonische Signale, da sie sich mit der Fourier-Transformation auf harmonische Signale zurückführen lassen. Dieser Effekt macht es erforderlich, den Abtastvorgang mathematisch zu beschreiben und Bedingungen für den Abtastvorgang zu definieren, unter denen ein abgetastetes Signal rekonstruiert werden kann.
 
@@ -232,11 +232,11 @@ Sound-Karten von Computern besitzen einen Analog-Digital-Wandler (ADC). Er wande
   \captionof{figure}{Sound-Karte für Personal Computer}
 \end{fixedfigure}
 
-Eine Abtastfrequenz \(f_{A} = \qty{44}{\kilo\hertz}\) ermöglicht die Aufnahme und Wiedergabe bis zu einer theoretischen Bandbreite von
+Eine Abtastfrequenz \(f_{A} = \SI{44}{\kilo\hertz}\) ermöglicht die Aufnahme und Wiedergabe bis zu einer theoretischen Bandbreite von
 \begin{align}
 f_{MAX} &= \frac{f_{A}}{2} = 22\ kHz \label{eq:2.18}
 \end{align}
-Mit der Sound-Karte können damit Musiksignale mit einer maximalen Frequenz von \qty{22}{\kilo\hertz} verarbeitet werden.
+Mit der Sound-Karte können damit Musiksignale mit einer maximalen Frequenz von \SI{22}{\kilo\hertz} verarbeitet werden.
 
 \end{example}
 
@@ -265,19 +265,19 @@ Für die Regelung des Ladedrucks von Turboladern werden Drucksensoren eingesetzt
   \captionof{figure}{Drucksensor zur Messung des Ladedrucks (Bosch)}
 \end{fixedfigure}
 
-Der Drucksensor, der den Ladedruck misst, besitzt laut Datenblatt eine Zeitkonstante \(T = \qty{0.1}{\milli\second}\). Das entspricht einer \qty{3}{\decibel}-Grenzfrequenz von
+Der Drucksensor, der den Ladedruck misst, besitzt laut Datenblatt eine Zeitkonstante \(T = \SI{0.1}{\milli\second}\). Das entspricht einer \SI{3}{\decibel}-Grenzfrequenz von
 \begin{align}
 \omega_{G} &= \frac{1}{T} = 10\ krad/s \label{eq:2.19}
 \end{align}
-Das Motor-Steuergerät tastet das Signal mit einer Abtastzeit \(T_{A}\) von \qty{1}{\milli\second} ab. Es ergibt sich eine Abtastfrequenz von
+Das Motor-Steuergerät tastet das Signal mit einer Abtastzeit \(T_{A}\) von \SI{1}{\milli\second} ab. Es ergibt sich eine Abtastfrequenz von
 \begin{align}
 \omega_{A} &= \frac{2  \pi}{T_{A}} = 6.283\text{ k}rad/s \label{eq:2.20}
 \end{align}
-Wird die Grenzfrequenz \(ω_{G}\) als maximale Frequenz \(ω_{MAX}\) angesehen, wird das Abtasttheorem nicht erfüllt. Außerdem sind dem Sensorsignal Störungen überlagert, die Spektralanteile weit oberhalb der Grenzfrequenz besitzen können. Zur Vermeidung von Aliasing-Effekten wird ein Anti-Aliasing-Filter eingesetzt. Es weist eine Zeitkonstante von \(T_{TP} = \qty{0.6}{\milli\second}\) auf, was einer \qty{3}{\decibel}-Grenzfrequenz von
+Wird die Grenzfrequenz \(ω_{G}\) als maximale Frequenz \(ω_{MAX}\) angesehen, wird das Abtasttheorem nicht erfüllt. Außerdem sind dem Sensorsignal Störungen überlagert, die Spektralanteile weit oberhalb der Grenzfrequenz besitzen können. Zur Vermeidung von Aliasing-Effekten wird ein Anti-Aliasing-Filter eingesetzt. Es weist eine Zeitkonstante von \(T_{TP} = \SI{0.6}{\milli\second}\) auf, was einer \SI{3}{\decibel}-Grenzfrequenz von
 \begin{align}
 \omega_{TP} &= \frac{1}{0.6\ ms} = \text{1.67 }krad/s < 3.14\ krad/s = \frac{\omega_{A}}{2} \label{eq:2.21}
 \end{align}
-entspricht. Durch den Einsatz des Tiefpass-Filters wird bei derselben Abtastrate das Abtasttheorem eingehalten. Das Filter hat eine Dämpfung von - \qty{20}{\decibel} pro Dekade. Die sich aus der endlichen Steilheit ergebenden Effekte werden in einer Übungsaufgabe diskutiert.
+entspricht. Durch den Einsatz des Tiefpass-Filters wird bei derselben Abtastrate das Abtasttheorem eingehalten. Das Filter hat eine Dämpfung von - \SI{20}{\decibel} pro Dekade. Die sich aus der endlichen Steilheit ergebenden Effekte werden in einer Übungsaufgabe diskutiert.
 
 \end{example}
 
@@ -302,11 +302,11 @@ Mit der Integrations- und Verschiebungsregel ergibt sich das zugehörige Spektru
 {} & {} & {\frac{2}{\omega  T_{W} }  \sin \left(\frac{\omega  T_{W} }{2} \right) X\left(\omega \right) e^{-\frac{j \omega  T_{W} }{2} } +\frac{\pi  X\left(0\right)}{T_{W} }  \delta \left(\omega \right) 2 j \sin \left(\frac{\omega  T_{W} }{2} \right) e^{-\frac{j \omega  T_{W} }{2} } }
  \label{eq:2.24}
 \end{align}
-Da der letzte Summand in Gleichung (\ref{eq:2.24}) null ist, gilt:
+Da der letzte Summand in Gleichung \eqref{eq:2.24} null ist, gilt:
 \begin{align}
 X_{M}(\omega) &= \frac{2}{\omega  T_{W}}  \sin\left( \frac{\omega  T_{W}}{2} \right)  X(\omega)  e^{- \frac{j  \omega  T_{W}}{2}} \label{eq:2.25}
 \end{align}
-Mit dem Spektrum der idealen Abtastfunktion \(a(t)\) aus Gleichung (\ref{eq:2.9}) und der Multiplikationsregel kann das Spektrum des real abgetasteten Signals berechnet werden zu
+Mit dem Spektrum der idealen Abtastfunktion \(a(t)\) aus Gleichung \eqref{eq:2.9} und der Multiplikationsregel kann das Spektrum des real abgetasteten Signals berechnet werden zu
 \begin{align}
 {X{}_{AW} \left(\omega \right)} &=  {\frac{1}{2 \pi }  \left(\frac{2}{\omega  T_{W} }  \sin \left(\frac{\omega  T_{W} }{2} \right) X\left(\omega \right) e^{-\frac{j \omega  T_{W} }{2} } \right)*\left(\frac{2 \pi }{T_{A} }  \sum\limits _{k=-\infty }^{\infty }\delta \left(\omega -k \omega _{A} \right) \right)} \\
 {} &=  {\frac{1}{T_{A} }  \sum\limits _{k=-\infty }^{\infty }\frac{2}{\left(\omega -k \omega _{A} \right) T_{W} }  \sin \left(\frac{\left(\omega -k \omega _{A} \right) T_{W} }{2} \right) X\left(\omega -k \omega _{A} \right) e^{-\frac{j \left(\omega -k \omega _{A} \right) T_{W} }{2} }  }

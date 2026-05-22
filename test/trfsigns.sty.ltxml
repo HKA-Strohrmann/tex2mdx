@@ -1,4 +1,3 @@
-# unicode-math.sty.ltxml
 use LaTeXML::Package;
 use strict;
 use warnings;

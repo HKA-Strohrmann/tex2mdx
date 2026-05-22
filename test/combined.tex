@@ -26,8 +26,8 @@
     numbers=noendperiod,   % no dot after section numbers
     open=any,              % chapters can start on left or right page
     fleqn,                 % align equations to the left
-% ]{scrbook}
 ]{book}
+% ]{book}
 
 
 %___________________________________________________________________
@@ -68,16 +68,17 @@
 
 \usepackage{iftex}
 
-\usepackage{amssymb, amsmath}    % must be loaded before unicode-math
+\usepackage{amssymb, amsmath, mathtools}    % must be loaded before unicode-math
 
 \ifPDFTeX
-    % \ifenglish
-        % \usepackage[english]{babel}
-    % \else
-        \usepackage[german-de]{babel}
-        % \addto\extrasgerman{\sisetup{locale = DE}}
-    % \fi
     \ifpdf
+        \ifenglish
+            \usepackage[english]{babel}
+        \else
+            \usepackage[german-de]{babel}
+            \addto\extrasgerman{\sisetup{locale = DE}}
+        \fi
+
         \usepackage[T1]{fontenc}
 
         \usepackage{libertine}                % text font
@@ -121,6 +122,7 @@
     \fi
 
     \usepackage{textcomp}                 % euro and related symbols
+    \usepackage{mathtools} % conflicts with unicode-math
 \else
     \usepackage{unicode-math}
 
@@ -181,6 +183,7 @@
     \usepackage{fontawesome5}       % load pictograms
     \usepackage{scrhack}   % common fixes for KOMA and other packages
     \usepackage{tcolorbox}
+    \usepackage[open]{bookmark}         % fix bookmarks in pdf when using hyperref
 \fi
 
 \usepackage[nopatch=footnote]{microtype}            % font expansion, must be loaded after babel/polyglossia!
@@ -200,11 +203,7 @@
     width=\imagewidth,
 ]{svg}
 \usepackage{caption}
-
-% \usepackage{mathtools} % conflicts with unicode-math in this setup
-
 \usepackage{float}              % set default figure placements
-
 \usepackage[section]{placeins}          % prevent floats from moving to other sections
 \usepackage{flushend}                   % balance columns on last page in twocolumn mode
 
@@ -237,7 +236,6 @@
 
 \usepackage{xurl}                                 % better url line breaks, must be loaded before hyperref
 \usepackage{hyperref}                               % add hyperlinks
-\usepackage[open]{bookmark}         % fix bookmarks in pdf when using hyperref
 
 
 %___________________________________________________________________
@@ -469,19 +467,20 @@
     \tableofcontents
 \fi
 
-Test
+% \mainmatter   % arabic page numbers, chapter numbers, chapter entries in ToC
 
-% \input{chapters/01_einleitung.tex}
-% \input{chapters/02_signalabtastung_und_rekonstruktion.tex}
-% \input{chapters/03_texorpdfstring_zeitdiskrete_signale.tex}
-% \input{chapters/04_zeitdiskrete_systeme_im_zeitbereich.tex}
-% \input{chapters/05_z_transformation_von_signalen.tex}
-% \input{chapters/06_zeitdiskrete_systeme_im_z_bereich.tex}
-% \input{chapters/07_spektrum_von_signalfolgen.tex}
-% \input{chapters/08_label_sec_section.tex}
-% \input{chapters/09_frequenzgang_zeitdiskreter_systeme.tex}
-% \input{chapters/10_entwurf_zeitdiskreter_systeme.tex}
-% \input{chapters/11_label_sec_section_1.tex}
+
+\input{chapters/01_einleitung.tex}
+\input{chapters/02_signalabtastung_und_rekonstruktion.tex}
+\input{chapters/03_texorpdfstring_zeitdiskrete_signale.tex}
+\input{chapters/04_zeitdiskrete_systeme_im_zeitbereich.tex}
+\input{chapters/05_z_transformation_von_signalen.tex}
+\input{chapters/06_zeitdiskrete_systeme_im_z_bereich.tex}
+\input{chapters/07_spektrum_von_signalfolgen.tex}
+\input{chapters/08_label_sec_section.tex}
+\input{chapters/09_frequenzgang_zeitdiskreter_systeme.tex}
+\input{chapters/10_entwurf_zeitdiskreter_systeme.tex}
+\input{chapters/11_label_sec_section_1.tex}
 \input{chapters/12_diskrete_fourier_transformation.tex}
 \input{chapters/13_label_sec_section_2.tex}
 \input{chapters/14_zeitdiskrete_systeme_im_zustandsraum.tex}
