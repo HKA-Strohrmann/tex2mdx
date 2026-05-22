@@ -1,10 +1,7 @@
 from pathlib import Path
 import re
 import subprocess
-import logging
 from dataclasses import dataclass
-from abc import ABC, abstractmethod
-import sys
 import typer
 
 
@@ -14,17 +11,6 @@ class LaTeXMLOutput:
     log: str | None
     missing_packages: list[str]
 
-@dataclass
-class ConversionPayload(ABC):
-    identifier: int
-    single_file: bool | None
-
-    @property
-    @abstractmethod
-    def name(self) -> str: ...
-
-
-
 
 LATEXML_PATHS = [
     "/opt/ar5iv-bindings/bindings",
@@ -33,18 +19,15 @@ LATEXML_PATHS = [
     "/test/media",
 ]
 LATEXML_PRELOADS = ["ar5iv.sty"]
-LATEXML_LOG_FILE = "__stdout.txt"
+LATEXML_LOG_FILE = "_stdout.txt"
 LATEXML_TIMEOUT_SEC = 540
 LATEXML_MEM_LIMIT_BYTES = 6 * 1024**3
 LATEXML_URL_BASE = "https://arxiv.org/static/browse/0.3.4"
 
-def convert_latex_to_html(file, payload: ConversionPayload, workdir: Path, output_dirname: str) -> LaTeXMLOutput:
-
-    # output_dirname = get_file_manager().latexml_output_dir_name(payload)
-    output_path = f"{output_dirname}{payload.name}.html"
+def convert_latex_to_html(tex_file: str, output_filename: str, workdir: Path, output_dirname: str) -> LaTeXMLOutput:
+    """Convert LaTeX file to HTML using LaTeXML."""
+    output_path = f"{output_dirname}{output_filename}.html"
     log_path = f"{output_dirname}{LATEXML_LOG_FILE}"
-
-    # print(f"Converting {file} to HTML with LaTeXML, output will be at {output_path}", file=sys.stderr)
 
     latexml_config = [
             "latexmlc.bat",
@@ -54,14 +37,14 @@ def convert_latex_to_html(file, payload: ConversionPayload, workdir: Path, outpu
             "--noinvisibletimes",
             "--format=html5",
             "--navigationtoc=context",
-            "--splitat=chapter"
+            "--splitat=chapter",
             f"--timeout={LATEXML_TIMEOUT_SEC}",
             f"--css={LATEXML_URL_BASE}/css/arxiv-html-papers-20260131.css",
             f"--javascript={LATEXML_URL_BASE}/js/arxiv-html-papers-20260131.js",
             # f"--source={workdir}",
             f"--log={log_path}",
             f"--dest={output_path}",
-            f"{file}"
+            f"{tex_file}"
         ]
     
     # for preload in LATEXML_PRELOADS:
@@ -72,7 +55,7 @@ def convert_latex_to_html(file, payload: ConversionPayload, workdir: Path, outpu
     # print(latexml_config)
 
     try:
-        completed_process = subprocess.run(
+        result = subprocess.run(
             latexml_config,
             stdout=subprocess.PIPE,
             stderr=subprocess.STDOUT,
@@ -80,39 +63,40 @@ def convert_latex_to_html(file, payload: ConversionPayload, workdir: Path, outpu
             text=True,
             timeout=LATEXML_TIMEOUT_SEC + 5,
         )
-        returncode = completed_process.returncode
-        if returncode != 0:
-            logging.error(
-                f"LaTeXML conversion failed rc={returncode} "
-                f"(mem_limit={LATEXML_MEM_LIMIT_BYTES}) for {payload.identifier}"
-            )
-    except subprocess.TimeoutExpired as e:
-        logging.warning(f"LaTeXML conversion timed out after {e.timeout} seconds")
+        if result.returncode != 0:
+            print(f"LaTeXML conversion failed with rc={result.returncode}")
+        returncode = result.returncode
+    except subprocess.TimeoutExpired:
+        print(f"LaTeXML conversion timed out after {LATEXML_TIMEOUT_SEC} seconds")
         returncode = 1
     except Exception as e:
-        logging.warning(f"LaTeXML conversion failed with error {e}")
+        print(f"LaTeXML conversion failed: {e}")
         returncode = 1
-    # Note: latexml will write the full conversion log at the path specified by `--log=[path]`,
-    # so we can keep the current __stdout.txt convention for now by copying the deposited log.
+
     return LaTeXMLOutput(
         missing_packages=list_missing_packages(Path(log_path)),
-        log=None,  # use the file from --log
+        log=None,
         returncode=returncode,
     )
 
 
-MISSING_PACKAGE_RE = re.compile(
-    r"^Warning:missing_file:(\S+)\s(?:Can't\sfind\s(package|binding for class))?", flags=re.MULTILINE
+MISSING_PACKAGE_PATTERN = re.compile(
+    r"^Warning:missing_file:(\S+)\s(?:Can't\sfind\s(package|binding for class))?",
+    flags=re.MULTILINE
 )
-def list_missing_packages(latexml_log_path: Path) -> list[str]:
-    matches = []
-    if latexml_log_path.exists():
-        with open(latexml_log_path) as latexml_log_stream:
-            for line in latexml_log_stream:
-                match = re.search(MISSING_PACKAGE_RE, line)
+
+def list_missing_packages(log_path: Path) -> list[str]:
+    """Extract missing package names from LaTeXML log file."""
+    packages = []
+    if log_path.exists():
+        with open(log_path) as f:
+            for line in f:
+                match = MISSING_PACKAGE_PATTERN.search(line)
                 if match:
-                    matches.append(match)
-    return list(filter(None, map(lambda match: format_missing_dependency(match[1], match[2]), matches)))
+                    pkg = format_missing_dependency(match[1], match[2])
+                    if pkg:
+                        packages.append(pkg)
+    return packages
 
 
 def format_missing_dependency(name: str, message_fragment: str) -> str | None:
@@ -126,60 +110,52 @@ def format_missing_dependency(name: str, message_fragment: str) -> str | None:
         return f"{name}.{ext}"
 
 
-ANCHOR_REGEX = re.compile(r'\b(href|src|data)\s*=\s*"(?![/#])(?!http)(?!data:)', re.IGNORECASE)
-def add_prefix_to_relative_links(prefix: str, html_file_path: str) -> None:
+RELATIVE_LINKS_PATTERN = re.compile(
+    r'\b(href|src|data)\s*=\s*"(?![/#])(?!http)(?!data:)',
+    re.IGNORECASE
+)
+
+def add_prefix_to_relative_links(prefix: str, html_file: str) -> None:
     """Add a given prefix to all relative links in an HTML file."""
-    with open(html_file_path, "r+") as html:
-        new_text = re.sub(ANCHOR_REGEX, rf'\1="{prefix}/', html.read())
-        html.truncate(0)
-        html.seek(0)
-        html.write(new_text)
+    path = Path(html_file)
+    content = path.read_text()
+    new_content = RELATIVE_LINKS_PATTERN.sub(rf'\1="{prefix}/', content)
+    path.write_text(new_content)
 
 
-class _CLIPayload(ConversionPayload):
-    def __init__(self, identifier: int, single_file: bool | None, name: str):
-        self.identifier = identifier
-        self.single_file = single_file
-        self._name = name
-
-    @property
-    def name(self) -> str:
-        return self._name
-
-
-def run_cli_conversion(input_path: str, output_dirname: str) -> LaTeXMLOutput:
-    p = Path(input_path)
-    if p.is_dir():
-        raise ValueError(f"Directory input not supported in CLI mode, expected a .tex file but got: {input_path}")
-    tex = p
-    if not tex.exists():
-        raise FileNotFoundError(f"Input tex file not found: {tex}")
-    payload = _CLIPayload(identifier=0, single_file=True, name=tex.stem)
-    workdir = tex
-    if not output_dirname.endswith("/"):
-        output_dirname = f"{output_dirname}/"
-    return convert_latex_to_html(input_path, payload, workdir, output_dirname)
+def run_cli_conversion(input_path: str, output_dir: str) -> LaTeXMLOutput:
+    """Run LaTeX to HTML conversion from CLI."""
+    tex_file = Path(input_path)
+    
+    if not tex_file.is_file() or tex_file.suffix != ".tex":
+        raise FileNotFoundError(f"Input must be a .tex file: {input_path}")
+    
+    if not output_dir.endswith("/"):
+        output_dir = f"{output_dir}/"
+    
+    return convert_latex_to_html(str(tex_file), tex_file.stem, tex_file, output_dir)
 
 
-app = typer.Typer(help="CLI for LaTeXML conversion (test only)")
+app = typer.Typer(help="CLI for LaTeX to HTML conversion")
+
 @app.command()
 def main(
     input: str = typer.Option(..., "--input", help="Path to a .tex file"),
-    output: str = typer.Option("test/html/", "--output", help="Output directory prefix (will be used as-is)")
+    output: str = typer.Option("test/html/", "--output", help="Output directory"),
 ) -> int:
+    """Convert a LaTeX file to HTML."""
     try:
         result = run_cli_conversion(input, output)
         typer.echo(f"returncode={result.returncode}")
         if result.missing_packages:
             typer.echo("missing packages:")
             for pkg in result.missing_packages:
-                typer.echo(f" - {pkg}")
+                typer.echo(f"  - {pkg}")
         return result.returncode or 0
     except Exception as e:
-        typer.echo(f"Conversion failed: {e}")
+        typer.echo(f"Error: {e}")
         return 2
 
 
 if __name__ == "__main__":
-    # raise SystemExit(app())
     result = run_cli_conversion("test/combined.tex", "test/html/")

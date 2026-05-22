@@ -22,7 +22,7 @@ copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\svg-inks
 copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\combined.tex" -destination "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\tex2html\test" -recurse -force
 
 
-uv run tex2html --input test/combined.tex --output test/html/
+uv run tex2html --input test/test.tex --output test/html/
 ```
 
 ## To Do
