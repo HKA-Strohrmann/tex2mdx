@@ -11,9 +11,6 @@
 % Load Class
 
 
-% disables tagging for tcolorboxes, which improves latexml comversion
-\DocumentMetadata{tagging=off}
-
 \documentclass[
     paper=a4,
     parskip=half,          % vertical space between paragraphs
@@ -29,7 +26,7 @@
     numbers=noendperiod,   % no dot after section numbers
     open=any,              % chapters can start on left or right page
     fleqn,                 % align equations to the left
-]{book}
+]{scrbook}
 
 
 %___________________________________________________________________
@@ -43,22 +40,12 @@
     \newcommand{\LangApplication}{Application}
     \newcommand{\LangVideo}{Video}
     \newcommand{\LangSummary}{Summary}
-    \newcommand{\LangExampleList}{List of Examples}
-    \newcommand{\LangExerciseList}{List of Exercises}
-    \newcommand{\LangApplicationList}{List of Applications}
-    \newcommand{\LangVideoList}{List of Videos}
-    \newcommand{\LangSummaryList}{List of Summaries}
 \else
     \newcommand{\LangExample}{Beispiel}
     \newcommand{\LangExercise}{Übung}
     \newcommand{\LangApplication}{Applikation}
     \newcommand{\LangVideo}{Video}
     \newcommand{\LangSummary}{Zusammenfassung}
-    \newcommand{\LangExampleList}{Beispielverzeichnis}
-    \newcommand{\LangExerciseList}{Übungsverzeichnis}
-    \newcommand{\LangApplicationList}{Applikationsverzeichnis}
-    \newcommand{\LangVideoList}{Videoverzeichnis}
-    \newcommand{\LangSummaryList}{Zusammenfassungsverzeichnis}
 \fi
 
 
@@ -230,7 +217,7 @@
 
 \usepackage{tasks}
 
-\usepackage{tcolorbox}
+\usepackage{framed}                              % for custom colored boxes
 
 % \usepackage[
 % ]{bibtex}                                          % source control
@@ -255,6 +242,8 @@
 %___________________________________________________________________
 % Options
 
+
+\let\qty\SI % latexml does not yet support qty from siunitx, so we use \SI as a fallback for now
 
 \MakeOuterQuote{"}                         % make " active for csquotes
 
@@ -299,65 +288,65 @@
 %___________________________________________________________________
 % Custom Boxes
 
-\ifpdf
 
-\tcbuselibrary{most}
-\tcbset{mybox/.style={
-    enhanced,
-    breakable,
-    colback=#1!5!white,
-    colframe=#1,
-    coltitle=white,
-    fonttitle=\bfseries\sffamily,
-    arc=2mm,
-    before upper=\notag,    % no eq number in amsmath env. only works for single line!
-}}
+\newcounter{example}[chapter]
+\newcounter{exercise}[chapter]
+\newcounter{application}[chapter]
+\newcounter{video}[chapter]
+\newcounter{summary}[chapter]
 
-\newtcolorbox[
-    auto counter,
-    number within=chapter,
-]{example}[2][]{
-    mybox=FacGreen,
-    title={\faCalculator\quad \LangExample~\thetcbcounter: #2},
-    #1,
+\newcommand{\tcblower}{\par\vspace{1ex}\hrule\vspace{1ex}\par}
+
+\newenvironment{example}[1]{%
+    \refstepcounter{example}%
+    \par\noindent%
+    \colorlet{shadecolor}{FacGreen!5}%
+    \begin{shaded*}%
+    \noindent\textbf{\textcolor{FacGreen}{\faCalculator\quad \LangExample~\thechapter.\arabic{example}: #1}}%
+    \par\smallskip%
+}{%
+    \end{shaded*}\par%
 }
-
-\newtcolorbox[
-    auto counter,
-    number within=chapter,
-]{exercise}[2][]{
-    mybox=FacDarkBlue,
-    title={\faPen\quad \LangExercise~\thetcbcounter: #2},
-    #1,
+\newenvironment{application}[1]{%
+    \refstepcounter{application}%
+    \par%
+    \colorlet{shadecolor}{FacTeal!5}%
+    \begin{shaded*}%
+    \noindent\textbf{\textcolor{FacTeal}{\faCogs\quad \LangApplication~\thechapter.\arabic{application}: #1}}%
+    \par\smallskip%
+}{%
+    \end{shaded*}\par%
 }
-
-\newtcolorbox[
-    auto counter,
-    number within=chapter,
-]{application}[2][]{
-    mybox=FacTeal,
-    title={\faCogs\quad \LangApplication~\thetcbcounter: #2},
-    #1,
+\newenvironment{exercise}[1]{%
+    \refstepcounter{exercise}%
+    \par%
+    \colorlet{shadecolor}{FacDarkBlue!5}%
+    \begin{shaded*}%
+    \noindent\textbf{\textcolor{FacDarkBlue}{\faPen\quad \LangExercise~\thechapter.\arabic{exercise}: #1}}%
+    \par\smallskip%
+}{%
+    \end{shaded*}\par%
 }
-
-\newtcolorbox[
-    auto counter,
-    number within=chapter,
-]{video}[2][]{
-    mybox=FacPurple,
-    title={\faPlayCircle\quad \LangVideo~\thetcbcounter: #2},
-    #1,
+\newenvironment{video}[1]{%
+    \refstepcounter{video}%
+    \par%
+    \colorlet{shadecolor}{FacPurple!5}%
+    \begin{shaded*}%
+    \noindent\textbf{\textcolor{FacPurple}{\faVideo\quad \LangVideo~\thechapter.\arabic{video}: #1}}%
+    \par\smallskip%
+}{%
+    \end{shaded*}\par%
 }
-
-\newtcolorbox[
-    auto counter,
-    number within=chapter,
-]{summary}[2][]{
-    mybox=HkaRed,
-    title={\faBook\quad \LangSummary~\thetcbcounter: #2},
-    #1,
+\newenvironment{summary}[1]{%
+    \refstepcounter{summary}%
+    \par%
+    \colorlet{shadecolor}{HkaRed!5}%
+    \begin{shaded*}%
+    \noindent\textbf{\textcolor{HkaRed}{\faBook\quad \LangSummary~\thechapter.\arabic{summary}: #1}}%
+    \par\smallskip%
+}{%
+    \end{shaded*}\par%
 }
-\fi
 
 
 %___________________________________________________________________
@@ -472,20 +461,20 @@
 % \mainmatter   % arabic page numbers, chapter numbers, chapter entries in ToC
 
 
-% \input{chapters/01_einleitung.tex}
-% \input{chapters/02_signalabtastung_und_rekonstruktion.tex}
-% \input{chapters/03_texorpdfstring_zeitdiskrete_signale.tex}
-% \input{chapters/04_zeitdiskrete_systeme_im_zeitbereich.tex}
-% \input{chapters/05_z_transformation_von_signalen.tex}
-% \input{chapters/06_zeitdiskrete_systeme_im_z_bereich.tex}
-% \input{chapters/07_spektrum_von_signalfolgen.tex}
-% \input{chapters/08_label_sec_section.tex}
-% \input{chapters/09_frequenzgang_zeitdiskreter_systeme.tex}
-% \input{chapters/10_entwurf_zeitdiskreter_systeme.tex}
-% \input{chapters/11_label_sec_section_1.tex}
-% \input{chapters/12_diskrete_fourier_transformation.tex}
-% \input{chapters/13_label_sec_section_2.tex}
-% \input{chapters/14_zeitdiskrete_systeme_im_zustandsraum.tex}
+\input{chapters/01_einleitung.tex}
+\input{chapters/02_signalabtastung_und_rekonstruktion.tex}
+\input{chapters/03_texorpdfstring_zeitdiskrete_signale.tex}
+\input{chapters/04_zeitdiskrete_systeme_im_zeitbereich.tex}
+\input{chapters/05_z_transformation_von_signalen.tex}
+\input{chapters/06_zeitdiskrete_systeme_im_z_bereich.tex}
+\input{chapters/07_spektrum_von_signalfolgen.tex}
+\input{chapters/08_label_sec_section.tex}
+\input{chapters/09_frequenzgang_zeitdiskreter_systeme.tex}
+\input{chapters/10_entwurf_zeitdiskreter_systeme.tex}
+\input{chapters/11_label_sec_section_1.tex}
+\input{chapters/12_diskrete_fourier_transformation.tex}
+\input{chapters/13_label_sec_section_2.tex}
+\input{chapters/14_zeitdiskrete_systeme_im_zustandsraum.tex}
 
 
 %___________________________________________________________________

@@ -4,7 +4,7 @@ import typer
 from typing import Annotated
 
 from . import ui
-from .preprocess_tex import replace_documentclass
+from .preprocess import replace_documentclass
 from .latexml import convert_latex_to_html, LaTeXMLOutput
 
 

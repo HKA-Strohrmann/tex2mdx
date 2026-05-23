@@ -4,6 +4,7 @@ import subprocess
 import typer
 
 from .log_handling import list_missing_packages, list_undefined_macros, list_unresolved_errors
+from .postprocess import fix_html_paths
 from . import ui
 
 
@@ -76,6 +77,8 @@ def convert_latex_to_html(input_file: Path, output_file: Path, splitat: str) -> 
 
             if returncode == 0:
                 ui.console.print(f"[bold green]Successfully written LaTeXML conversion to {output_file.name}[/bold green]")
+                # Fix CSS/JS paths in the generated HTML
+                fix_html_paths(output_file)
             else:
                 ui.console.print(f"[bold red]LaTeXML encountered a fatal error (Exit code {returncode})[/bold red]")
                 is_fatal = True

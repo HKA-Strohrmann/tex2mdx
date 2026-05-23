@@ -1,5 +1,7 @@
 @layer ar5iv, arxiv-theme;
 
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
 @layer arxiv-theme {
 @font-face {
   font-family: STIX Two Math;

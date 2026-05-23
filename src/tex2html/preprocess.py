@@ -26,4 +26,4 @@ def replace_documentclass(tex_file: Path) -> None:
     
     if new_content != content:
         tex_file.write_text(new_content)
-        ui.console.print(f"Replaced 'scrbook' with 'book' in '{tex_file}'.")
+        ui.console.print(f"Rewritten 'scrbook' -> 'book' in '{tex_file}'.")

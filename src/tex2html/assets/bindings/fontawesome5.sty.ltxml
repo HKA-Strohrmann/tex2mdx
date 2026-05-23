@@ -1,0 +1,18 @@
+# -*- mode: Perl -*-
+package LaTeXML::Package::Pool;
+use strict;
+use warnings;
+use LaTeXML::Package;
+
+# Map LaTeX macros to XML text nodes. 
+# LaTeXML will convert <ltx:text> into HTML <span> tags.
+# We inject the standard FontAwesome CSS classes (e.g., "fas fa-calculator").
+
+DefConstructor('\faCalculator', "<ltx:text class='fas fa-calculator'></ltx:text>");
+DefConstructor('\faCogs',       "<ltx:text class='fas fa-cogs'></ltx:text>");
+DefConstructor('\faVideo',      "<ltx:text class='fas fa-video'></ltx:text>");
+DefConstructor('\faPen',        "<ltx:text class='fas fa-pen'></ltx:text>");
+DefConstructor('\faBook',       "<ltx:text class='fas fa-book'></ltx:text>");
+
+# Return true to indicate the package loaded successfully
+1;
