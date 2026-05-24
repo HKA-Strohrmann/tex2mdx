@@ -47,7 +47,14 @@ on project root
 
 ```
 uv version # current version
-uv version --bump minor # select (in order of magnitude) major, minor, patch
+uv version --bump patch # select (in order of magnitude) major, minor, patch
+($version = python -c "import tomllib; print(tomllib.load(open('pyproject.toml','rb'))['project']['version'])")
+
+git commit -a -m "Prepared for release $version"
+git push
+
+git tag -a "v$version" -m "Release v$version"
+git push --tags
 
 uv tool install .
 ```
