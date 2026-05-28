@@ -11,7 +11,7 @@ The underlying invocation commands and custom CSS/JavaScript files are based on 
 - [LaTeX distribution](https://www.latex-project.org/get/), [MiKTeX](https://miktex.org/download) is recommended.
 - [Ghostscript](https://www.ghostscript.com/releases/gsdnld.html): You probably want to install the 64bit GNU Affero General Public License version.
 - [Perl](https://www.perl.org/get.html#win32): If you are on Windows, select strawberry perl.
-- [ImageMagick](https://imagemagick.org/download/#gsc.tab=0): Please select a dynamic binary distribution (e.g., "ImageMagick-7.1.2-Q16-HDRI-x64-dll.exe").
+- [ImageMagick](https://imagemagick.org/download/#gsc.tab=0): Please select a dynamic binary distribution (e.g., `ImageMagick-7.1.2-Q16-HDRI-x64-dll.exe`).
 - [LaTeXML](https://math.nist.gov/~BMiller/LaTeXML/get.html)
 - Optional: [Inkscape](https://inkscape.org/release/inkscape-1.4.2/windows/64-bit/msi/dl/) to compile SVG files to pdf.
 
@@ -19,13 +19,13 @@ The underlying invocation commands and custom CSS/JavaScript files are based on 
 
 ### Manual Windows Setup
 
-The ImageMagick has also be binded to your Perl installation. On Windows, the is an issue when ImageMagick is installed with a 64 channel bit mask, which requires a C++ compiler. To work around this issue, you will have to:
+The ImageMagick has also be binded to your Perl installation. On Windows, there is an issue when ImageMagick is installed with a 64 channel bit mask, which requires a C++ compiler. To work around this issue, you will have to:
 
 1. Ensure the following additional tasks are checked when installing the binary/exe file on Windows:
   
     ![install options for image magick](<docs/ImageMagick install.png>)
 
-2. Manually disable error message in `magick-baseconfig.h` (e.g.: `C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\include\MagickCore\magick-baseconfig.h`): 
+2. Manually disable the error message in `magick-baseconfig.h` (e.g.: `C:\Program Files\ImageMagick-7.1.2-Q16-HDRI\include\MagickCore\magick-baseconfig.h`): 
     ```c
     #if MAGICKCORE_CHANNEL_MASK_DEPTH == 64
      #  if !defined(__cplusplus) && !defined(c_plusplus)
