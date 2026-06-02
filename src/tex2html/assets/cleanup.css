@@ -27,3 +27,8 @@
 .markdown table.ltx_eqn_table td.ltx_eqn_left_padright {
     width: 100% !important;
 }
+
+/* Hide Header and  Footer */
+.ltx_page_header { display:none;}
+.ltx_page_logo { display:none;}
+.ltx_page_footer { display:none;}

@@ -9,7 +9,7 @@ from tex2html import ui
 
 DEFAULT_TITLE = "My LaTeX Document"
 DEFAULT_SIDEBAR_POSITION = 1
-DEFAULT_ASSET_BASE_PATH = "/eit/theorie-digitaler-systeme/latex-assets"
+DEFAULT_ASSET_BASE_PATH = "/eit/digitale-signalverarbeitung/latex-assets"
 
 
 def _extract_title(soup: BeautifulSoup, html_path: Path, title: str | None) -> str:
@@ -18,7 +18,8 @@ def _extract_title(soup: BeautifulSoup, html_path: Path, title: str | None) -> s
 
     title_node = soup.find(class_="ltx_title") or soup.find("title")
     if title_node is not None:
-        return title_node.get_text().strip()
+        raw_title = title_node.get_text().strip()
+        return re.sub(r"^chapter\s+", "", raw_title, flags=re.IGNORECASE)
 
     return html_path.stem.replace("_", " ").title()
 
@@ -103,8 +104,7 @@ def _build_mdx_content(
             "<Head>",
             f'  <link rel="stylesheet" href="{asset_base_path}/LaTeXML.css" />',
             f'  <link rel="stylesheet" href="{asset_base_path}/ltx-book.css" />',
-            # f'  <link rel="stylesheet" href="{asset_base_path}/arxiv-html-papers-20260131.css" />',
-            # f'  <script src="{asset_base_path}/arxiv-html-papers-20260131.js"></script>',
+            f'  <link rel="stylesheet" href="{asset_base_path}/cleanup.css" />',
             "</Head>",
             "",
             f"<div dangerouslySetInnerHTML={{{{ __html: {safe_html_string} }}}} />",
@@ -113,7 +113,7 @@ def _build_mdx_content(
     )
 
 
-def generate_mdx_from_html(
+def _generate_mdx_from_html(
     html_file: str | Path,
     mdx_file: str | Path | None = None,
     *,
@@ -168,7 +168,7 @@ def generate_mdx_from_html_files(
             mdx_path = Path(mdx_directory) / html_path.with_suffix(".mdx").name
 
         generated_files.append(
-            generate_mdx_from_html(
+            _generate_mdx_from_html(
                 html_path,
                 mdx_path,
                 title=title,
