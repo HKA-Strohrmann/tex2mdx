@@ -33,6 +33,24 @@ def _select_article_node(soup: BeautifulSoup):
     )
 
 
+def _remove_document_title(article_node) -> None:
+    title_node = article_node.find(
+        lambda tag: getattr(tag, "name", None) in {"h1", "h2", "div", "span"}
+        and "ltx_title" in (tag.get("class") or [])
+        and any(
+            title_class in (tag.get("class") or [])
+            for title_class in {
+                "ltx_title_document",
+                "ltx_title_chapter",
+                "ltx_title_part",
+            }
+        )
+    )
+
+    if title_node is not None:
+        title_node.decompose()
+
+
 def _rewrite_asset_paths(article_node, asset_base_path: str) -> None:
     for img in article_node.find_all("img"):
         old_src = img.get("src")
@@ -85,8 +103,8 @@ def _build_mdx_content(
             "<Head>",
             f'  <link rel="stylesheet" href="{asset_base_path}/LaTeXML.css" />',
             f'  <link rel="stylesheet" href="{asset_base_path}/ltx-book.css" />',
-            f'  <link rel="stylesheet" href="{asset_base_path}/arxiv-html-papers-20260131.css" />',
-            f'  <script src="{asset_base_path}/arxiv-html-papers-20260131.js"></script>',
+            # f'  <link rel="stylesheet" href="{asset_base_path}/arxiv-html-papers-20260131.css" />',
+            # f'  <script src="{asset_base_path}/arxiv-html-papers-20260131.js"></script>',
             "</Head>",
             "",
             f"<div dangerouslySetInnerHTML={{{{ __html: {safe_html_string} }}}} />",
@@ -115,6 +133,7 @@ def generate_mdx_from_html(
     resolved_title = _extract_title(soup, html_path, title)
     article_node = _select_article_node(soup)
 
+    _remove_document_title(article_node)
     _rewrite_asset_paths(article_node, asset_base_path)
     _rewrite_internal_links(article_node)
 

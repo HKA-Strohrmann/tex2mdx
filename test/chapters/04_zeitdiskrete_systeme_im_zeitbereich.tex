@@ -32,7 +32,7 @@ y[ k] &= (1 - GF)  u[ k] + GF  y[ k - 1]
 Dabei gilt für den Gedächtnisfaktor GF die Bedingung 0 \textless{} GF \textless{} 1. Das aktuelle Ausgangssignal ergibt sich aus dem aktuellen Eingangssignal und dem um einen Takt zurückliegenden Ausgangssignal. Für kleine Werte von GF folgt das Ausgangssignal dem Eingangssignal, für große Werte ändert sich das Ausgangsignal nur sehr langsam. Bild 4.1 zeigt diesen Zusammenhang für einen Sprung am Eingang.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Ausgangssignal eines zeitdiskreten Tiefpass-Filters für einen Sprung am Eingang}]{new_media/4_1_ausgangssignal_eines_zeitdiskret.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Ausgangssignal eines zeitdiskreten Tiefpass-Filters für einen Sprung am Eingang}]{new_media/4_1_ausgangssignal_eines_zeitdiskret.png}
   \captionof{figure}{Ausgangssignal eines zeitdiskreten Tiefpass-Filters für einen Sprung am Eingang}
 \end{fixedfigure}
 
@@ -50,7 +50,7 @@ y[ k] &= \frac{1}{5}  \left( u[ k] + u[ k - 1] + u[ k - 2] + u[ k - 3] + u[ k - 
 ein gleitendes Mittelwertfilter mit 5 Abtastwerten beschrieben. Die Ausgangsfolge ist in diesem Fall nur von aktuellen und vergangenen Werten des Eingangssignals abhängig. Durch die Mittelwertbildung weist die Ausgangsfolge \(y[k]\) einerseits eine geringere Variation auf als die Eingangsfolge \(u[k]\). Durch die Bildung des Mittelwertes von fünf Abtastwerten erreicht das Signal andererseits später seinen Endwert. Beide Effekte sind in Bild \ref{fig:4.2} verdeutlicht.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Ausgangssignal eines zeitdiskreten Systems mit gleitender Mittelung}]{new_media/4_2_ausgangssignal_eines_zeitdiskret.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Ausgangssignal eines zeitdiskreten Systems mit gleitender Mittelung}]{new_media/4_2_ausgangssignal_eines_zeitdiskret.png}
   \captionof{figure}{Ausgangssignal eines zeitdiskreten Systems mit gleitender Mittelung}
   \label{fig:4.2}
 \end{fixedfigure}
@@ -72,7 +72,7 @@ Die beiden vorangegangenen Beispiele sind Algorithmen, die zum Beispiel als Prog
 Bei der Integration von CMOS-Schaltungen ist es aufwendig und teuer, präzise und temperaturstabile Widerstände herzustellen. Die Herstellung von stabilen Kondensatoren ist dagegen vergleichsweise günstig. Deshalb werden in der CMOS-Technik Switched-Capacitor-Schaltungen verwendet. Als Beispiel zeigt Bild \ref{fig:4.3} einen invertierenden Integrierer in Switched-Capacitor-Technik.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Invertierender Integrierer in Switched-Capacitor-Technik}]{new_media/4_3_invertierender_integrierer_in_sw.png}
+  \includegraphics[width=\imagewidthfactor\columnwidth, alt={Invertierender Integrierer in Switched-Capacitor-Technik}]{new_media/4_3_invertierender_integrierer_in_sw.png}
   \captionof{figure}{Invertierender Integrierer in Switched-Capacitor-Technik}
   \label{fig:4.3}
 \end{fixedfigure}
@@ -105,7 +105,7 @@ Das Verhalten der Ein- und Ausgangsgrößen eines realisierbaren, zeitkontinuier
 
 \begin{figure}
   \centering
-  \includegraphics[alt={Approximation des Integrals eines zeitkontinuierlichen Signals durch ein Trapez}]{new_media/4_4_approximation_des_integrals_eine.png}
+  \includegraphics[width=\imagewidthfactor\columnwidth, alt={Approximation des Integrals eines zeitkontinuierlichen Signals durch ein Trapez}]{new_media/4_4_approximation_des_integrals_eine.png}
   \caption{Approximation des Integrals eines zeitkontinuierlichen Signals durch ein Trapez}
   \label{fig:4.4}
 \end{figure}
@@ -165,7 +165,7 @@ u_{A}[ k] &= \frac{T_{A}  u_{E}[ k] + T_{A}  u_{E}[ k - 1] - T_{A}  u_{A}[ k - 1
 Die aktuelle Ausgangsspannung \(u_{A}\){[}k{]} berechnet sich aus dem aktuellen und einem vergangenen Wert der Eingangsspannung \(u_{E}\){[}k{]} und einem vergangenen Wert der Ausgangsspannung \(u_{A}\){[}k{]}. Bild \ref{fig:4.6} zeigt den Vergleich zwischen dem zeitkontinuierlichen und dem zeitdiskreten System bei unterschiedlichen Abtastzeiten.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \qty{100}{\micro\second})}]{new_media/4_6_vergleich_zwischen_zeitkontinuie.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \qty{100}{\micro\second})}]{new_media/4_6_vergleich_zwischen_zeitkontinuie.png}
   \captionof{figure}{Vergleich zwischen zeitkontinuierlicher und zeitdiskreter Realisierung eines Tiefpasses (RC = \qty{100}{\micro\second})}
   \label{fig:4.6}
 \end{fixedfigure}
@@ -228,7 +228,7 @@ Wird das System mit der oben beschriebenen Linearkombination angeregt, ergibt si
 Bild \ref{fig:4.7} zeigt Ein- und Ausgangssignale eines linearen Systems, das mit den Signalen \(u_{1}\){[}k{]}, \(u_{2}\){[}k{]} und \(u[k]\) = \(u_{1}\){[}k{]} + \(u_{2}\){[}k{]} angeregt wird.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Reaktion eines linearen Systems auf die Anregung mit einer Linearkombination von Signalen}]{new_media/4_7_reaktion_eines_linearen_systems.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Reaktion eines linearen Systems auf die Anregung mit einer Linearkombination von Signalen}]{new_media/4_7_reaktion_eines_linearen_systems.png}
   \captionof{figure}{Reaktion eines linearen Systems auf die Anregung mit einer Linearkombination von Signalen}
   \label{fig:4.7}
 \end{fixedfigure}
@@ -258,7 +258,7 @@ y\left[ k - k_{0} \right] &= (1 - GF)  u\left[ k - k_{0} \right] + GF  y\left[ k
 Wird das Eingangssignal um \(k_{0}\) verschoben, wird auch das Ausgangsignal um \(k_{0}\) verschoben.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Reaktion eines zeitinvarianten Systems auf die Anregung mit zeitverschobenen Signalen}]{new_media/4_8_reaktion_eines_zeitinvarianten_s.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Reaktion eines zeitinvarianten Systems auf die Anregung mit zeitverschobenen Signalen}]{new_media/4_8_reaktion_eines_zeitinvarianten_s.png}
   \captionof{figure}{Reaktion eines zeitinvarianten Systems auf die Anregung mit zeitverschobenen Signalen}
 \end{fixedfigure}
 
@@ -350,7 +350,7 @@ y_{2}[ k] &= \frac{1}{5}  \left( u[ k + 2] + u[ k + 1] + u[ k] + u[ k - 1] + u[ 
 ist nicht mehr kausal, weist aber - wie später gezeigt wird - keine zeitliche Verzögerung auf. Oft werden in der Datenverarbeitung erst alle Messwerte aufgenommen und anschließend ausgewertet. In diesem Fall liegen auch zukünftige Werte vor. Die Kausalität von Systemen ist in diesem Fall nicht zwingend erforderlich. Bild \ref{fig:4.10} stellt die Sprungantwort eines kausalen und eines nicht kausalen Systems zur Berechnung eines gleitenden Mittelwertes dar.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Sprungantwort eines kausalen und eines nicht kausalen Systems zur Berechnung eines gleitenden Mittelwertes}]{new_media/4_10_sprungantwort_eines_kausalen_un.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Sprungantwort eines kausalen und eines nicht kausalen Systems zur Berechnung eines gleitenden Mittelwertes}]{new_media/4_10_sprungantwort_eines_kausalen_un.png}
   \captionof{figure}{Sprungantwort eines kausalen und eines nicht kausalen Systems zur Berechnung eines gleitenden Mittelwertes}
   \label{fig:4.10}
 \end{fixedfigure}
@@ -388,7 +388,7 @@ u[ k] &= \sigma[ k] - \sigma[ k - 10]
 angeregt, die eine endliche Energie aufweist.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Sprungantwort eines asymptotisch stabilen, grenzstabilen und instabilen Systems}]{new_media/4_11_sprungantwort_eines_asymptotisc.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Sprungantwort eines asymptotisch stabilen, grenzstabilen und instabilen Systems}]{new_media/4_11_sprungantwort_eines_asymptotisc.png}
   \captionof{figure}{Sprungantwort eines asymptotisch stabilen, grenzstabilen und instabilen Systems}
   \label{fig:4.11}
 \end{fixedfigure}
@@ -635,7 +635,7 @@ y[ k] &= \left( 1 - GF^{k + 1} \right)  \sigma[ k]
 Bild \ref{fig:4.12} vergleicht das Ausgangssignal der rekursiven Berechnung mit dem der analytischen Berechnung.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Vergleich zwischen rekursiver und analytischer Berechnung des Ausgangssignals eines rekursiven Tiefpasses für GF = 0.9}]{new_media/4_12_vergleich_zwischen_rekursiver_u.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Vergleich zwischen rekursiver und analytischer Berechnung des Ausgangssignals eines rekursiven Tiefpasses für GF = 0.9}]{new_media/4_12_vergleich_zwischen_rekursiver_u.png}
   \captionof{figure}{Vergleich zwischen rekursiver und analytischer Berechnung des Ausgangssignals eines rekursiven Tiefpasses für GF = 0.9}
   \label{fig:4.12}
 \end{fixedfigure}
@@ -773,7 +773,7 @@ Bild \ref{fig:4.14} stellt das Superpositionsprinzip für das Beispiel des rekur
 
 \begin{figure}
   \centering
-  \includegraphics[width=\maximagewidth, alt={Überlagerung der Systemreaktion \(y[k]\) = \(y_{1}\){[}k{]} + \(y_{2}\){[}k{]} bei überlagertem Eingangssignal \(u[k]\) = \(u_{1}\){[}k{]} + \(u_{2}\){[}k{]}}]{new_media/4_14_berlagerung_der_systemreaktion.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Überlagerung der Systemreaktion \(y[k]\) = \(y_{1}\){[}k{]} + \(y_{2}\){[}k{]} bei überlagertem Eingangssignal \(u[k]\) = \(u_{1}\){[}k{]} + \(u_{2}\){[}k{]}}]{new_media/4_14_berlagerung_der_systemreaktion.png}
   \caption{Überlagerung der Systemreaktion \(y[k]\) = \(y_{1}\){[}k{]} + \(y_{2}\){[}k{]} bei überlagertem Eingangssignal \(u[k]\) = \(u_{1}\){[}k{]} + \(u_{2}\){[}k{]}}
   \label{fig:4.14}
 \end{figure}
@@ -831,7 +831,7 @@ g[ k] &= 2  \sigma[ k] - \sigma[ k - 2] - \sigma[ k - 4]
 Die Folgen sind in Bild \ref{fig:4.15} grafisch dargestellt.
 
 \begin{fixedfigure}
-  \includegraphics[width=\maximagewidth, alt={Folgen \(u[k]\) und \(g[k]\) für das Beispiel zur grafischen Interpretation der Faltungssumme}]{new_media/4_15_folgen_uk_und_gk_fr_das_beispie.png}
+  \includegraphics[width=\imagemaxwidthfactor\columnwidth, alt={Folgen \(u[k]\) und \(g[k]\) für das Beispiel zur grafischen Interpretation der Faltungssumme}]{new_media/4_15_folgen_uk_und_gk_fr_das_beispie.png}
   \captionof{figure}{Folgen \(u[k]\) und \(g[k]\) für das Beispiel zur grafischen Interpretation der Faltungssumme}
   \label{fig:4.15}
 \end{fixedfigure}
@@ -843,7 +843,7 @@ u[ k]*g[ k] &= \sum\limits_{\kappa = - \infty}^{\infty}{u[\kappa]  g[ k - \kappa
 Mit dieser Darstellung fällt die Interpretation einfacher: Die Folge \(g[κ]\) wird an der Achse \(κ = 0\) gespiegelt und um k nach rechts verschoben. Dann wird das Produkt der einzelnen Folgenwerte addiert. Bild \ref{fig:4.16} stellt die unterschiedlichen Phasen der grafischen Faltung dar.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Grafische Veranschaulichung der Faltung zweier Folgen zu verschiedenen Stadien}]{new_media/4_16_grafische_veranschaulichung_der.png}
+  \includegraphics[width=\imagewidthfactor\columnwidth, alt={Grafische Veranschaulichung der Faltung zweier Folgen zu verschiedenen Stadien}]{new_media/4_16_grafische_veranschaulichung_der.png}
   \captionof{figure}{Grafische Veranschaulichung der Faltung zweier Folgen zu verschiedenen Stadien}
   \label{fig:4.16}
 \end{fixedfigure}
@@ -852,7 +852,7 @@ Für negative Folgenindizes k überschneiden sich die beiden Folgen nicht. Zum Z
 \(k = 1\) ergibt sich eine Überschneidung der ersten beiden Werte. Nach Bildung des Produktes werden die Ergebnisse addiert und es ergibt sich \(y[1]\)= 2 + 2 = 4. So wird für die übrigen Werte von k fortgefahren. Für k ≥ 3 überschneidet sich die Folge x komplett mit der Folge g, sodass sich der Wert des Ausgangssignals nicht weiter ändert.
 
 \begin{fixedfigure}
-  \includegraphics[alt={Ergebnis der Faltung zweier Folgen}]{new_media/4_17_ergebnis_der_faltung_zweier_fol.png}
+  \includegraphics[width=\imagewidthfactor\columnwidth, alt={Ergebnis der Faltung zweier Folgen}]{new_media/4_17_ergebnis_der_faltung_zweier_fol.png}
   \captionof{figure}{Ergebnis der Faltung zweier Folgen}
 \end{fixedfigure}
 

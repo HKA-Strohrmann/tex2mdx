@@ -12,8 +12,8 @@ LATEXML_TIMEOUT_SEC = 540
 
 # Asset paths relative to this file
 ASSETS_DIR = Path(__file__).parent / "assets"
-CSS_PATH = ASSETS_DIR / "css" / "arxiv-html-papers-20260131.css"
-JAVASCRIPT_PATH = ASSETS_DIR / "js" / "arxiv-html-papers-20260131.js"
+CSS_PATH = ASSETS_DIR / "css" / "my_css.css"
+JAVASCRIPT_PATH = ASSETS_DIR / "js" / "my_js.js"
 
 # Custom LaTeXML bindings
 BINDINGS_PATH = ASSETS_DIR / "bindings"
@@ -45,8 +45,8 @@ def convert_latex_to_html(input_file: Path, output_file: Path, splitat: str) -> 
         f"--splitat={splitat}",
         f"--log={log_path}",
         f"--timeout={LATEXML_TIMEOUT_SEC}",
-        f"--css={str(CSS_PATH.resolve())}",
-        f"--javascript={str(JAVASCRIPT_PATH.resolve())}",
+        # f"--css={str(CSS_PATH.resolve())}",
+        # f"--javascript={str(JAVASCRIPT_PATH.resolve())}",
         f"--dest={output_file}",
     ]
     for binding in BINDINGS_PATH.glob("*.sty.ltxml"):

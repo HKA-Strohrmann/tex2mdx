@@ -38,7 +38,3 @@ def add_prefix_to_relative_links(prefix: str, html_file_path: str) -> None:
         html.truncate(0)
         html.seek(0)
         html.write(new_text)#
-
-# add_prefix_to_relative_links(
-                #     payload.identifier.idv, main_html_file_path
-                # )

@@ -1,7 +1,7 @@
 
 %___________________________________________________________________
 % Build options
-% ! manually speficy the target language here!
+%! manually speficy the target language here!
 
 
 \newif\ifenglish
@@ -109,7 +109,7 @@
         \newunicodechar{ }{\ } % Fixes non-breaking space
     \fi
 \else
-    %*LuaTeX compiler*
+    % LuaTeX compiler
     \usepackage{unicode-math}  % unicode math symbols and fonts
 
     \defaultfontfeatures{
@@ -171,26 +171,40 @@
 
 %___________________________________________________________________
 % Image Dimensions
-% 1. images are set with a default width and height. Because 'keepaspectratio' is set,
-% an image will be scaled unitl it hits the first lowest threshold.
-% 2. Image dimensions can be overwritten locally for each image. If only width is changed,
-% the height will be automatically adjusted to maintain the aspect ratio.
-%* Therefore it is recommended to only specfiy the width of an image, and let the height adjust automatically. *
+% 1. GLOBAL DEFAULTS & KEEP-ASPECT-RATIO
+%    Images are configured globally with a default width and maximum height. 
+%    Because 'keepaspectratio' is enabled, an image scales up until it 
+%    hits the first of these thresholds. 
+%    
+%    By default, figures scale to: width = \imagewidthfactor\columnwidth.
+%    Extremely tall images will be safely capped at \imagemaxheight.
+%
+% 2. THE \columnwidth TRAP (CONTEXT SPECIFICITY)
+%    Because default values are expanded immediately in the preamble, images placed 
+%    inside columns, minipages, or boxes will NOT automatically adapt to the 
+%    nested container's smaller \columnwidth. They will mistakenly inherit the 
+%    original, global page \columnwidth.
+%
+% *RECOMMENDATIONS:*
+% -> Always explicitly set the image width locally using:
+%    [width=\imagewidthfactor\columnwidth]
+%    This forces LaTeX to recalculate the width based on the current context.
+%
+% -> Do not specify a local height. The global \imagemaxheight and 
+%    'keepaspectratio' settings remain active, so letting the height adjust 
+%    automatically ensures correct proportions without overflow.
 
-% image width can be adjusted. Together with 'keepaspectratio' the height will be auto adjusted.
-\newlength{\imagewidth}
-\newlength{\maximagewidth}
-\setlength{\imagewidth}{0.5\columnwidth}
-\setlength{\maximagewidth}{1.0\columnwidth}
+% Target width factor relative to the current \columnwidth
+\newcommand{\imagewidthfactor}{0.5} 
+\newcommand{\imagemaxwidthfactor}{1}
 
 % upper bound for image heigths.
-\newlength{\maximageheight}
-\setlength{\maximageheight}{0.4\textheight}
+\newcommand{\imagemaxheight}{\textheight}
 
 
 %___________________________________________________________________
 % Load Packages
-%* These packages have kown compatibility issues with LaTeXML, but are currently not used:*
+%* These packages have kown compatibility issues with LaTeXML, and are currently not used:*
 %   - tcolorbox
 %   - biblatex
 %   - scrartcl, scrreprt, scrbook
@@ -220,8 +234,8 @@
 \usepackage[    % svgsetup is not known in latexml
     inkscapelatex=false,    % dont render text inside svg with latex
     keepaspectratio,
-    height=\maximageheight,
-    width=\imagewidth,
+    height=\imagemaxheight,
+    width=\imagewidthfactor\columnwidth,
 ]{svg}
 \usepackage{caption}
 \usepackage{float}              % set default figure placements
@@ -309,8 +323,8 @@
 % Images grow until width or height limit is reached.
 \setkeys{Gin}{
     keepaspectratio,
-    height=\maximageheight,
-    width=\imagewidth,
+    height=\imagemaxheight,
+    width=\imagewidthfactor\columnwidth,
 }
 
 \UseMicrotypeSet[protrusion]{basicmath}
@@ -320,6 +334,18 @@
 
 %___________________________________________________________________
 % Custom Boxes
+
+
+\renewenvironment{leftbar}[2][\hsize]
+{
+    \def\FrameCommand
+    {
+        {\color{#2}\vrule width 3pt}
+        \hspace{10pt} % Increased slightly so text doesn't hug the bar
+    }
+    \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}
+}
+{\endMakeFramed}
 
 
 \newcounter{example}[chapter]
@@ -338,53 +364,48 @@
 \newenvironment{example}[1]{%
     \refstepcounter{example}%
     \par\noindent%
-    \colorlet{shadecolor}{FacGreen!5}%
-    \begin{shaded*}%
+    \begin{leftbar}{FacGreen}%
     \noindent\textbf{\textcolor{FacGreen}{\faCalculator\quad \LangExample~\theexample: #1}}%
     \par%
 }{%
-    \end{shaded*}\par%
+    \end{leftbar}\par%
 }
 \newenvironment{application}[1]{%
     \refstepcounter{application}%
     \par%
-    \colorlet{shadecolor}{FacTeal!5}%
-    \begin{shaded*}%
+    \begin{leftbar}{FacTeal}%
     \noindent\textbf{\textcolor{FacTeal}{\faCogs\quad \LangApplication~\theapplication: #1}}%
     \par%
 }{%
-    \end{shaded*}\par%
+    \end{leftbar}\par%
 }
 \newenvironment{exercise}[1]{%
     \refstepcounter{exercise}%
     \par%
-    \colorlet{shadecolor}{FacDarkBlue!5}%
-    \begin{shaded*}%
+    \begin{leftbar}{FacDarkBlue}%
     \noindent\textbf{\textcolor{FacDarkBlue}{\faPen\quad \LangExercise~\theexercise: #1}}%
     \par%
 }{%
-    \end{shaded*}\par%
+    \end{leftbar}\par%
 }
 \newenvironment{video}[1]{%
     \refstepcounter{video}%
     \par%
-    \colorlet{shadecolor}{FacPurple!5}%
-    \begin{shaded*}%
+    \begin{leftbar}{FacPurple}%
     \noindent\textbf{\textcolor{FacPurple}{\faVideo\quad \LangVideo~\thevideo: #1}}%
     \par%
 }{%
-    \end{shaded*}\par%
+    \end{leftbar}\par%
 }
 \newenvironment{summary}[1]{%
     \refstepcounter{summary}%
     \addcontentsline{los}{summary}{\thesummary: #1}%
     \par%
-    \colorlet{shadecolor}{HkaRed!5}%
-    \begin{shaded*}%
+    \begin{leftbar}{HkaRed}%
     \noindent\textbf{\textcolor{HkaRed}{\faBook\quad \LangSummary~\thesummary: #1}}%
     \par%
 }{%
-    \end{shaded*}\par%
+    \end{leftbar}\par%
 }
 
 \ifpdf
@@ -399,80 +420,12 @@
     \unsettoc{los}{noparskip}   % Use compact list spacing
 \fi
 
+
 %___________________________________________________________________
 % Title Page
 
 
-\hypersetup{
-    pdftitle=Digitale Signalverarbeitung,
-    pdfauthor=Manfred Storhmann,
-}
-
-\title{Digitale Signalverarbeitung}
-
-\author{
-    Manfred Strohrmann%
-    \thanks{
-        \href{mailto:manfred.strohrmann@h-ka.de}{manfred.strohrmann@h-ka.de}
-    }
-}
-\date{\today}
-
-\ifpdf
-    \titlehead{
-        \includesvg[height=3cm]{HKA_EIT_Logo_Gesamt-h_RGB.svg}
-    }
-    \subject{Signale und Systeme: Part 2}
-
-    \subtitle{Betrachtung von zeitdiskreten Signalen}
-
-    \publishers{
-        Herausgegeben von:\\
-        Manfred Strohrmann
-    }
-
-    \newcommand{\SetupTitleBack}{
-        \uppertitleback{
-            14. Ausgabe, Version 14.0.1, Stand: 2024-05-01
-            \medskip
-
-            Dieses Skript und begleitende Materialien finden Sie unter: \\
-            \url{https://www.h-ka.de/eit/Digitale-Signalverarbeitung}
-        }
-        \lowertitleback{
-            Copyright \textcopyright\ 2010 Manfred Strohrmann,
-            \medskip
-
-            Published by Manfred Strohrmann. Alle Rechte vorbehalten.
-            \medskip
-
-            Dieses Skript wird als Lehrmaterial für die Vorlesung Digitale Signalverarbeitung an der Hochschule Karlsruhe verwendet. Das Skript wird unter der folgenden Lizenz veröffentlicht: CC BY-NC-ND 4.0 (\url{https://creativecommons.org/licenses/by-nc-nd/4.0/}).
-        }
-        % \dedication{
-        %     \itshape
-        %     Dem akademischen Nachwuchs gewidmet, der die Filter von morgen entwirft.
-        % }
-    }
-
-    % titleback options are only allowed in twoside mode,
-    % so we detect twoside or semitwoside (from KOMA) and enable titleback accordingly.
-    \makeatletter
-    \newif\ifshowtitleback
-    \if@twoside
-        \showtitlebacktrue        
-    \fi
-    \@ifundefined{if@semitwoside}{}{%
-        \if@semitwoside
-            \showtitlebacktrue
-        \fi
-    }
-    \ifshowtitleback
-        \SetupTitleBack
-    \fi
-    \makeatother
-
-    
-\fi
+\input{titlepage.tex}
 
 
 %___________________________________________________________________

@@ -1,0 +1,70 @@
+\hypersetup{
+    pdftitle=Digitale Signalverarbeitung,
+    pdfauthor=Manfred Storhmann,
+}
+
+\title{Digitale Signalverarbeitung}
+
+\author{
+    Manfred Strohrmann%
+    \thanks{
+        \href{mailto:manfred.strohrmann@h-ka.de}{manfred.strohrmann@h-ka.de}
+    }
+}
+\date{\today}
+
+\ifpdf
+    \titlehead{
+        \includesvg[height=3cm]{HKA_EIT_Logo_Gesamt-h_RGB.svg}
+    }
+    \subject{Signale und Systeme: Part 2}
+
+    \subtitle{Betrachtung von zeitdiskreten Signalen}
+
+    \publishers{
+        Herausgegeben von:\\
+        Manfred Strohrmann
+    }
+
+    \newcommand{\SetupTitleBack}{
+        \uppertitleback{
+            14. Ausgabe, Version 14.0.1, Stand: 2024-05-01
+            \medskip
+
+            Dieses Dokument und begleitende Materialien finden Sie unter: \\
+            \url{https://www.h-ka.de/eit/Digitale-Signalverarbeitung}
+        }
+        \lowertitleback{
+            Copyright \textcopyright\ 2010 Manfred Strohrmann,
+            \medskip
+
+            Published by Manfred Strohrmann. Alle Rechte vorbehalten.
+            \medskip
+
+            Dieses Dokument wird als Lehrmaterial für die Vorlesung Digitale Signalverarbeitung an der Hochschule Karlsruhe verwendet. Das Dokument wird unter der folgenden Lizenz veröffentlicht: CC BY-NC-ND 4.0 (\url{https://creativecommons.org/licenses/by-nc-nd/4.0/}).
+        }
+        % \dedication{
+        %     \itshape
+        %     Dem akademischen Nachwuchs gewidmet, der die Filter von morgen entwirft.
+        % }
+    }
+
+    % titleback options are only allowed in twoside mode,
+    % so we detect twoside or semitwoside (from KOMA) and enable titleback accordingly.
+    \makeatletter
+    \newif\ifshowtitleback
+    \if@twoside
+        \showtitlebacktrue        
+    \fi
+    \@ifundefined{if@semitwoside}{}{%
+        \if@semitwoside
+            \showtitlebacktrue
+        \fi
+    }
+    \ifshowtitleback
+        \SetupTitleBack
+    \fi
+    \makeatother
+
+    
+\fi
