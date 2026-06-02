@@ -111,6 +111,10 @@ cd test
 
 uv run tex2html "combined.tex" --output-file "html/combined.html"
 start "html/combined.html"
+
+# or
+uv run tex2html "test.tex" --output-file "html/test.html"
+start "html/test.html"
 ```
 
 ### Test LaTeX compilation

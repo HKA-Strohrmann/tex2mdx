@@ -1,0 +1,29 @@
+/* Add fontawesome icons */
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css");
+
+/* Prevent Docusaurus Infima from breaking LaTeXML math tables */
+.markdown table.ltx_eqn_table {
+    display: table !important;
+    width: 100% !important;
+    border: none !important;
+    /* margin: 0 auto !important; */
+    box-shadow: none !important;
+    overflow: visible !important;
+}
+.markdown table.ltx_eqn_table tr,
+.markdown table.ltx_eqn_table td {
+    border: none !important;
+    background-color: transparent !important;
+}
+
+/* Ensure equation numbers don't wrap awkwardly */
+.markdown table.ltx_eqn_table td.ltx_eqn_eqno {
+    white-space: nowrap;
+    text-align: right !important; /* Forces the text flush right */
+    width: 1%; /* Keeps the cell only as wide as the number itself */
+}
+
+/* Force the empty padding cell to absorb 100% of the extra table width */
+.markdown table.ltx_eqn_table td.ltx_eqn_left_padright {
+    width: 100% !important;
+}
