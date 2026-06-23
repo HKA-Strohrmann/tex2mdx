@@ -1,0 +1,931 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung</title>
+<!--Generated on Tue Jun 23 21:28:02 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on June 23, 2026.-->
+
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-book.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="cleanup.css" type="text/css">
+<link rel="up" href="combined.html" title="Digitale Signalverarbeitung">
+<link rel="start" href="combined.html" title="Digitale Signalverarbeitung">
+<link rel="prev" href="Ch1.html" title="Chapter 1 Einleitung ‣ Digitale Signalverarbeitung">
+<link rel="next" href="Ch3.html" title="Chapter 3 Zeitdiskrete Signale ‣ Digitale Signalverarbeitung">
+<link rel="chapter" href="Ch1.html" title="Chapter 1 Einleitung ‣ Digitale Signalverarbeitung">
+<link rel="chapter" href="Ch3.html" title="Chapter 3 Zeitdiskrete Signale ‣ Digitale Signalverarbeitung">
+</head>
+<body>
+<div class="ltx_page_main">
+<header class="ltx_page_header">
+<div class="ltx_align_center">
+<a href="combined.html" title="" class="ltx_ref" rel="up"><span class="ltx_text ltx_ref_title">Digitale Signalverarbeitung</span></a><a href="Ch1.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="prev"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Einleitung</span></a><a href="Ch3.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="next"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Zeitdiskrete Signale</span></a>
+</div></header>
+<div class="ltx_page_content">
+<section class="ltx_chapter ltx_fleqn">
+<h1 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter">Chapter 2 </span>Signalabtastung und Rekonstruktion</h1>
+
+<div id="p1" class="ltx_para">
+<p class="ltx_p">Als Voraussetzung für die digitale Signalverarbeitung müssen die zeit- und wertkontinuierlichen Signale so gewandelt werden, dass sie abgespeichert und weiterverarbeitet werden können. Diese Wandlung wird Digitalisierung genannt.</p>
+</div>
+<div id="p2" class="ltx_para">
+<p class="ltx_p">Dazu muss das Signal einerseits zeitlich quantisiert werden, da nur endlich viele Werte verarbeitet werden können. Zu diskreten Zeitpunkten wird dabei der aktuelle Wert des Signals abgetastet. Die Abstände zwischen den Zeitpunkten, zu denen die Werte erfasst werden, sind üblicherweise äquidistant, sie sind also immer gleich groß. Die erfassten Werte werden Abtastwerte genannt. Außerdem muss die Amplitude des Signals bestimmt werden, was nur in einem begrenzten Bereich und mit einer definierten Auflösung oder Quantisierung möglich ist.</p>
+</div>
+<div id="p3" class="ltx_para">
+<p class="ltx_p">Nach einer kurzen Darstellung zum Umgang mit Quantisierungsfehlern bei der Amplitude wird in diesem Kapitel die Zeitdiskretisierung betrachtet, da eine falsche Zeitdiskretisierung fatale Auswirkungen auf die folgende Signalverarbeitung hat. Zunächst wird allgemein erklärt, wie die ideale Abtastung von Signalen mathematisch beschrieben werden kann. Hierbei wird deutlich, warum das Spektrum eines abgetasteten Signals immer periodisch ist. Anhand der Periodizität des Spektrums wird das Abtasttheorem von Shannon eingeführt. Es besagt, dass die Abtastfrequenz bei bandbegrenzten Signalen mehr als doppelt so groß sein muss, wie die größten Frequenzanteile im Signal. Mit dem Anti-Aliasing-Tiefpass wird eine Methode vorgestellt, wie Signale ohne Bandbegrenzung gefiltert werden können, um das Abtasttheorem zu erfüllen.</p>
+</div>
+<div id="p4" class="ltx_para">
+<p class="ltx_p">Da die ideale Abtastung von Signalen nur in der Theorie existiert und in der Praxis so nicht direkt angewandt werden kann, wird darüber hinaus die reale Abtastung mathematisch beschrieben und die dadurch entstehenden Signalverzerrungen erläutert. Auch hier gibt es die Möglichkeit, die Effekte durch die geschickte Anwendung von Filtern zu kompensieren.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.1 </span>Quantisierungsfehler der Amplitude</h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Bei der Digitalisierung von Signalen muss die Amplitude einer festen Quantisierungsstufe zugeordnet werden. Entscheidend für die Quantisierung des Signals ist die Auflösung des Analog-Digital-Wandlers (AD-Wandlers), die üblicherweise in Bit angegeben wird. Beispielsweise wird mit einem 12-Bit-AD-Wandler ein definierter Messbereich in <math id="S1.p1.m1" class="ltx_Math" alttext="2^{12}=4096" display="inline"><semantics><mrow><msup><mn>2</mn><mn>12</mn></msup><mo>=</mo><mn>4096</mn></mrow><annotation encoding="application/x-tex">2^{12}=4096</annotation></semantics></math> Intervalle eingeteilt. Bei einem Messbereich von <math id="S1.p1.m2" class="ltx_Math" alttext="5\text{\,}\mathrm{V}" display="inline"><semantics><mrow><mn>5</mn><mtext> </mtext><mi class="ltx_unit" mathvariant="normal">V</mi></mrow><annotation encoding="application/x-tex">5\text{\,}\mathrm{V}</annotation></semantics></math> ergäben sich demnach bei einer Auflösung von 12 Bit Quantisierungsstufen von.</p>
+<table id="A0.S4.EGx1" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E1.m1" class="ltx_Math" alttext="\displaystyle\Delta U" display="inline"><semantics><mrow><mi mathvariant="normal">Δ</mi><mo>⁢</mo><mi>U</mi></mrow><annotation encoding="application/x-tex">\displaystyle\Delta U</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E1.m2" class="ltx_Math" alttext="\displaystyle=\frac{$5\text{\,}\mathrm{V}$}{2^{12}}=\frac{$5\text{\,}\mathrm{V%
+}$}{4096}=$1.2\text{\,}\mathrm{mV}$" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mn>5</mn><mtext> </mtext><mi class="ltx_unit" mathvariant="normal">V</mi></mrow><msup><mn>2</mn><mn>12</mn></msup></mfrac></mstyle><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mn>5</mn><mtext> </mtext><mi class="ltx_unit" mathvariant="normal">V</mi></mrow><mn>4096</mn></mfrac></mstyle><mo>=</mo><mrow><mn>1.2</mn><mtext> </mtext><mi class="ltx_unit">mV</mi></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{$5\text{\,}\mathrm{V}$}{2^{12}}=\frac{$5\text{\,}\mathrm{V%
+}$}{4096}=$1.2\text{\,}\mathrm{mV}$</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.1)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">In der Praxis wird die Quantisierung der Amplitude gerne vernachlässigt, weil die entstehenden Fehler durch eine hohe Auflösung des verwendeten Analog-Digital-Wandlers klein gehalten werden können. Die existierende Abweichung zwischen dem wertdiskreten und wertkontinuierlichen Signal wird als Quantisierungsfehler modelliert. Bild <a href="#F1" title="Figure 2.1 ‣ 2.1 Quantisierungsfehler der Amplitude ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1</span></a> verdeutlicht den Quantisierungsfehler an zwei Beispielen.</p>
+</div>
+<figure id="F1" class="ltx_figure"><img src="" id="F1.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung des Quantisierungsfehlers (Quantisierungsrauschens)">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.1</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung des Quantisierungsfehlers (Quantisierungsrauschens)</span></figcaption>
+</figure>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">Der Quantisierungsfehler ergibt sich aus der Differenz zwischen dem wertkontinuierlichen und dem wertdiskreten Signal. Je feiner die Auflösung des AD-Wandlers ist, desto geringer ist der Abstand zwischen dem kontinuierlichen und dem quantisierten Signal. Da die Abweichung einen zufälligen Verlauf zu haben scheint, wird dieser Fehler als Quantisierungsrauschen bezeichnet und als zufälliger Fehler oder zufälliges Störsignal behandelt. Der Umgang mit zufälligen Signalen ist Gegenstand des Teils C dieser Buchreihe, der Quantisierungsfehler wird an dieser Stelle deshalb nicht weiter vertieft.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.2 </span>Vorüberlegungen zur zeitlichen Diskretisierung</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Die grundlegende Frage bei der zeitlichen Abtastung von Signalen ist, in welchen Zeitabständen <math id="S2.p1.m1" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> beziehungsweise mit welcher Abtastfrequenz <math id="S2.p1.m2" class="ltx_Math" alttext="f_{A}" display="inline"><semantics><msub><mi>f</mi><mi>A</mi></msub><annotation encoding="application/x-tex">f_{A}</annotation></semantics></math> ein Signal erfasst werden muss. Die Bedeutung dieser Frage wird an einem Beispiel erläutert.</p>
+</div>
+<div id="S2.p2" class="ltx_para ltx_noindent">
+<div class="ltx_logical-block ltx_framed ltx_framed_left" style="border-color: #000000;border-width:3pt;padding-left:10pt;">
+<div id="S2.p2.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-calculator"></span><span class="ltx_text ltx_font_bold" style="color:#288732;"> Beispiel 2.1: Abtastwerte</span></p>
+</div>
+<div id="S2.p2.p2" class="ltx_para">
+<p class="ltx_p">Bild <a href="#F2" title="Figure 2.2 ‣ 2.2 Vorüberlegungen zur zeitlichen Diskretisierung ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a> zeigt Abtastwerte eines Signals, das mit unterschiedlichen Abtastzeiten <math id="S2.p2.m1" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> abgetastet wird. Die Abtastwerte sind jeweils über Geradenabschnitte miteinander verbunden. Das Signal scheint davon abzuhängen, wie es abgetastet wird.</p>
+<img src="" id="S2.p2.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung der Abtastwerte eines Signals, das mit unterschiedlichen Abtastzeiten $T_{A}$ abgetastet wird">
+</div>
+<figure id="F2" class="ltx_figure ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.2</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung der Abtastwerte eines Signals, das mit unterschiedlichen Abtastzeiten <math id="F2.m2" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> abgetastet wird</span></figcaption>
+</figure>
+<div id="S2.p2.p3" class="ltx_para">
+<p class="ltx_p">Das zugrunde liegende Signal ist sinusförmig und wird mit der Funktion</p>
+<table id="A0.S4.EGx2" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex1"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex1.m1" class="ltx_Math" alttext="\displaystyle u(t)" display="inline"><semantics><mrow><mi>u</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle u(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex1.m2" class="ltx_Math" alttext="\displaystyle=$1\text{\,}\mathrm{V}$\sin(2\pi 6t)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit" mathvariant="normal">V</mi></mrow><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><mn>6</mn><mo>⁢</mo><mi>t</mi></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=$1\text{\,}\mathrm{V}$\sin(2\pi 6t)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">beschrieben. Der Vergleich der Abtastwerte mit dem Signal <math id="S2.p2.m2" class="ltx_Math" alttext="u(t)" display="inline"><semantics><mrow><mi>u</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">u(t)</annotation></semantics></math> in Bild <a href="#F3" title="Figure 2.3 ‣ 2.2 Vorüberlegungen zur zeitlichen Diskretisierung ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.3</span></a> zeigt, dass alle in Bild <a href="#F2" title="Figure 2.2 ‣ 2.2 Vorüberlegungen zur zeitlichen Diskretisierung ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.2</span></a> dargestellten abgetasteten Signale falsch oder zumindest irreführend sind.</p>
+<img src="" id="S2.p2.g2" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Vergleich der Abtastwerte eines harmonischen Signals mit dem Originalsignal">
+</div>
+<figure id="F3" class="ltx_figure ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.3</span>: </span><span class="ltx_text" style="font-size:90%;">Vergleich der Abtastwerte eines harmonischen Signals mit dem Originalsignal</span></figcaption>
+</figure>
+<div id="S2.p2.p4" class="ltx_para">
+<p class="ltx_p">Die Abtastwerte liegen auf einer Schwingung mit wesentlich höherer Frequenz und geben nicht das eigentliche Signal wieder. Daraus kann die Schlussfolgerung gezogen werden, dass beim Abtasten Regeln eingehalten werden müssen, um das Signal richtig rekonstruieren zu können. Diese Überlegung wird zu dem Abtasttheorem führen.</p>
+</div>
+</div>
+</div>
+<div id="S2.p3" class="ltx_para">
+<p class="ltx_p">Vor der allgemeinen Herleitung des Abtasttheorems werden die Abtastwerte eines harmonischen Signals <math id="S2.p3.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> mit einer Frequenz <math id="S2.p3.m2" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> analysiert. Das Signal ist definiert als</p>
+<table id="A0.S4.EGx3" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E2.m1" class="ltx_Math" alttext="\displaystyle x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E2.m2" class="ltx_Math" alttext="\displaystyle=\sin\left(2\pi f_{0}t\right)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><msub><mi>f</mi><mn>0</mn></msub><mo>⁢</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\sin\left(2\pi f_{0}t\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.2)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Das Signal wird mit einer Abtastzeit <math id="S2.p3.m3" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> abgetastet, sodass sich an den ganzzahligen Vielfachen k der Abtastzeit t = kT<sub class="ltx_sub">A</sub> die Werte ergeben zu</p>
+<table id="A0.S4.EGx4" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E3"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E3.m1" class="ltx_Math" alttext="\displaystyle x[k]" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">[</mo><mi>k</mi><mo stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x[k]</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E3.m2" class="ltx_Math" alttext="\displaystyle=x\left(kT_{A}\right)=\sin\left(2\pi f_{0}kT_{A}\right)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><msub><mi>f</mi><mn>0</mn></msub><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=x\left(kT_{A}\right)=\sin\left(2\pi f_{0}kT_{A}\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.3)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Die Abtastwerte der Signalfolge stimmen mit einer Signalfolge überein, die sich aus der Abtastung eines harmonischen Signals mit einer Frequenz <math id="S2.p3.m4" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> und dem Vielfachen der Abtastfrequenz nf<sub class="ltx_sub">A</sub> ergibt. Einsetzen der Bedingungen ergibt</p>
+<table id="A0.S4.EGx5" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E4"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E4.m1" class="ltx_Math" alttext="\displaystyle{\sin\left(2\pi\left(f_{0}+nf_{A}\right)kT_{A}\right)}" display="inline"><semantics><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><msub><mi>f</mi><mn>0</mn></msub><mo>+</mo><mrow><mi>n</mi><mo>⁢</mo><msub><mi>f</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{\sin\left(2\pi\left(f_{0}+nf_{A}\right)kT_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E4.m2" class="ltx_Math" alttext="\displaystyle={\sin\left(2\pi\left(f_{0}kT_{A}+\frac{n}{T_{A}}kT_{A}\right)%
+\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><msub><mi>f</mi><mn>0</mn></msub><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>+</mo><mrow><mstyle displaystyle="true"><mfrac><mi>n</mi><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\sin\left(2\pi\left(f_{0}kT_{A}+\frac{n}{T_{A}}kT_{A}\right)%
+\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.4)</span></td>
+</tr></tbody>
+<tbody id="E5"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E5.m1" class="ltx_Math" alttext="\displaystyle={\sin\left(2\pi f_{0}kT_{A}+2\pi nk\right)=\sin\left(2\pi f_{0}%
+kT_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><msub><mi>f</mi><mn>0</mn></msub><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>+</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><mi>n</mi><mo>⁢</mo><mi>k</mi></mrow></mrow><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><msub><mi>f</mi><mn>0</mn></msub><mo>⁢</mo><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\sin\left(2\pi f_{0}kT_{A}+2\pi nk\right)=\sin\left(2\pi f_{0}%
+kT_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.5)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Der Faktor nk ist dabei ein ganzzahliger Wert. Das bedeutet, dass die Abtastwerte, die ein Signal der Frequenz <math id="S2.p3.m5" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> repräsentieren, genau dieselben sind wie diejenigen, die sich beim Abtasten eines Signals der Frequenz <math id="S2.p3.m6" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> und einem Vielfachen der Abtastfrequenz <math id="S2.p3.m7" class="ltx_Math" alttext="f_{A}" display="inline"><semantics><msub><mi>f</mi><mi>A</mi></msub><annotation encoding="application/x-tex">f_{A}</annotation></semantics></math> ergeben. Nach der Abtastung kann also nicht zwischen Signalen der Frequenz <math id="S2.p3.m8" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> und <math id="S2.p3.m9" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> + nf<sub class="ltx_sub">A</sub> unterschieden werden. Bild <a href="#F4" title="Figure 2.4 ‣ 2.2 Vorüberlegungen zur zeitlichen Diskretisierung ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a> stellt die Signal- und Abtastwerte für ein Beispiel dar.</p>
+</div>
+<figure id="F4" class="ltx_figure"><img src="" id="F4.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Abtastwerte für ein harmonisches Signal mit der Frequenz $f_{01}=$1\text{\,}\mathrm{kHz}$$ und $f_{02}=$11\text{\,}\mathrm{kHz}$$">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.4</span>: </span><span class="ltx_text" style="font-size:90%;">Abtastwerte für ein harmonisches Signal mit der Frequenz <math id="F4.m3" class="ltx_Math" alttext="f_{01}=$1\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><msub><mi>f</mi><mn>01</mn></msub><mo>=</mo><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">f_{01}=$1\text{\,}\mathrm{kHz}$</annotation></semantics></math> und <math id="F4.m4" class="ltx_Math" alttext="f_{02}=$11\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><msub><mi>f</mi><mn>02</mn></msub><mo>=</mo><mrow><mn>11</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">f_{02}=$11\text{\,}\mathrm{kHz}$</annotation></semantics></math></span></figcaption>
+</figure>
+<div id="S2.p4" class="ltx_para">
+<p class="ltx_p">Das Signal wird mit einer Frequenz <math id="S2.p4.m1" class="ltx_Math" alttext="f_{A}=$10\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><msub><mi>f</mi><mi>A</mi></msub><mo>=</mo><mrow><mn>10</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">f_{A}=$10\text{\,}\mathrm{kHz}$</annotation></semantics></math> abgetastet. Die Abtastwerte sind für ein Signal mit einer Frequenz <math id="S2.p4.m2" class="ltx_Math" alttext="f_{1}" display="inline"><semantics><msub><mi>f</mi><mn>1</mn></msub><annotation encoding="application/x-tex">f_{1}</annotation></semantics></math> = 1 kHz und einem Signal mit einer Frequenz <math id="S2.p4.m3" class="ltx_Math" alttext="f_{2}=$11\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><msub><mi>f</mi><mn>2</mn></msub><mo>=</mo><mrow><mn>11</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">f_{2}=$11\text{\,}\mathrm{kHz}$</annotation></semantics></math> identisch.</p>
+</div>
+<div id="S2.p5" class="ltx_para">
+<p class="ltx_p">Der hier für harmonische Schwingungen dargestellte Sachverhalt gilt auch für nicht harmonische Signale, da sie sich mit der Fourier-Transformation auf harmonische Signale zurückführen lassen. Dieser Effekt macht es erforderlich, den Abtastvorgang mathematisch zu beschreiben und Bedingungen für den Abtastvorgang zu definieren, unter denen ein abgetastetes Signal rekonstruiert werden kann.</p>
+</div>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.3 </span>Ideale Abtastung und ideale Rekonstruktion</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">Für die systemtheoretische Behandlung der digitalen Signalverarbeitung ist es erforderlich, die Abtastung und die Rekonstruktion des Signals mathematisch ideal zu beschreiben. Aus dieser Beschreibung wird anschließend das Abtasttheorem hergeleitet.</p>
+</div>
+<section id="S3.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.1 </span>Mathematische Beschreibung der idealen Abtastung</h3>
+
+<div id="S3.SS1.p1" class="ltx_para">
+<p class="ltx_p">Um die Abtastung eines Signals mathematisch beschreiben zu können, wird eine sogenannte Abtastfunktion <math id="S3.SS1.p1.m1" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> definiert. Da bei der idealen Abtastung Werte des analogen Signals zu diskreten Zeitpunkten werden, bietet sich eine Folge von Impulsen als Abtastfunktion an. Diese Abtastfunktion <math id="S3.SS1.p1.m2" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> ist mathematisch definiert als</p>
+<table id="A0.S4.EGx6" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E6"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E6.m1" class="ltx_Math" alttext="\displaystyle a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle a(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E6.m2" class="ltx_Math" alttext="\displaystyle=\sum\limits_{k=-\infty}^{\infty}{\delta\left(t-kT_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\sum\limits_{k=-\infty}^{\infty}{\delta\left(t-kT_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.6)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Die Abtastfunktion wird mit dem analogen Signal <math id="S3.SS1.p1.m3" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> multipliziert. Da die Impulsfolge nur zu den Zeitpunkten kT<sub class="ltx_sub">A</sub> ungleich null ist, genügt es, die Funktion <math id="S3.SS1.p1.m4" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> nur zu diesen Zeitpunkten zu betrachten. Es ergibt sich als Darstellung für das ideal abgetastete Signal <math id="S3.SS1.p1.m5" class="ltx_Math" alttext="x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{A}(t)</annotation></semantics></math></p>
+<table id="A0.S4.EGx7" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E7"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E7.m1" class="ltx_Math" alttext="\displaystyle x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x_{A}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E7.m2" class="ltx_Math" alttext="\displaystyle=x(t)a(t)=x(t)\sum\limits_{k=-\infty}^{\infty}{\delta\left(t-kT_{%
+A}\right)}=\sum\limits_{k=-\infty}^{\infty}{x\left(kT_{A}\right)\delta\left(t-%
+kT_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=x(t)a(t)=x(t)\sum\limits_{k=-\infty}^{\infty}{\delta\left(t-kT_{%
+A}\right)}=\sum\limits_{k=-\infty}^{\infty}{x\left(kT_{A}\right)\delta\left(t-%
+kT_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.7)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Bild <a href="#F5" title="Figure 2.5 ‣ 2.3.1 Mathematische Beschreibung der idealen Abtastung ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.5</span></a> verdeutlicht die mathematische Beschreibung der Signale grafisch. Dabei werden die unendlich großen Impulse als Pfeile dargestellt, ihre Höhe repräsentiert das Gewicht des jeweiligen Impulses.</p>
+</div>
+<figure id="F5" class="ltx_figure"><img src="" id="F5.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung der Signale im idealen Abtastprozess">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.5</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung der Signale im idealen Abtastprozess</span></figcaption>
+</figure>
+<div id="S3.SS1.p2" class="ltx_para">
+<p class="ltx_p">Im Zeitbereich wird das Signal <math id="S3.SS1.p2.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> mit der Abtastfunktion <math id="S3.SS1.p2.m2" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> multipliziert. Der Multiplikation im Zeitbereich entspricht eine Faltung im Frequenzbereich. Damit muss im Frequenzbereich das Spektrum des Signals <math id="S3.SS1.p2.m3" class="ltx_Math" alttext="X(ω)" display="inline"><semantics><mrow><mi>X</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X(ω)</annotation></semantics></math> mit dem Spektrum der Abtastfunktion <math id="S3.SS1.p2.m4" class="ltx_Math" alttext="A(ω)" display="inline"><semantics><mrow><mi>A</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">A(ω)</annotation></semantics></math> gefaltet werden. Hierfür wird zunächst das Spektrum der Abtastfunktion errechnet.</p>
+<table id="A0.S4.EGx8" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E8"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E8.m1" class="ltx_Math" alttext="\displaystyle\mathfrak{I}\left\{a(t)\right\}" display="inline"><semantics><mrow><mi>ℑ</mi><mo>⁢</mo><mrow><mo>{</mo><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>}</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\mathfrak{I}\left\{a(t)\right\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E8.m2" class="ltx_Math" alttext="\displaystyle=\mathfrak{I}\left\{\sum\limits_{k=-\infty}^{\infty}{\delta\left(%
+t-kT_{A}\right)}\right\}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>ℑ</mi><mo>⁢</mo><mrow><mo>{</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>}</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\mathfrak{I}\left\{\sum\limits_{k=-\infty}^{\infty}{\delta\left(%
+t-kT_{A}\right)}\right\}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.8)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Die Gleichung kann als Fourier-Reihe dargestellt werden und in den folgenden Ausdruck umgeformt werden</p>
+<table id="A0.S4.EGx9" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E9"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E9.m1" class="ltx_Math" alttext="\displaystyle\mathfrak{I}\left\{a(t)\right\}" display="inline"><semantics><mrow><mi>ℑ</mi><mo>⁢</mo><mrow><mo>{</mo><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>}</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\mathfrak{I}\left\{a(t)\right\}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E9.m2" class="ltx_Math" alttext="\displaystyle=\mathfrak{I}\left\{\sum\limits_{k=-\infty}^{\infty}{\delta\left(%
+t-kT_{A}\right)}\right\}=\frac{2\pi}{T_{A}}\sum\limits_{k=-\infty}^{\infty}{%
+\delta\left(\omega-k\frac{2\pi}{T_{A}}\right)}=\frac{2\pi}{T_{A}}\sum\limits_{%
+k=-\infty}^{\infty}{\delta\left(\omega-k\omega_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mi>ℑ</mi><mo>⁢</mo><mrow><mo>{</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>}</mo></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\mathfrak{I}\left\{\sum\limits_{k=-\infty}^{\infty}{\delta\left(%
+t-kT_{A}\right)}\right\}=\frac{2\pi}{T_{A}}\sum\limits_{k=-\infty}^{\infty}{%
+\delta\left(\omega-k\frac{2\pi}{T_{A}}\right)}=\frac{2\pi}{T_{A}}\sum\limits_{%
+k=-\infty}^{\infty}{\delta\left(\omega-k\omega_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.9)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Dies bedeutet, dass die Abtastfunktion auch im Frequenzbereich einer Impulsfolge entspricht, wobei der Abstand der Impulse proportional zur Abtastfrequenz</p>
+<table id="A0.S4.EGx10" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E10"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E10.m1" class="ltx_Math" alttext="\displaystyle\omega_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">\displaystyle\omega_{A}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E10.m2" class="ltx_Math" alttext="\displaystyle=2\pi f_{A}=\frac{2\pi}{T_{A}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><msub><mi>f</mi><mi>A</mi></msub></mrow><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\displaystyle=2\pi f_{A}=\frac{2\pi}{T_{A}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.10)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">ist. Über die Faltungsbeziehung ergibt sich für die abgetastete Funktion <math id="S3.SS1.p2.m5" class="ltx_Math" alttext="x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{A}(t)</annotation></semantics></math> im Frequenzbereich</p>
+<table id="A0.S4.EGx11" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E11"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E11.m1" class="ltx_Math" alttext="\displaystyle{X_{A}\left(\omega\right)}" display="inline"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{X_{A}\left(\omega\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E11.m2" class="ltx_Math" alttext="\displaystyle={\frac{1}{2\pi}\left(X\left(\omega\right)*\left(\frac{2\pi}{T_{A%
+}}\sum\limits_{k=-\infty}^{\infty}\delta\left(\omega-k\frac{2\pi}{T_{A}}\right%
+)\right)\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow></mfrac></mstyle><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo rspace="0.055em">)</mo></mrow></mrow><mo rspace="0.222em">∗</mo><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>)</mo></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{2\pi}\left(X\left(\omega\right)*\left(\frac{2\pi}{T_{A%
+}}\sum\limits_{k=-\infty}^{\infty}\delta\left(\omega-k\frac{2\pi}{T_{A}}\right%
+)\right)\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.11)</span></td>
+</tr></tbody>
+<tbody id="E12"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E12.m1" class="ltx_Math" alttext="\displaystyle={\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X\left(\omega-k%
+\frac{2\pi}{T_{A}}\right)=\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X%
+\left(\omega-k\omega_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X\left(\omega-k%
+\frac{2\pi}{T_{A}}\right)=\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X%
+\left(\omega-k\omega_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.12)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Eine Abtastung mit der idealen Abtastfunktion führt demnach zu einer in <math id="S3.SS1.p2.m6" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> periodischen Fortsetzung des Spektrums <math id="S3.SS1.p2.m7" class="ltx_Math" alttext="X(ω)" display="inline"><semantics><mrow><mi>X</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X(ω)</annotation></semantics></math> des kontinuierlichen Zeitsignals <math id="S3.SS1.p2.m8" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> und zu einer Multiplikation mit dem
+<br class="ltx_break">Faktor 1/<math id="S3.SS1.p2.m9" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math>. Bild <a href="#F6" title="Figure 2.6 ‣ 2.3.1 Mathematische Beschreibung der idealen Abtastung ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.6</span></a> stellt die Spektren im idealen Abtastprozess schematisch dar.</p>
+</div>
+<figure id="F6" class="ltx_figure"><img src="" id="F6.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung der Spektren im idealen Abtastprozess">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.6</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung der Spektren im idealen Abtastprozess</span></figcaption>
+</figure>
+<div id="S3.SS1.p3" class="ltx_para">
+<p class="ltx_p">Die periodische Wiederholung des Spektrums ist dafür verantwortlich, dass die Abtastwerte von zu langsam abgetasteten Signalen mit den Frequenzen <math id="S3.SS1.p3.m1" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> und <math id="S3.SS1.p3.m2" class="ltx_Math" alttext="f_{0}" display="inline"><semantics><msub><mi>f</mi><mn>0</mn></msub><annotation encoding="application/x-tex">f_{0}</annotation></semantics></math> + nf<sub class="ltx_sub">A</sub> nicht unterschieden werden können. Die mathematische Herleitung bestätigt damit den in Bild <a href="#F4" title="Figure 2.4 ‣ 2.2 Vorüberlegungen zur zeitlichen Diskretisierung ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.4</span></a> dargestellten Sachverhalt.</p>
+</div>
+<div id="S3.SS1.p4" class="ltx_para">
+<p class="ltx_p">Der ursprüngliche Frequenzbereich des Signals <math id="S3.SS1.p4.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> mit dem Frequenzbereich - <math id="S3.SS1.p4.m2" class="ltx_Math" alttext="ω_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">ω_{G}</annotation></semantics></math> ≤ ω ≤ <math id="S3.SS1.p4.m3" class="ltx_Math" alttext="ω_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">ω_{G}</annotation></semantics></math> wird als Basisband des Signals bezeichnet. Durch den Abtastvorgang wird das Basisband periodisch in <math id="S3.SS1.p4.m4" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> wiederholt.</p>
+</div>
+</section>
+<section id="S3.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.2 </span>Ideale Rekonstruktion eines Signals</h3>
+
+<div id="S3.SS2.p1" class="ltx_para">
+<p class="ltx_p">Da bei der idealen Abtastung das Spektrum eines Signals periodisch wiederholt und mit dem Faktor 1/<math id="S3.SS2.p1.m1" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> multipliziert wird, liegt es auf der Hand, die Wiederholung des Spektrums durch eine entsprechende Filterung zu eliminieren. Durch eine hier ideal angenommene Tiefpass-Funktion mit einer Grenzfrequenz von <math id="S3.SS2.p1.m2" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math>/2 kann das sogenannte Basisband, also das ursprüngliche Spektrum der Zeitfunktion, isoliert werden. Bild <a href="#F7" title="Figure 2.7 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.7</span></a> verdeutlicht den Filterprozess.</p>
+</div>
+<figure id="F7" class="ltx_figure"><img src="" id="F7.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Rekonstruktion des Spektrums der Zeitfunktion durch ideale Tiefpass-Filterung, idealisierte Tiefpass-Funktion gestrichelt dargestellt">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.7</span>: </span><span class="ltx_text" style="font-size:90%;">Rekonstruktion des Spektrums der Zeitfunktion durch ideale Tiefpass-Filterung, idealisierte Tiefpass-Funktion gestrichelt dargestellt</span></figcaption>
+</figure>
+<div id="S3.SS2.p2" class="ltx_para">
+<p class="ltx_p">Mathematisch gesehen muss das Spektrum mit einer idealen Tiefpass-Filterfunktion und dem Faktor <math id="S3.SS2.p2.m1" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> multipliziert werden. Das Spektrum ergibt sich damit zu</p>
+<table id="A0.S4.EGx12" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E13"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E13.m1" class="ltx_Math" alttext="\displaystyle{X\left(\omega\right)}" display="inline"><semantics><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{X\left(\omega\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E13.m2" class="ltx_Math" alttext="\displaystyle={G_{TP}\left(\omega\right)X_{A}\left(\omega\right)=T_{A}\left(%
+\sigma\left(\omega+\frac{\omega_{A}}{2}\right)-\sigma\left(\omega-\frac{\omega%
+_{A}}{2}\right)\right)\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X\left(%
+\omega-k\omega_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><msub><mi>G</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow><mo>⁢</mo><msub><mi>X</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>+</mo><mstyle displaystyle="true"><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mstyle displaystyle="true"><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={G_{TP}\left(\omega\right)X_{A}\left(\omega\right)=T_{A}\left(%
+\sigma\left(\omega+\frac{\omega_{A}}{2}\right)-\sigma\left(\omega-\frac{\omega%
+_{A}}{2}\right)\right)\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}X\left(%
+\omega-k\omega_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.13)</span></td>
+</tr></tbody>
+<tbody id="E14"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E14.m1" class="ltx_Math" alttext="\displaystyle={\left(\sigma\left(\omega+\frac{\omega_{A}}{2}\right)-\sigma%
+\left(\omega-\frac{\omega_{A}}{2}\right)\right)\sum\limits_{k=-\infty}^{\infty%
+}X\left(\omega-k\omega_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>+</mo><mstyle displaystyle="true"><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mstyle displaystyle="true"><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\left(\sigma\left(\omega+\frac{\omega_{A}}{2}\right)-\sigma%
+\left(\omega-\frac{\omega_{A}}{2}\right)\right)\sum\limits_{k=-\infty}^{\infty%
+}X\left(\omega-k\omega_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.14)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Die ideale Rekonstruktion kann auch im Zeitbereich durchgeführt werden. Der Multiplikation im Frequenzbereich entspricht im Zeitbereich die Faltung der entsprechenden Zeitfunktionen. Die Impulsantwort <math id="S3.SS2.p2.m2" class="ltx_Math" alttext="g_{TP}(t)" display="inline"><semantics><mrow><msub><mi>g</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">g_{TP}(t)</annotation></semantics></math> der Filterfunktion <math id="S3.SS2.p2.m3" class="ltx_Math" alttext="G_{TP}(ω)" display="inline"><semantics><mrow><msub><mi>G</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_{TP}(ω)</annotation></semantics></math> ist nach den Rechenregeln der Fourier-Transformation</p>
+<table id="A0.S4.EGx13" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E15"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E15.m1" class="ltx_Math" alttext="\displaystyle g_{TP}(t)" display="inline"><semantics><mrow><msub><mi>g</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle g_{TP}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E15.m2" class="ltx_Math" alttext="\displaystyle=\frac{T_{A}}{\pi}\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t%
+}=\frac{2}{\omega_{A}}\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mi>π</mi></mfrac></mstyle><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac><mo>⁢</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow><mi>t</mi></mfrac></mstyle></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><msub><mi>ω</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac><mo>⁢</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow><mi>t</mi></mfrac></mstyle></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{T_{A}}{\pi}\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t%
+}=\frac{2}{\omega_{A}}\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.15)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Die Impulsantwort des Tiefpasses ist in Bild <a href="#F8" title="Figure 2.8 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.8</span></a> dargestellt. Zum Zeitpunkt <math id="S3.SS2.p2.m4" class="ltx_Math" alttext="t=0" display="inline"><semantics><mrow><mi>t</mi><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">t=0</annotation></semantics></math> ist die Funktion 1, zu den Zeitpunkten kT<sub class="ltx_sub">A</sub> ist die Funktion null.</p>
+</div>
+<figure id="F8" class="ltx_figure"><img src="" id="F8.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Impulsantwort des idealen Tiefpass-Filters zur Rekonstruktion">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.8</span>: </span><span class="ltx_text" style="font-size:90%;">Impulsantwort des idealen Tiefpass-Filters zur Rekonstruktion</span></figcaption>
+</figure>
+<div id="S3.SS2.p3" class="ltx_para">
+<p class="ltx_p">Das Signal <math id="S3.SS2.p3.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> berechnet sich über das Faltungsintegral. Da die Faltung einer Funktion <math id="S3.SS2.p3.m2" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> mit einem Impuls an der Stelle <math id="S3.SS2.p3.m3" class="ltx_Math" alttext="t_{0}" display="inline"><semantics><msub><mi>t</mi><mn>0</mn></msub><annotation encoding="application/x-tex">t_{0}</annotation></semantics></math> die Funktion an die Stelle x(t - <math id="S3.SS2.p3.m4" class="ltx_Math" alttext="t_{0}" display="inline"><semantics><msub><mi>t</mi><mn>0</mn></msub><annotation encoding="application/x-tex">t_{0}</annotation></semantics></math>) verschiebt, ergibt sich</p>
+<table id="A0.S4.EGx14" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E16"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E16.m1" class="ltx_Math" alttext="\displaystyle{x\left(t\right)}" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{x\left(t\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E16.m2" class="ltx_Math" alttext="\displaystyle={g_{TP}\left(t\right)*x_{A}\left(t\right)=\frac{T_{A}}{\pi}\frac%
+{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}*\sum\limits_{k=-\infty}^{\infty}x%
+\left(kT_{A}\right)\delta\left(t-T_{A}k\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mrow><mrow><msub><mi>g</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo>(</mo><mi>t</mi><mo rspace="0.055em">)</mo></mrow></mrow><mo rspace="0.222em">∗</mo><msub><mi>x</mi><mi>A</mi></msub></mrow><mo>⁢</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>=</mo><mrow><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mi>π</mi></mfrac></mstyle><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac><mo>⁢</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow><mi>t</mi></mfrac></mstyle></mrow><mo lspace="0.222em" rspace="0.222em">∗</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>⁢</mo><mi>k</mi></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={g_{TP}\left(t\right)*x_{A}\left(t\right)=\frac{T_{A}}{\pi}\frac%
+{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}*\sum\limits_{k=-\infty}^{\infty}x%
+\left(kT_{A}\right)\delta\left(t-T_{A}k\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.16)</span></td>
+</tr></tbody>
+<tbody id="E17"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E17.m1" class="ltx_Math" alttext="\displaystyle={\frac{T_{A}}{\pi}\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}%
+\right)\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}*\delta\left(t-T_{A}k%
+\right)=\frac{T_{A}}{\pi}\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}\right)%
+\frac{\sin\left(\frac{\omega_{A}}{2}\left(t-T_{A}k\right)\right)}{t-T_{A}k}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mi>π</mi></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mrow><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac><mo>⁢</mo><mi>t</mi></mrow><mo>)</mo></mrow></mrow><mi>t</mi></mfrac></mstyle></mrow><mo lspace="0.222em" rspace="0.222em">∗</mo><mi>δ</mi></mrow><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>⁢</mo><mi>k</mi></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mi>π</mi></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mrow><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>⁢</mo><mi>k</mi></mrow></mrow><mo>)</mo></mrow></mrow><mo>)</mo></mrow></mrow><mrow><mi>t</mi><mo>−</mo><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>⁢</mo><mi>k</mi></mrow></mrow></mfrac></mstyle></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{T_{A}}{\pi}\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}%
+\right)\frac{\sin\left(\frac{\omega_{A}}{2}t\right)}{t}*\delta\left(t-T_{A}k%
+\right)=\frac{T_{A}}{\pi}\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}\right)%
+\frac{\sin\left(\frac{\omega_{A}}{2}\left(t-T_{A}k\right)\right)}{t-T_{A}k}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.17)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Das Signal setzt sich aus der Summe von Termen <math id="S3.SS2.p3.m5" class="ltx_Math" alttext="g_{TP}(t)" display="inline"><semantics><mrow><msub><mi>g</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">g_{TP}(t)</annotation></semantics></math> zusammen, die jeweils um kT<sub class="ltx_sub">A</sub> verschoben sind und mit dem Gewicht x(kT<sub class="ltx_sub">A</sub>) multipliziert werden. Bild <a href="#F9" title="Figure 2.9 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.9</span></a> stellt die Rekonstruktion im Zeitbereich dar.</p>
+</div>
+<figure id="F9" class="ltx_figure"><img src="" id="F9.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Rekonstruktion eines ideal abgetasteten Signals im Zeitbereich">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.9</span>: </span><span class="ltx_text" style="font-size:90%;">Rekonstruktion eines ideal abgetasteten Signals im Zeitbereich</span></figcaption>
+</figure>
+<div id="S3.SS2.p4" class="ltx_para">
+<p class="ltx_p">Das Ergebnis der Überlagerung entspricht erwartungsgemäß der ursprüngliche Zeitfunktion <math id="S3.SS2.p4.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math>.</p>
+</div>
+</section>
+<section id="S3.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.3 </span>Abtasttheorem nach Shannon</h3>
+
+<div id="S3.SS3.p1" class="ltx_para">
+<p class="ltx_p">In den vorangegangenen Abschnitten wird gezeigt, dass sich das Spektrum eines abgetasteten Signals periodisch mit der Abtastfrequenz <math id="S3.SS3.p1.m1" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> fortsetzt. Diese periodische Wiederholung ist Grundlage für die Herleitung des Abtasttheorems nach Shannon.</p>
+</div>
+<div id="S3.SS3.p2" class="ltx_para">
+<p class="ltx_p">Gegeben sei ein bandbegrenztes Signal <math id="S3.SS3.p2.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math>, das abgetastet werden soll. Durch die Physik des Systems ist die Bandbreite des Signals auf Frequenzen ω ≤ <math id="S3.SS3.p2.m2" class="ltx_Math" alttext="ω_{MAX}" display="inline"><semantics><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub><annotation encoding="application/x-tex">ω_{MAX}</annotation></semantics></math> begrenzt. Bei der Abtastung des Signals wird das Spektrum der Zeitfunktion, wie in Bild <a href="#F7" title="Figure 2.7 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.7</span></a> dargestellt, periodisch in <math id="S3.SS3.p2.m3" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> wiederholt. Durch eine hier ideal angenommene Tiefpass-Funktion kann das sogenannte Basisband, also das ursprüngliche Spektrum der Zeitfunktion, isoliert werden. Bild <a href="#F7" title="Figure 2.7 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.7</span></a> verdeutlicht den Filterprozess.</p>
+</div>
+<div id="S3.SS3.p3" class="ltx_para">
+<p class="ltx_p">Ist die Abtastzeit <math id="S3.SS3.p3.m1" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> zu groß, wird <math id="S3.SS3.p3.m2" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> zu klein und die einzelnen Spektren der abgetasteten Funktion überlagern sich. Signalverzerrungen, die sich beim Abtasten durch Überlagerung der Spektren ergeben, werden als Aliasing bezeichnet. Damit die einzelnen Spektren voneinander getrennt bleiben, muss nach Bild <a href="#F7" title="Figure 2.7 ‣ 2.3.2 Ideale Rekonstruktion eines Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.7</span></a> die Bedingung</p>
+<table id="A0.S4.EGx15" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E18"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E18.m1" class="ltx_Math" alttext="\displaystyle\omega_{MAX}&lt;\omega_{A}-\omega_{MAX}" display="inline"><semantics><mrow><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub><mo>&lt;</mo><mrow><msub><mi>ω</mi><mi>A</mi></msub><mo>−</mo><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub></mrow></mrow><annotation encoding="application/x-tex">\displaystyle\omega_{MAX}&lt;\omega_{A}-\omega_{MAX}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.18)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">beziehungsweise</p>
+<table id="A0.S4.EGx16" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E19"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E19.m1" class="ltx_Math" alttext="\displaystyle\omega_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">\displaystyle\omega_{A}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E19.m2" class="ltx_Math" alttext="\displaystyle=2\pi\frac{1}{T_{A}}&gt;2\omega_{MAX}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle></mrow><mo>&gt;</mo><mrow><mn>2</mn><mo>⁢</mo><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=2\pi\frac{1}{T_{A}}&gt;2\omega_{MAX}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.19)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">erfüllt sein. Dieses Ergebnis wird als Abtasttheorem bezeichnet. Die Abtastfrequenz <math id="S3.SS3.p3.m3" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> muss mehr als doppelt so groß sein wie die Bandbreite <math id="S3.SS3.p3.m4" class="ltx_Math" alttext="ω_{MAX}" display="inline"><semantics><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub><annotation encoding="application/x-tex">ω_{MAX}</annotation></semantics></math> des abzutastenden Signals. Damit muss für die Abtastzeit <math id="S3.SS3.p3.m5" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> gelten:</p>
+<table id="A0.S4.EGx17" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E20"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E20.m1" class="ltx_Math" alttext="\displaystyle T_{A}&lt;\frac{\pi}{\omega_{MAX}}" display="inline"><semantics><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>&lt;</mo><mstyle displaystyle="true"><mfrac><mi>π</mi><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\displaystyle T_{A}&lt;\frac{\pi}{\omega_{MAX}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.20)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Bild <a href="#F10" title="Figure 2.10 ‣ 2.3.3 Abtasttheorem nach Shannon ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.10</span></a> zeigt die Spektren abgetasteter Signale für genügend große Abtastfrequenz, gerade ausreichende und zu kleine Abtastfrequenz.</p>
+</div>
+<figure id="F10" class="ltx_figure"><img src="" id="F10.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Spektren abgetasteter Signale für genügend große Abtastfrequenz XA1(ω), gerade ausreichende Abtastfrequenz XA2(ω) und für zu kleine Abtastfrequenz XA3(ω)">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.10</span>: </span><span class="ltx_text" style="font-size:90%;">Spektren abgetasteter Signale für genügend große Abtastfrequenz XA1(ω), gerade ausreichende Abtastfrequenz XA2(ω) und für zu kleine Abtastfrequenz XA3(ω)</span></figcaption>
+</figure>
+<div id="S3.SS3.p4" class="ltx_para">
+<p class="ltx_p">Im ersten Fall <math id="S3.SS3.p4.m1" class="ltx_Math" alttext="X_{A1}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mrow><mi>A</mi><mo>⁢</mo><mn>1</mn></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{A1}(ω)</annotation></semantics></math> wird mit einer Abtastfrequenz gearbeitet, die deutlich größer ist als das Abtasttheorem vorschreibt. Dieser Fall wird als Oversampling bezeichnet. Durch die hohe Abtastfrequenz werden das Spektrum im Basisband und die nächsthöheren Spektren deutlich voneinander getrennt, sodass mit einem Tiefpass-Filter mit vergleichsweise flachem Übergang zwischen Sperr- und Durchlass-Bereich gearbeitet werden kann.</p>
+</div>
+<div id="S3.SS3.p5" class="ltx_para">
+<p class="ltx_p">Im zweiten Fall <math id="S3.SS3.p5.m1" class="ltx_Math" alttext="X_{A2}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mrow><mi>A</mi><mo>⁢</mo><mn>2</mn></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{A2}(ω)</annotation></semantics></math> wird das Abtasttheorem gerade eingehalten. Es zeigt sich aber, dass die Rekonstruktion nur mit einem idealen Tiefpass-Filter erfolgen kann, der technisch nicht realisiert werden kann. Dieser Fall entspricht dem theoretischen Grenzfall des Abtasttheorems.</p>
+</div>
+<div id="S3.SS3.p6" class="ltx_para">
+<p class="ltx_p">Im Fall einer zu kleinen Abtastfrequenz <math id="S3.SS3.p6.m1" class="ltx_Math" alttext="X_{A3}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mrow><mi>A</mi><mo>⁢</mo><mn>3</mn></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{A3}(ω)</annotation></semantics></math> überlagern sich die Spektren. Das Signal kann selbst mit einem idealen Tiefpass-Filter nicht fehlerfrei rekonstruiert werden. Es kommt zu Signalverzerrungen oder Aliasing.</p>
+</div>
+<div id="S3.SS3.p7" class="ltx_para ltx_noindent">
+<div class="ltx_logical-block ltx_framed ltx_framed_left" style="border-color: #000000;border-width:3pt;padding-left:10pt;">
+<div id="S3.SS3.p7.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-calculator"></span><span class="ltx_text ltx_font_bold" style="color:#288732;"> Beispiel 2.2: Abtastrate einer Sound-Karte</span></p>
+</div>
+<div id="S3.SS3.p7.p2" class="ltx_para">
+<p class="ltx_p">Sound-Karten von Computern besitzen einen Analog-Digital-Wandler (ADC). Er wandelt das analoge Signal in ein digitales Signal um. Bei Sound-Karten ist zum einen die Auflösung des ADC wichtig, da sie die Quantisierungsfehler und damit das Rauschen bestimmt. Zweiter wesentlicher Faktor ist die Abtastrate.</p>
+<img src="" id="S3.SS3.p7.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Sound-Karte für Personal Computer">
+</div>
+<figure id="F11" class="ltx_figure ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.11</span>: </span><span class="ltx_text" style="font-size:90%;">Sound-Karte für Personal Computer</span></figcaption>
+</figure>
+<div id="S3.SS3.p7.p3" class="ltx_para">
+<p class="ltx_p">Eine Abtastfrequenz <math id="S3.SS3.p7.m1" class="ltx_Math" alttext="f_{A}=$44\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><msub><mi>f</mi><mi>A</mi></msub><mo>=</mo><mrow><mn>44</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">f_{A}=$44\text{\,}\mathrm{kHz}$</annotation></semantics></math> ermöglicht die Aufnahme und Wiedergabe bis zu einer theoretischen Bandbreite von</p>
+<table id="A0.S4.EGx18" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex2"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex2.m1" class="ltx_Math" alttext="\displaystyle f_{MAX}" display="inline"><semantics><msub><mi>f</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub><annotation encoding="application/x-tex">\displaystyle f_{MAX}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex2.m2" class="ltx_Math" alttext="\displaystyle=\frac{f_{A}}{2}=$22\text{\,}\mathrm{kHz}$" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><msub><mi>f</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle><mo>=</mo><mrow><mn>22</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{f_{A}}{2}=$22\text{\,}\mathrm{kHz}$</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Mit der Sound-Karte können damit Musiksignale mit einer maximalen Frequenz von <math id="S3.SS3.p7.m2" class="ltx_Math" alttext="22\text{\,}\mathrm{kHz}" display="inline"><semantics><mrow><mn>22</mn><mtext> </mtext><mi class="ltx_unit">kHz</mi></mrow><annotation encoding="application/x-tex">22\text{\,}\mathrm{kHz}</annotation></semantics></math> verarbeitet werden.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="S3.SS4" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.3.4 </span>Bandbegrenzung des abzutastenden Signals</h3>
+
+<div id="S3.SS4.p1" class="ltx_para">
+<p class="ltx_p">Das Abtasttheorem geht davon aus, dass das Signal bandbegrenzt ist. Reale Signale haben in praktischen Anwendungen aber im Allgemeinen keine harte Bandbegrenzung. Vielmehr ergibt sich ihre Bandbreite aus dem Tiefpassverhalten des Systems, das das Signal generiert, und dem Spektrum von überlagerten Störungen. Um den Einfluss der mangelhaften Bandbegrenzung zu reduzieren, kann ein analoger Tiefpass wie zum Beispiel ein RC-Glied zur Filterung eingesetzt werden. Er verhindert, dass sich in dem Spektrum höhere Frequenzanteile befinden als erwartet, und reduziert damit den Einfluss von Störungen. Das Tiefpass-Filter wird aufgrund seiner Funktion als Anti-Aliasing-Filter bezeichnet. Die Wirkung des Anti-Aliasing-Filters wird in Bild <a href="#F12" title="Figure 2.12 ‣ 2.3.4 Bandbegrenzung des abzutastenden Signals ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.12</span></a> veranschaulicht.</p>
+</div>
+<figure id="F12" class="ltx_figure"><img src="" id="F12.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Wirkung des Anti-Aliasing-Filters auf die Bandbegrenzung des Spektrums $X(ω)$ des Signals $x(t)$">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.12</span>: </span><span class="ltx_text" style="font-size:90%;">Wirkung des Anti-Aliasing-Filters auf die Bandbegrenzung des Spektrums <math id="F12.m3" class="ltx_Math" alttext="X(ω)" display="inline"><semantics><mrow><mi>X</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X(ω)</annotation></semantics></math> des Signals <math id="F12.m4" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math></span></figcaption>
+</figure>
+<div id="S3.SS4.p2" class="ltx_para">
+<p class="ltx_p">Das Signal <math id="S3.SS4.p2.m1" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> hat ein Spektrum, dessen Information im Nutzbereich - <math id="S3.SS4.p2.m2" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> &lt; ω &lt; <math id="S3.SS4.p2.m3" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> liegt. Es besitzt aber zum Beispiel aufgrund von Störungen ein breiteres Spektrum. Damit existieren auch oberhalb der als maximal angenommenen Bandbreite <math id="S3.SS4.p2.m4" class="ltx_Math" alttext="ω_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">ω_{G}</annotation></semantics></math> Spektralanteile. Durch den Einsatz eines Tiefpass-Filters, das den Frequenzbereich ω &lt; - <math id="S3.SS4.p2.m5" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> und den Bereich ω &gt; <math id="S3.SS4.p2.m6" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> dämpft, ergibt sich bei dem neu entstandenen Signal ein Spektrum <math id="S3.SS4.p2.m7" class="ltx_Math" alttext="X_{TP}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{TP}(ω)</annotation></semantics></math>, das im Nutzbereich dem des ursprünglichen Signals entspricht, im übrigen Bereich aber stärker gedämpft ist. Dieses Signal kann wegen der geringeren Bandbreite <math id="S3.SS4.p2.m8" class="ltx_Math" alttext="ω_{GTP}" display="inline"><semantics><msub><mi>ω</mi><mrow><mi>G</mi><mo>⁢</mo><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><annotation encoding="application/x-tex">ω_{GTP}</annotation></semantics></math> &lt; <math id="S3.SS4.p2.m9" class="ltx_Math" alttext="ω_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">ω_{G}</annotation></semantics></math> mit einer geringeren Frequenz abgetastet werden und der Rauschanteil wird durch die Bandbegrenzung reduziert.</p>
+</div>
+<div id="S3.SS4.p3" class="ltx_para">
+<p class="ltx_p">In technischen Anwendungen wird deshalb praktisch immer ein Eingangstiefpass eingesetzt, das das Spektrum des Eingangssignals auf die notwendige Bandbreite begrenzt. Die Spezifikation von Filtern und ihr Entwurf werden im Teil A dieser Buchreihe diskutiert.</p>
+</div>
+<div id="S3.SS4.p4" class="ltx_para ltx_noindent">
+<div class="ltx_logical-block ltx_framed ltx_framed_left" style="border-color: #000000;border-width:3pt;padding-left:10pt;">
+<div id="S3.SS4.p4.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-calculator"></span><span class="ltx_text ltx_font_bold" style="color:#288732;"> Beispiel 2.3: Abtastung Drucksensor im Steuergerät</span></p>
+</div>
+<div id="S3.SS4.p4.p2" class="ltx_para">
+<p class="ltx_p">Für die Regelung des Ladedrucks von Turboladern werden Drucksensoren eingesetzt.</p>
+<img src="" id="S3.SS4.p4.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Drucksensor zur Messung des Ladedrucks (Bosch)">
+</div>
+<figure id="F13" class="ltx_figure ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.13</span>: </span><span class="ltx_text" style="font-size:90%;">Drucksensor zur Messung des Ladedrucks (Bosch)</span></figcaption>
+</figure>
+<div id="S3.SS4.p4.p3" class="ltx_para">
+<p class="ltx_p">Der Drucksensor, der den Ladedruck misst, besitzt laut Datenblatt eine Zeitkonstante <math id="S3.SS4.p4.m1" class="ltx_Math" alttext="T=$0.1\text{\,}\mathrm{ms}$" display="inline"><semantics><mrow><mi>T</mi><mo>=</mo><mrow><mn>0.1</mn><mtext> </mtext><mi class="ltx_unit">ms</mi></mrow></mrow><annotation encoding="application/x-tex">T=$0.1\text{\,}\mathrm{ms}$</annotation></semantics></math>. Das entspricht einer <math id="S3.SS4.p4.m2" class="ltx_Math" alttext="3\text{\,}\mathrm{dB}" display="inline"><semantics><mrow><mn>3</mn><mtext> </mtext><mi class="ltx_unit">dB</mi></mrow><annotation encoding="application/x-tex">3\text{\,}\mathrm{dB}</annotation></semantics></math>-Grenzfrequenz von</p>
+<table id="A0.S4.EGx19" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex3"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex3.m1" class="ltx_Math" alttext="\displaystyle\omega_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">\displaystyle\omega_{G}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex3.m2" class="ltx_Math" alttext="\displaystyle=\frac{1}{T}=$10\text{\,}\mathrm{krad}\text{\,}{\mathrm{s}}^{-1}$" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><mi>T</mi></mfrac></mstyle><mo>=</mo><mrow><mn>10</mn><mtext> </mtext><mrow><mi class="ltx_unit">krad</mi><mtext> </mtext><msup><mi class="ltx_unit" mathvariant="normal">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{1}{T}=$10\text{\,}\mathrm{krad}\text{\,}{\mathrm{s}}^{-1}$</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Das Motor-Steuergerät tastet das Signal mit einer Abtastzeit <math id="S3.SS4.p4.m3" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> von <math id="S3.SS4.p4.m4" class="ltx_Math" alttext="1\text{\,}\mathrm{ms}" display="inline"><semantics><mrow><mn>1</mn><mtext> </mtext><mi class="ltx_unit">ms</mi></mrow><annotation encoding="application/x-tex">1\text{\,}\mathrm{ms}</annotation></semantics></math> ab. Es ergibt sich eine Abtastfrequenz von</p>
+<table id="A0.S4.EGx20" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex4"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex4.m1" class="ltx_Math" alttext="\displaystyle\omega_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">\displaystyle\omega_{A}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex4.m2" class="ltx_Math" alttext="\displaystyle=\frac{2\pi}{T_{A}}=6.283\text{ k}rad/s" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>=</mo><mrow><mrow><mn>6.283</mn><mo>⁢</mo><mtext> k</mtext><mo>⁢</mo><mi>r</mi><mo>⁢</mo><mi>a</mi><mo>⁢</mo><mi>d</mi></mrow><mo>/</mo><mi>s</mi></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{2\pi}{T_{A}}=6.283\text{ k}rad/s</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Wird die Grenzfrequenz <math id="S3.SS4.p4.m5" class="ltx_Math" alttext="ω_{G}" display="inline"><semantics><msub><mi>ω</mi><mi>G</mi></msub><annotation encoding="application/x-tex">ω_{G}</annotation></semantics></math> als maximale Frequenz <math id="S3.SS4.p4.m6" class="ltx_Math" alttext="ω_{MAX}" display="inline"><semantics><msub><mi>ω</mi><mrow><mi>M</mi><mo>⁢</mo><mi>A</mi><mo>⁢</mo><mi>X</mi></mrow></msub><annotation encoding="application/x-tex">ω_{MAX}</annotation></semantics></math> angesehen, wird das Abtasttheorem nicht erfüllt. Außerdem sind dem Sensorsignal Störungen überlagert, die Spektralanteile weit oberhalb der Grenzfrequenz besitzen können. Zur Vermeidung von Aliasing-Effekten wird ein Anti-Aliasing-Filter eingesetzt. Es weist eine Zeitkonstante von <math id="S3.SS4.p4.m7" class="ltx_Math" alttext="T_{TP}=$0.6\text{\,}\mathrm{ms}$" display="inline"><semantics><mrow><msub><mi>T</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>=</mo><mrow><mn>0.6</mn><mtext> </mtext><mi class="ltx_unit">ms</mi></mrow></mrow><annotation encoding="application/x-tex">T_{TP}=$0.6\text{\,}\mathrm{ms}$</annotation></semantics></math> auf, was einer <math id="S3.SS4.p4.m8" class="ltx_Math" alttext="3\text{\,}\mathrm{dB}" display="inline"><semantics><mrow><mn>3</mn><mtext> </mtext><mi class="ltx_unit">dB</mi></mrow><annotation encoding="application/x-tex">3\text{\,}\mathrm{dB}</annotation></semantics></math>-Grenzfrequenz von</p>
+<table id="A0.S4.EGx21" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex5"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex5.m1" class="ltx_Math" alttext="\displaystyle\omega_{TP}" display="inline"><semantics><msub><mi>ω</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><annotation encoding="application/x-tex">\displaystyle\omega_{TP}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex5.m2" class="ltx_Math" alttext="\displaystyle=\frac{1}{$0.6\text{\,}\mathrm{ms}$}=$1.67\text{\,}\mathrm{krad}%
+\text{\,}{\mathrm{s}}^{-1}$&lt;$3.14\text{\,}\mathrm{krad}\text{\,}{\mathrm{s}}^{%
+-1}$=\frac{\omega_{A}}{2}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mn>0.6</mn><mtext> </mtext><mi class="ltx_unit">ms</mi></mrow></mfrac></mstyle><mo>=</mo><mrow><mn>1.67</mn><mtext> </mtext><mrow><mi class="ltx_unit">krad</mi><mtext> </mtext><msup><mi class="ltx_unit" mathvariant="normal">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><mo>&lt;</mo><mrow><mn>3.14</mn><mtext> </mtext><mrow><mi class="ltx_unit">krad</mi><mtext> </mtext><msup><mi class="ltx_unit" mathvariant="normal">s</mi><mrow><mo>−</mo><mn>1</mn></mrow></msup></mrow></mrow><mo>=</mo><mstyle displaystyle="true"><mfrac><msub><mi>ω</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{1}{$0.6\text{\,}\mathrm{ms}$}=$1.67\text{\,}\mathrm{krad}%
+\text{\,}{\mathrm{s}}^{-1}$&lt;$3.14\text{\,}\mathrm{krad}\text{\,}{\mathrm{s}}^{%
+-1}$=\frac{\omega_{A}}{2}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">entspricht. Durch den Einsatz des Tiefpass-Filters wird bei derselben Abtastrate das Abtasttheorem eingehalten. Das Filter hat eine Dämpfung von - <math id="S3.SS4.p4.m9" class="ltx_Math" alttext="20\text{\,}\mathrm{dB}" display="inline"><semantics><mrow><mn>20</mn><mtext> </mtext><mi class="ltx_unit">dB</mi></mrow><annotation encoding="application/x-tex">20\text{\,}\mathrm{dB}</annotation></semantics></math> pro Dekade. Die sich aus der endlichen Steilheit ergebenden Effekte werden in einer Übungsaufgabe diskutiert.</p>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="S4" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">2.4 </span>Reale Abtastung und Rekonstruktion</h2>
+
+<div id="S4.p1" class="ltx_para">
+<p class="ltx_p">Die zuvor vorgestellte ideale Abtastfunktion <math id="S4.p1.m1" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> ist nicht realisierbar, da ideale Impulse technisch nicht erzeugt werden können. Dies liegt an der unendlich kurzen Dauer sowie der unendlichen Steilheit und Höhe von Impulsen. Aus dieser Überlegung ergeben sich die reale Abtastung und die reale Rekonstruktion von Signalen.</p>
+</div>
+<section id="S4.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.1 </span>Reale Abtastung eines Signals</h3>
+
+<div id="S4.SS1.p1" class="ltx_para">
+<p class="ltx_p">Reale beziehungsweise technisch realisierbare Abtastsysteme brauchen eine Wandlungszeit <math id="S4.SS1.p1.m1" class="ltx_Math" alttext="T_{W}" display="inline"><semantics><msub><mi>T</mi><mi>W</mi></msub><annotation encoding="application/x-tex">T_{W}</annotation></semantics></math>, um aus dem analogen Signal ein zeitdiskretes Signal zu generieren. Die Wandlungszeit ergibt sich zum Beispiel aus einem Ladungstransport oder einem Approximationsprozess, bei dem das Signal als Mittelwert über einen Zeitraum <math id="S4.SS1.p1.m2" class="ltx_Math" alttext="T_{W}" display="inline"><semantics><msub><mi>T</mi><mi>W</mi></msub><annotation encoding="application/x-tex">T_{W}</annotation></semantics></math> durch Integration bestimmt wird. Das real abgetastete Signal <math id="S4.SS1.p1.m3" class="ltx_Math" alttext="x_{AW}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mrow><mi>A</mi><mo>⁢</mo><mi>W</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{AW}(t)</annotation></semantics></math> wird deshalb mit dem Ausdruck</p>
+<table id="A0.S4.EGx22" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E21"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E21.m1" class="ltx_Math" alttext="\displaystyle x_{AW}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mrow><mi>A</mi><mo>⁢</mo><mi>W</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x_{AW}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E21.m2" class="ltx_Math" alttext="\displaystyle=\frac{1}{T_{W}}\int_{t-T_{W}}^{t}{x(\tau)d\tau}\sum\limits_{k=-%
+\infty}^{\infty}{\delta\left(t-kT_{A}\right)}=x_{M}(t)\sum\limits_{k=-\infty}^%
+{\infty}{\delta\left(t-kT_{A}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><msubsup><mo>∫</mo><mrow><mi>t</mi><mo>−</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mi>t</mi></msubsup></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em">⁢</mo><mrow><mo rspace="0em">𝑑</mo><mi>τ</mi></mrow><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow></mrow><mo>=</mo><mrow><msub><mi>x</mi><mi>M</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{1}{T_{W}}\int_{t-T_{W}}^{t}{x(\tau)d\tau}\sum\limits_{k=-%
+\infty}^{\infty}{\delta\left(t-kT_{A}\right)}=x_{M}(t)\sum\limits_{k=-\infty}^%
+{\infty}{\delta\left(t-kT_{A}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.21)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">beschrieben. Es handelt sich um das Produkt von dem gleitenden Mittelwert <math id="S4.SS1.p1.m4" class="ltx_Math" alttext="x_{M}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>M</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{M}(t)</annotation></semantics></math> und der idealen Abtastfunktion <math id="S4.SS1.p1.m5" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> im Zeitbereich. Zur Berechnung des Spektrums <math id="S4.SS1.p1.m6" class="ltx_Math" alttext="X_{AW}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mrow><mi>A</mi><mo>⁢</mo><mi>W</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{AW}(ω)</annotation></semantics></math> müssen die Spektren der beiden Signale berechnet werden. Dazu wird das Integral in zwei Summanden zerlegt.</p>
+<table id="A0.S4.EGx23" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E22"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E22.m1" class="ltx_Math" alttext="\displaystyle x_{M}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>M</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x_{M}(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E22.m2" class="ltx_Math" alttext="\displaystyle=\frac{1}{T_{W}}\int_{t-T_{W}}^{t}{x(\tau)d\tau}=\frac{1}{T_{W}}%
+\left(\int_{-\infty}^{t}{x(\tau)d\tau}-\int_{-\infty}^{t-T_{W}}{x(t)dt}\right)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><msubsup><mo>∫</mo><mrow><mi>t</mi><mo>−</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mi>t</mi></msubsup></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em">⁢</mo><mrow><mo rspace="0em">𝑑</mo><mi>τ</mi></mrow></mrow></mrow></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mstyle displaystyle="true"><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mi>t</mi></msubsup></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>τ</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em">⁢</mo><mrow><mo rspace="0em">𝑑</mo><mi>τ</mi></mrow></mrow></mrow><mo>−</mo><mrow><mstyle displaystyle="true"><msubsup><mo>∫</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow><mrow><mi>t</mi><mo>−</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></msubsup></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow><mo lspace="0em">⁢</mo><mrow><mo rspace="0em">𝑑</mo><mi>t</mi></mrow></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{1}{T_{W}}\int_{t-T_{W}}^{t}{x(\tau)d\tau}=\frac{1}{T_{W}}%
+\left(\int_{-\infty}^{t}{x(\tau)d\tau}-\int_{-\infty}^{t-T_{W}}{x(t)dt}\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.22)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Mit der Integrations- und Verschiebungsregel ergibt sich das zugehörige Spektrum.</p>
+<table id="A0.S4.EGx24" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E23"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E23.m1" class="ltx_Math" alttext="\displaystyle{X_{M}\left(\omega\right)}" display="inline"><semantics><mrow><msub><mi>X</mi><mi>M</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{X_{M}\left(\omega\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E23.m2" class="ltx_Math" alttext="\displaystyle={\frac{1}{T_{W}}\left(\frac{1}{j\omega}X\left(\omega\right)+\pi X%
+\left(0\right)\delta\left(\omega\right)\right)\left(1-e^{-j\omega T_{W}}\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi></mrow></mfrac></mstyle><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><mo>+</mo><mrow><mi>π</mi><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>−</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></mrow></msup></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{T_{W}}\left(\frac{1}{j\omega}X\left(\omega\right)+\pi X%
+\left(0\right)\delta\left(\omega\right)\right)\left(1-e^{-j\omega T_{W}}\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.23)</span></td>
+</tr></tbody>
+<tbody id="E24"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E24.m1" class="ltx_Math" alttext="\displaystyle={\frac{1}{T_{W}}\left(\frac{1}{j\omega}X\left(\omega\right)+\pi X%
+\left(0\right)\delta\left(\omega\right)\right)2j\sin\left(\frac{\omega T_{W}}{%
+2}\right)e^{-\frac{j\omega T_{W}}{2}}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi></mrow></mfrac></mstyle><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow><mo>+</mo><mrow><mi>π</mi><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mn>2</mn><mo>⁢</mo><mi>j</mi><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{T_{W}}\left(\frac{1}{j\omega}X\left(\omega\right)+\pi X%
+\left(0\right)\delta\left(\omega\right)\right)2j\sin\left(\frac{\omega T_{W}}{%
+2}\right)e^{-\frac{j\omega T_{W}}{2}}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.24)</span></td>
+</tr></tbody>
+<tbody id="E25"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E25.m1" class="ltx_Math" alttext="\displaystyle{\frac{2}{\omega T_{W}}\sin\left(\frac{\omega T_{W}}{2}\right)X%
+\left(\omega\right)e^{-\frac{j\omega T_{W}}{2}}+\frac{\pi X\left(0\right)}{T_{%
+W}}\delta\left(\omega\right)2j\sin\left(\frac{\omega T_{W}}{2}\right)e^{-\frac%
+{j\omega T_{W}}{2}}}" display="inline"><semantics><mrow><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow><mo>+</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mi>π</mi><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mn>0</mn><mo>)</mo></mrow></mrow><msub><mi>T</mi><mi>W</mi></msub></mfrac></mstyle><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow><mo>⁢</mo><mn>2</mn><mo>⁢</mo><mi>j</mi><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{\frac{2}{\omega T_{W}}\sin\left(\frac{\omega T_{W}}{2}\right)X%
+\left(\omega\right)e^{-\frac{j\omega T_{W}}{2}}+\frac{\pi X\left(0\right)}{T_{%
+W}}\delta\left(\omega\right)2j\sin\left(\frac{\omega T_{W}}{2}\right)e^{-\frac%
+{j\omega T_{W}}{2}}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright" colspan="2"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.25)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Da der letzte Summand in Gleichung (<a href="#E25" title="In 2.4.1 Reale Abtastung eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.25</span></a>) null ist, gilt:</p>
+<table id="A0.S4.EGx25" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E26"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E26.m1" class="ltx_Math" alttext="\displaystyle X_{M}(\omega)" display="inline"><semantics><mrow><msub><mi>X</mi><mi>M</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle X_{M}(\omega)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E26.m2" class="ltx_Math" alttext="\displaystyle=\frac{2}{\omega T_{W}}\sin\left(\frac{\omega T_{W}}{2}\right)X(%
+\omega)e^{-\frac{j\omega T_{W}}{2}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{2}{\omega T_{W}}\sin\left(\frac{\omega T_{W}}{2}\right)X(%
+\omega)e^{-\frac{j\omega T_{W}}{2}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.26)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Mit dem Spektrum der idealen Abtastfunktion <math id="S4.SS1.p1.m7" class="ltx_Math" alttext="a(t)" display="inline"><semantics><mrow><mi>a</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">a(t)</annotation></semantics></math> aus Gleichung (<a href="#E9" title="In 2.3.1 Mathematische Beschreibung der idealen Abtastung ‣ 2.3 Ideale Abtastung und ideale Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.9</span></a>) und der Multiplikationsregel kann das Spektrum des real abgetasteten Signals berechnet werden zu</p>
+<table id="A0.S4.EGx26" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E27"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E27.m1" class="ltx_math_unparsed" alttext="\displaystyle{X{}_{AW}\left(\omega\right)}" display="inline"><semantics><mrow><mi>X</mi><mmultiscripts><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow><mprescripts></mprescripts><mrow><mi>A</mi><mo>⁢</mo><mi>W</mi></mrow><mrow></mrow></mmultiscripts></mrow><annotation encoding="application/x-tex">\displaystyle{X{}_{AW}\left(\omega\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E27.m2" class="ltx_Math" alttext="\displaystyle={\frac{1}{2\pi}\left(\frac{2}{\omega T_{W}}\sin\left(\frac{%
+\omega T_{W}}{2}\right)X\left(\omega\right)e^{-\frac{j\omega T_{W}}{2}}\right)%
+*\left(\frac{2\pi}{T_{A}}\sum\limits_{k=-\infty}^{\infty}\delta\left(\omega-k%
+\omega_{A}\right)\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow></mfrac></mstyle><mo>⁢</mo><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mi>ω</mi><mo>)</mo></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow><mo rspace="0.055em">)</mo></mrow></mrow><mo rspace="0.222em">∗</mo><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><mfrac><mrow><mn>2</mn><mo>⁢</mo><mi>π</mi></mrow><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{2\pi}\left(\frac{2}{\omega T_{W}}\sin\left(\frac{%
+\omega T_{W}}{2}\right)X\left(\omega\right)e^{-\frac{j\omega T_{W}}{2}}\right)%
+*\left(\frac{2\pi}{T_{A}}\sum\limits_{k=-\infty}^{\infty}\delta\left(\omega-k%
+\omega_{A}\right)\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.27)</span></td>
+</tr></tbody>
+<tbody id="E28"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E28.m1" class="ltx_Math" alttext="\displaystyle={\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}\frac{2}{\left(%
+\omega-k\omega_{A}\right)T_{W}}\sin\left(\frac{\left(\omega-k\omega_{A}\right)%
+T_{W}}{2}\right)X\left(\omega-k\omega_{A}\right)e^{-\frac{j\left(\omega-k%
+\omega_{A}\right)T_{W}}{2}}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>1</mn><msub><mi>T</mi><mi>A</mi></msub></mfrac></mstyle><mo>⁢</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><mrow><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><mi>X</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mfrac><mrow><mi>j</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>ω</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>ω</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><msub><mi>T</mi><mi>W</mi></msub></mrow><mn>2</mn></mfrac></mrow></msup></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\frac{1}{T_{A}}\sum\limits_{k=-\infty}^{\infty}\frac{2}{\left(%
+\omega-k\omega_{A}\right)T_{W}}\sin\left(\frac{\left(\omega-k\omega_{A}\right)%
+T_{W}}{2}\right)X\left(\omega-k\omega_{A}\right)e^{-\frac{j\left(\omega-k%
+\omega_{A}\right)T_{W}}{2}}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.28)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Wie bei der idealen Abtastung wird das Spektrum mit 1/<math id="S4.SS1.p1.m8" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math> skaliert und periodisch in <math id="S4.SS1.p1.m9" class="ltx_Math" alttext="ω_{A}" display="inline"><semantics><msub><mi>ω</mi><mi>A</mi></msub><annotation encoding="application/x-tex">ω_{A}</annotation></semantics></math> wiederholt. Allerdings wird das Spektrum des zeitkontinuierlichen Signals vor der periodischen Wiederholung mit einem Frequenzgang multipliziert, der sich aus der gleitenden Mittelung ergibt. Dieser Vorgang wird in Bild <a href="#F14" title="Figure 2.14 ‣ 2.4.1 Reale Abtastung eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.14</span></a> für Wandlungszeiten von <math id="S4.SS1.p1.m10" class="ltx_Math" alttext="T_{W}=T_{A}" display="inline"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub><mo>=</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">T_{W}=T_{A}</annotation></semantics></math> und <math id="S4.SS1.p1.m11" class="ltx_Math" alttext="T_{W}=0" display="inline"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T_{W}=0</annotation></semantics></math>.1T<sub class="ltx_sub">A</sub> dargestellt. Die Auswirkung auf das Spektrum im Basisband steigt mit steigender Wandlungszeit. In Analog-Digital-Wandlern wird der Effekt durch geringe Wandlungszeiten klein gehalten und durch den Einsatz inverser Filter kompensiert.</p>
+</div>
+<figure id="F14" class="ltx_figure"><img src="" id="F14.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung des Spektrums eines realen Abtastprozesses für unterschiedliche Wandlungszeiten $T_{W}=T_{A}$ und $T_{W}=0$.1T\textsubscript{A}">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.14</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung des Spektrums eines realen Abtastprozesses für unterschiedliche Wandlungszeiten <math id="F14.m3" class="ltx_Math" alttext="T_{W}=T_{A}" display="inline"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub><mo>=</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">T_{W}=T_{A}</annotation></semantics></math> und <math id="F14.m4" class="ltx_Math" alttext="T_{W}=0" display="inline"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T_{W}=0</annotation></semantics></math>.1T<sub class="ltx_sub">A</sub></span></figcaption>
+</figure>
+</section>
+<section id="S4.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.2 </span>Reale Rekonstruktion eines Signals</h3>
+
+<div id="S4.SS2.p1" class="ltx_para">
+<p class="ltx_p">Nach der Abtastung liegen einzelne Abtastwerte vor, die das Signal zu den entsprechenden Abtastzeiten charakterisieren. Für einige Anwendungen ist es notwendig, diese zeitdiskreten Signale wieder in zeitkontinuierliche Signale zu wandeln. Die bereits diskutierte ideale Rekonstruktion eines Signals ist wegen des ideal angenommenen Tiefpass-Filters nicht kausal und kann deshalb technisch nicht realisiert werden. Eine technisch realisierbare Rekonstruktion des ursprünglichen Signals aus den Abtastwerten wird in zwei Schritten realisiert:</p>
+</div>
+<div id="S4.SS2.p2" class="ltx_para">
+<ul id="S4.I1" class="ltx_itemize">
+<li id="S4.I1.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I1.i1.p1" class="ltx_para">
+<p class="ltx_p">Erzeugung eines stufenförmigen Ausgangssignals mit einem Halteglied</p>
+</div>
+</li>
+<li id="S4.I1.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I1.i2.p1" class="ltx_para">
+<p class="ltx_p">Tiefpass-Filterung</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S4.SS2.p3" class="ltx_para">
+<p class="ltx_p">Die beiden Schritte werden im Zeit- und Frequenzbereich beschrieben. Zur Übersicht stellt Bild <a href="#F15" title="Figure 2.15 ‣ 2.4.2 Reale Rekonstruktion eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.15</span></a> den Signalfluss einer realen Signalrekonstruktion bei idealer Signalabtastung dar.</p>
+</div>
+<figure id="F15" class="ltx_figure"><img src="" id="F15.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Signalfluss zur realen Rekonstruktion">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.15</span>: </span><span class="ltx_text" style="font-size:90%;">Signalfluss zur realen Rekonstruktion</span></figcaption>
+</figure>
+<section id="S4.SS2.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Erzeugung eines stufenförmigen Ausgangssignals mit einem Halteglied</h4>
+
+<div id="S4.SS2.SSSx1.p1" class="ltx_para">
+<p class="ltx_p">Die einzelnen Abtastwerte stellen das Signal zu den entsprechenden Abtastzeiten dar. Das
+<br class="ltx_break">Halteglied H hält den aktuell gültigen Wert des digitalen Systems am Ausgang fest, bis der nächste Abtastwert zur Verfügung steht. Dadurch steht zu jedem Zeitpunkt t ein Ausgangssignal zur Verfügung und das Signal ist wieder zeitkontinuierlich. Bild <a href="#F16" title="Figure 2.16 ‣ Erzeugung eines stufenförmigen Ausgangssignals mit einem Halteglied ‣ 2.4.2 Reale Rekonstruktion eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.16</span></a> zeigt an einem Beispiel das abgetastete Signal <math id="S4.SS2.SSSx1.p1.m1" class="ltx_Math" alttext="x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{A}(t)</annotation></semantics></math> und das Signal <math id="S4.SS2.SSSx1.p1.m2" class="ltx_Math" alttext="x_{H}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>H</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{H}(t)</annotation></semantics></math> nach dem Halteglied.</p>
+</div>
+<figure id="F16" class="ltx_figure"><img src="" id="F16.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Rekonstruktion eines abgetasteten Signals mit Halteglied">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.16</span>: </span><span class="ltx_text" style="font-size:90%;">Rekonstruktion eines abgetasteten Signals mit Halteglied</span></figcaption>
+</figure>
+<div id="S4.SS2.SSSx1.p2" class="ltx_para">
+<p class="ltx_p">Im Zeitbereich kann das kontinuierliche Signal nach dem Halteglied analog zur realen Wandlung mit Rechteckfunktionen beschrieben werden.</p>
+<table id="A0.S4.EGx27" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E29"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E29.m1" class="ltx_Math" alttext="\displaystyle w(t)" display="inline"><semantics><mrow><mi>w</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle w(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E29.m2" class="ltx_Math" alttext="\displaystyle=\left(\sigma(t)-\sigma\left(t-T_{A}\right)\right)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\left(\sigma(t)-\sigma\left(t-T_{A}\right)\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.29)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Das Signal nach dem Halteglied kann wieder als Faltung ausgedrückt werden.</p>
+<table id="A0.S4.EGx28" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E30"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E30.m1" class="ltx_Math" alttext="\displaystyle{x_{H}\left(t\right)}" display="inline"><semantics><mrow><msub><mi>x</mi><mi>H</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle{x_{H}\left(t\right)}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E30.m2" class="ltx_Math" alttext="\displaystyle={\sum\limits_{k=-\infty}^{\infty}x_{A}\left(kT_{A}\right)\left(%
+\sigma\left(t-kT_{A}\right)-\sigma\left(t-\left(k+1\right)T_{A}\right)\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mrow><mo>(</mo><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow><mo>)</mo></mrow><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\sum\limits_{k=-\infty}^{\infty}x_{A}\left(kT_{A}\right)\left(%
+\sigma\left(t-kT_{A}\right)-\sigma\left(t-\left(k+1\right)T_{A}\right)\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.30)</span></td>
+</tr></tbody>
+<tbody id="E31"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E31.m1" class="ltx_Math" alttext="\displaystyle={\left(\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}\right)%
+\delta\left(t-kT_{A}\right)\right)*\left(\sigma\left(t\right)-\sigma\left(t-T_%
+{A}\right)\right)}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mrow><mo>(</mo><mrow><mstyle displaystyle="true"><munderover><mo movablelimits="false">∑</mo><mrow><mi>k</mi><mo>=</mo><mrow><mo>−</mo><mi mathvariant="normal">∞</mi></mrow></mrow><mi mathvariant="normal">∞</mi></munderover></mstyle><mrow><mi>x</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow><mo>⁢</mo><mi>δ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><mrow><mi>k</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow></mrow><mo>)</mo></mrow></mrow></mrow><mo rspace="0.055em">)</mo></mrow><mo rspace="0.222em">∗</mo><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mi>t</mi><mo>)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo>(</mo><mrow><mi>t</mi><mo>−</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mo>)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle={\left(\sum\limits_{k=-\infty}^{\infty}x\left(kT_{A}\right)%
+\delta\left(t-kT_{A}\right)\right)*\left(\sigma\left(t\right)-\sigma\left(t-T_%
+{A}\right)\right)}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.31)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Der Faltung der Signale im Zeitbereich entspricht die Multiplikation der Spektren im Frequenzbereich. Das Spektrum des Signals nach dem Halteglied ergibt sich damit aus dem Produkt des Spektrums <math id="S4.SS2.SSSx1.p2.m1" class="ltx_Math" alttext="X_{A}(ω)" display="inline"><semantics><mrow><msub><mi>X</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">X_{A}(ω)</annotation></semantics></math> und dem Frequenzgang des Halteglieds <math id="S4.SS2.SSSx1.p2.m2" class="ltx_Math" alttext="H(ω)" display="inline"><semantics><mrow><mi>H</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">H(ω)</annotation></semantics></math>.</p>
+<table id="A0.S4.EGx29" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E32"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E32.m1" class="ltx_Math" alttext="\displaystyle H(\omega)" display="inline"><semantics><mrow><mi>H</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle H(\omega)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E32.m2" class="ltx_Math" alttext="\displaystyle=\frac{2}{\omega}\sin\left(\frac{\omega T_{A}}{2}\right)e^{-j%
+\frac{\omega T_{A}}{2}}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><mn>2</mn><mi>ω</mi></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mi>j</mi><mo>⁢</mo><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mn>2</mn></mfrac></mrow></mrow></msup></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{2}{\omega}\sin\left(\frac{\omega T_{A}}{2}\right)e^{-j%
+\frac{\omega T_{A}}{2}}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.32)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Bild <a href="#F17" title="Figure 2.17 ‣ Erzeugung eines stufenförmigen Ausgangssignals mit einem Halteglied ‣ 2.4.2 Reale Rekonstruktion eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.17</span></a> zeigt das Spektrum des abgetasteten Signals <math id="S4.SS2.SSSx1.p2.m3" class="ltx_Math" alttext="x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{A}(t)</annotation></semantics></math> und dem Signal <math id="S4.SS2.SSSx1.p2.m4" class="ltx_Math" alttext="x_{H}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>H</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{H}(t)</annotation></semantics></math> nach dem Halteglied.</p>
+</div>
+<figure id="F17" class="ltx_figure"><img src="" id="F17.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Betrag des Spektrums vom abgetasteten Signal $x_{A}(t)$ und vom Signal $x_{H}(t)$ nach dem Halteglied">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.17</span>: </span><span class="ltx_text" style="font-size:90%;">Betrag des Spektrums vom abgetasteten Signal <math id="F17.m3" class="ltx_Math" alttext="x_{A}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{A}(t)</annotation></semantics></math> und vom Signal <math id="F17.m4" class="ltx_Math" alttext="x_{H}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>H</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{H}(t)</annotation></semantics></math> nach dem Halteglied</span></figcaption>
+</figure>
+<div id="S4.SS2.SSSx1.p3" class="ltx_para">
+<p class="ltx_p">Durch das Halteglied wird das Spektrum gedämpft. Diese Dämpfung wirkt sich aber vor allem auf die periodische Fortsetzung des Spektrums aus.</p>
+</div>
+</section>
+<section id="S4.SS2.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Filterung des stufenförmigen Signals</h4>
+
+<div id="S4.SS2.SSSx2.p1" class="ltx_para">
+<p class="ltx_p">Zur Vermeidung von Signalsprüngen im rekonstruierten Signal wird das Spektrum nach dem Halteglied mit einem geeigneten Filter gefiltert. Mit dem Frequenzgang des Filters <math id="S4.SS2.SSSx2.p1.m1" class="ltx_Math" alttext="G_{R}(ω)" display="inline"><semantics><mrow><msub><mi>G</mi><mi>R</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">G_{R}(ω)</annotation></semantics></math> ergibt sich der Frequenzgang des rekonstruierten Signals <math id="S4.SS2.SSSx2.p1.m2" class="ltx_Math" alttext="x_{R}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mi>R</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{R}(t)</annotation></semantics></math> zu</p>
+<table id="A0.S4.EGx30" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E33"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E33.m1" class="ltx_Math" alttext="\displaystyle X_{R}(\omega)" display="inline"><semantics><mrow><msub><mi>X</mi><mi>R</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle X_{R}(\omega)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E33.m2" class="ltx_Math" alttext="\displaystyle=X_{A}(\omega)\frac{2}{\omega}\sin\left(\frac{\omega T_{A}}{2}%
+\right)e^{-j\frac{\omega T_{A}}{2}}G_{R}(\omega)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><msub><mi>X</mi><mi>A</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow><mo>⁢</mo><mstyle displaystyle="true"><mfrac><mn>2</mn><mi>ω</mi></mfrac></mstyle><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo>(</mo><mstyle displaystyle="true"><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mn>2</mn></mfrac></mstyle><mo>)</mo></mrow></mrow><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mi>j</mi><mo>⁢</mo><mfrac><mrow><mi>ω</mi><mo>⁢</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><mn>2</mn></mfrac></mrow></mrow></msup><mo>⁢</mo><msub><mi>G</mi><mi>R</mi></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>ω</mi><mo stretchy="false">)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=X_{A}(\omega)\frac{2}{\omega}\sin\left(\frac{\omega T_{A}}{2}%
+\right)e^{-j\frac{\omega T_{A}}{2}}G_{R}(\omega)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.33)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Idealerweise würde das Filter die Abweichungen im Basisband des Nutzsignals - <math id="S4.SS2.SSSx2.p1.m3" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> &lt; ω &lt; <math id="S4.SS2.SSSx2.p1.m4" class="ltx_Math" alttext="ω_{N}" display="inline"><semantics><msub><mi>ω</mi><mi>N</mi></msub><annotation encoding="application/x-tex">ω_{N}</annotation></semantics></math> kompensieren und die Frequenzanteile ober- und unterhalb des Basisbandes vollständig eliminieren. Bild <a href="#F18" title="Figure 2.18 ‣ Filterung des stufenförmigen Signals ‣ 2.4.2 Reale Rekonstruktion eines Signals ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.18</span></a> verdeutlicht diesen Ansatz.</p>
+</div>
+<figure id="F18" class="ltx_figure"><img src="" id="F18.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Ideales Filter zur Rekonstruktion eines abgetasteten Signals">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.18</span>: </span><span class="ltx_text" style="font-size:90%;">Ideales Filter zur Rekonstruktion eines abgetasteten Signals</span></figcaption>
+</figure>
+<div id="S4.SS2.SSSx2.p2" class="ltx_para">
+<p class="ltx_p">Dieses ideale Filter ist wegen der idealen Flankensteilheit nicht realisierbar. Reale Filter beschränken sich auf eine endliche Flankensteilheit. Eine Möglichkeit, die erforderliche Flankensteilheit zu senken, ist eine Steigerung der Abtastrate <math id="S4.SS2.SSSx2.p2.m1" class="ltx_Math" alttext="f_{A}" display="inline"><semantics><msub><mi>f</mi><mi>A</mi></msub><annotation encoding="application/x-tex">f_{A}</annotation></semantics></math>. Dieser Vorgang wird als Überabtastung oder Oversampling bezeichnet. Durch die höhere Abtastrate werden zwei Effekte erzielt:</p>
+</div>
+<div id="S4.SS2.SSSx2.p3" class="ltx_para">
+<ul id="S4.I2" class="ltx_itemize">
+<li id="S4.I2.i1" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I2.i1.p1" class="ltx_para">
+<p class="ltx_p">Die Trennung der periodischen Spektren ist größer. Dadurch kann die Ordnung des Filters zur Signal-Rekonstruktion reduziert werden.</p>
+</div>
+</li>
+<li id="S4.I2.i2" class="ltx_item" style="list-style-type:none;">
+<span class="ltx_tag ltx_tag_item">•</span> 
+<div id="S4.I2.i2.p1" class="ltx_para">
+<p class="ltx_p">Mit höherer Abtastrate liegt der Nutzbereich des Signals immer mehr im flachen Bereich der Übertragungsfunktion des Halteglieds, sodass eine Kompensation des Frequenzgangs des Halteglieds nicht weiter notwendig ist.</p>
+</div>
+</li>
+</ul>
+</div>
+<div id="S4.SS2.SSSx2.p4" class="ltx_para">
+<p class="ltx_p">Die zum Halteglied inverse Charakteristik im Durchlassbereich kann über ein digitales Filter erreicht werden, der als Teil der digitalen Signalverarbeitung realisiert wird.</p>
+</div>
+</section>
+</section>
+<section id="S4.SS3" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">2.4.3 </span>Totzeit bei der realen Signalabtastung</h3>
+
+<div id="S4.SS3.p1" class="ltx_para">
+<p class="ltx_p">In den vorangegangenen Abschnitten wird der Abtastvorgang hinsichtlich der Auswirkung auf den Betrag des Spektrums diskutiert. Die Übertragungsfunktionen weisen aber immer auch eine Phasenverschiebung auf. Die gesamte Phasenverschiebung ergibt sich bei der realen Abtastung nach den obigen Darstellungen aus den Totzeiten des Wandlers und des Halteglieds.</p>
+<table id="A0.S4.EGx31" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="E34"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E34.m1" class="ltx_Math" alttext="\displaystyle T_{T}" display="inline"><semantics><msub><mi>T</mi><mi>T</mi></msub><annotation encoding="application/x-tex">\displaystyle T_{T}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="E34.m2" class="ltx_Math" alttext="\displaystyle=\frac{T_{W}}{2}+\frac{T_{A}}{2}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>W</mi></msub><mn>2</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{T_{W}}{2}+\frac{T_{A}}{2}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+<td rowspan="1" class="ltx_eqn_cell ltx_eqn_eqno ltx_align_middle ltx_align_right"><span class="ltx_tag ltx_tag_equation ltx_align_right">(2.34)</span></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">Dazu kommen die Phase des Anti-Aliasing-Filters und des Tiefpass-Filters zur Signalrekonstruktion, sodass gegenüber dem Eingangssignal eine teilweise erhebliche Signalverzögerung entsteht. Die Zeitverzögerung sowie das Einschwingverhalten des rekonstruierten Signals werden an einem Beispiel verdeutlicht.</p>
+</div>
+<div id="S4.SS3.p2" class="ltx_para ltx_noindent">
+<div class="ltx_logical-block ltx_framed ltx_framed_left" style="border-color: #000000;border-width:3pt;padding-left:10pt;">
+<div id="S4.SS3.p2.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-calculator"></span><span class="ltx_text ltx_font_bold" style="color:#288732;"> Beispiel 2.4: Signalrekonstruktion</span></p>
+</div>
+<div id="S4.SS3.p2.p2" class="ltx_para">
+<p class="ltx_p">Ein Signal der Form</p>
+<table id="A0.S4.EGx32" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex6"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex6.m1" class="ltx_Math" alttext="\displaystyle x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\displaystyle x(t)</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex6.m2" class="ltx_Math" alttext="\displaystyle=5e^{-0.1t^{2}}\left(1+0.5\sin(t)\right)\left(\sigma(t+5)-\sigma(%
+t-5)\right)" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mn>5</mn><mo>⁢</mo><msup><mi>e</mi><mrow><mo>−</mo><mrow><mn>0.1</mn><mo>⁢</mo><msup><mi>t</mi><mn>2</mn></msup></mrow></mrow></msup><mo>⁢</mo><mrow><mo>(</mo><mrow><mn>1</mn><mo>+</mo><mrow><mn>0.5</mn><mo lspace="0.167em">⁢</mo><mrow><mi>sin</mi><mo>⁡</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow></mrow></mrow><mo>)</mo></mrow><mo>⁢</mo><mrow><mo>(</mo><mrow><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>+</mo><mn>5</mn></mrow><mo stretchy="false">)</mo></mrow></mrow><mo>−</mo><mrow><mi>σ</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mrow><mi>t</mi><mo>−</mo><mn>5</mn></mrow><mo stretchy="false">)</mo></mrow></mrow></mrow><mo>)</mo></mrow></mrow></mrow><annotation encoding="application/x-tex">\displaystyle=5e^{-0.1t^{2}}\left(1+0.5\sin(t)\right)\left(\sigma(t+5)-\sigma(%
+t-5)\right)</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">wird mit einer Abtastzeit von <math id="S4.SS3.p2.m1" class="ltx_Math" alttext="T_{A}=1" display="inline"><semantics><mrow><msub><mi>T</mi><mi>A</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T_{A}=1</annotation></semantics></math> abgetastet, das System besitzt eine Wandlungszeit von <math id="S4.SS3.p2.m2" class="ltx_Math" alttext="T_{W}=1" display="inline"><semantics><mrow><msub><mi>T</mi><mi>W</mi></msub><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">T_{W}=1</annotation></semantics></math>. Es entstehen die in Tabelle <a href="#T1" title="Table 2.1 ‣ 2.4.3 Totzeit bei der realen Signalabtastung ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.1</span></a> dargestellten Abtastwerte.</p>
+</div>
+<figure id="T1" class="ltx_table ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" style="font-size:90%;">Table 2.1</span>: </span><span class="ltx_text" style="font-size:90%;">Tabellarische Übersicht über Signaleigenschaften für Signalfolgen</span></figcaption>
+</figure>
+<div id="S4.SS3.p2.p3" class="ltx_para">
+<table class="ltx_tabular ltx_centering ltx_guessed_headers ltx_align_middle">
+<thead class="ltx_thead">
+<tr class="ltx_tr">
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;"><span class="ltx_text ltx_font_bold">T / <math id="S4.SS3.p2.m3" class="ltx_Math" alttext="T_{A}" display="inline"><semantics><msub><mi>T</mi><mi>A</mi></msub><annotation encoding="application/x-tex">T_{A}</annotation></semantics></math></span></th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">- 5</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">- 4</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">- 3</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">- 2</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">- 1</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">0</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">1</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">2</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">3</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">4</th>
+<th class="ltx_td ltx_align_left ltx_th ltx_th_column ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;">5</th>
+</tr>
+</thead>
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;"><span class="ltx_text ltx_font_bold">x(kT<sub class="ltx_sub">A</sub>)</span></td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">0.607</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">1.392</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">1.889</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">1.828</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">2.621</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">5.000</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">6.428</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">4.875</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">2.176</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">0.628</td>
+<td class="ltx_td ltx_align_left ltx_border_bb ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">0.214</td>
+</tr>
+</tbody>
+</table>
+<p class="ltx_p">Die Abtastwerte werden über ein Halteglied und einen Tiefpass mit einer Zeitkonstante <math id="S4.SS3.p2.m4" class="ltx_Math" alttext="T_{TP}=0.5" display="inline"><semantics><mrow><msub><mi>T</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>=</mo><mn>0.5</mn></mrow><annotation encoding="application/x-tex">T_{TP}=0.5</annotation></semantics></math> rekonstruiert. Bild <a href="#F19" title="Figure 2.19 ‣ 2.4.3 Totzeit bei der realen Signalabtastung ‣ 2.4 Reale Abtastung und Rekonstruktion ‣ Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">2.19</span></a> zeigt das analoge Signal <math id="S4.SS3.p2.m5" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> und das durch Abtastung und Rekonstruktion erzeugte Signal <math id="S4.SS3.p2.m6" class="ltx_Math" alttext="x_{TP}(t)" display="inline"><semantics><mrow><msub><mi>x</mi><mrow><mi>T</mi><mo>⁢</mo><mi>P</mi></mrow></msub><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x_{TP}(t)</annotation></semantics></math> bei Verwendung eines Tiefpasses erster Ordnung.</p>
+<img src="" id="S4.SS3.p2.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Vergleich eines Zeitsignals $x(t)$ und der realen Rekonstruktion des abgetasteten Signals mit einem Tiefpass erster Ordnung">
+</div>
+<figure id="F19" class="ltx_figure ltx_align_center">
+<figcaption class="ltx_caption"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 2.19</span>: </span><span class="ltx_text" style="font-size:90%;">Vergleich eines Zeitsignals <math id="F19.m2" class="ltx_Math" alttext="x(t)" display="inline"><semantics><mrow><mi>x</mi><mo>⁢</mo><mrow><mo stretchy="false">(</mo><mi>t</mi><mo stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">x(t)</annotation></semantics></math> und der realen Rekonstruktion des abgetasteten Signals mit einem Tiefpass erster Ordnung</span></figcaption>
+</figure>
+<div id="S4.SS3.p2.p4" class="ltx_para">
+<p class="ltx_p">Das rekonstruierte Signal weist eine Verzögerung von</p>
+<table id="A0.S4.EGx33" class="ltx_equationgroup ltx_eqn_align ltx_eqn_table">
+
+<tbody id="Ex7"><tr class="ltx_equation ltx_eqn_row ltx_align_baseline">
+<td class="ltx_eqn_cell ltx_eqn_left_padleft"></td>
+<td class="ltx_td ltx_align_right ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex7.m1" class="ltx_Math" alttext="\displaystyle T_{T}" display="inline"><semantics><msub><mi>T</mi><mi>T</mi></msub><annotation encoding="application/x-tex">\displaystyle T_{T}</annotation></semantics></math></td>
+<td class="ltx_td ltx_align_left ltx_eqn_cell" style="padding-top:5pt;padding-bottom:5pt;"><math id="Ex7.m2" class="ltx_Math" alttext="\displaystyle=\frac{T_{W}}{2}+\frac{T_{A}}{2}=\frac{T_{A}}{2}+\frac{T_{A}}{2}=%
+T_{A}" display="inline"><semantics><mrow><mi></mi><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>W</mi></msub><mn>2</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>=</mo><mrow><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle><mo>+</mo><mstyle displaystyle="true"><mfrac><msub><mi>T</mi><mi>A</mi></msub><mn>2</mn></mfrac></mstyle></mrow><mo>=</mo><msub><mi>T</mi><mi>A</mi></msub></mrow><annotation encoding="application/x-tex">\displaystyle=\frac{T_{W}}{2}+\frac{T_{A}}{2}=\frac{T_{A}}{2}+\frac{T_{A}}{2}=%
+T_{A}</annotation></semantics></math></td>
+<td class="ltx_eqn_cell ltx_eqn_left_padright"></td>
+</tr></tbody>
+</table>
+<p class="ltx_p">auf. Außerdem ist das Einschwingen des Tiefpasses nach jedem Quantisierungsschritt zu erkennen.</p>
+</div>
+</div>
+</div>
+<div id="S4.SS3.p3" class="ltx_para">
+<p class="ltx_p">Diese Signalverzögerung <math id="S4.SS3.p3.m1" class="ltx_Math" alttext="T_{T}" display="inline"><semantics><msub><mi>T</mi><mi>T</mi></msub><annotation encoding="application/x-tex">T_{T}</annotation></semantics></math> ist insbesondere bei Regelungssystemen kritisch anzusehen. Auch in dieser Beziehung ist eine hohe Abtastrate, die wegen kleiner Abtastzeit und Wandlungszeit zu einer Verringerung der Totzeit führt, vorteilhaft.</p>
+</div>
+<div class="ltx_logical-block" style="background-color:#F3F9F9;padding:9pt;">
+<div id="S4.SS3.p4" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-cogs"></span><span class="ltx_text ltx_font_bold" style="color:#198282;"> Applikation 2.1: Systemtheorie Online</span></p>
+</div>
+<div id="S4.SS3.p5" class="ltx_para">
+<p class="ltx_p">Im Online-Portal <em class="ltx_emph ltx_font_italic">Systemtheorie Online</em> verdeutlicht die <em class="ltx_emph ltx_font_italic">Applikation Signalabtastung und Signalrekonstruktion</em> grafisch, welche Effekte durch Anti-Aliasing-Filter, reale Abtastung und reale Rekonstruktion entstehen.</p>
+<p class="ltx_p"><span class="ltx_rule" style="width:100%;height:1px;background:black;display:inline-block;"> </span></p>
+<p class="ltx_p"><a href="h-ka.de/eit/digitale-signalverarbeitung/%C3%BCbungen/kapitel2" title="" class="ltx_ref ltx_url ltx_font_typewriter">h-ka.de/eit/digitale-signalverarbeitung/übungen/kapitel2</a></p>
+</div>
+</div>
+</section>
+</section>
+</section>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_align_center">
+<a href="Ch1.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="prev"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">1 </span>Einleitung</span></a><a href="Ch3.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="next"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">3 </span>Zeitdiskrete Signale</span></a>
+</div>
+<div class="ltx_page_logo">Generated  on Tue Jun 23 21:28:02 2026 by <a href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+</body>
+</html>

@@ -151,25 +151,21 @@ def _generate_mdx_from_html(
 
 
 def build_mdx(
-    chapter_files: list[Path],
-    *,
-    mdx_directory: str | Path | None = None,
+    html_files: list[Path],
+    mdx_dir: Path,
     title: str | None = None,
     sidebar_position: int = DEFAULT_SIDEBAR_POSITION,
     asset_base_path: str = DEFAULT_ASSET_BASE_PATH,
 ):
     """Generate MDX files for multiple HTML files."""
     generated_files: list[Path] = []
-    for html_file in chapter_files:
-        html_path = Path(html_file)
-        if mdx_directory is None:
-            mdx_path = None
-        else:
-            mdx_path = Path(mdx_directory) / html_path.with_suffix(".mdx").name
+
+    for html_file in html_files:
+        mdx_path = Path(mdx_dir) / html_file.with_suffix(".mdx").name
 
         generated_files.append(
             _generate_mdx_from_html(
-                html_path,
+                html_file,
                 mdx_path,
                 title=title,
                 sidebar_position=sidebar_position,
@@ -177,4 +173,4 @@ def build_mdx(
             )
         )
     
-    ui.console.print(f"Generated MDX files at '{mdx_directory}'.")
+    ui.console.print(f"Generated MDX files at '{mdx_dir}'.")

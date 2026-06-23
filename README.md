@@ -91,18 +91,9 @@ tex2mdx --help
 To test changes locally, synchronize your test assets and run the parser:
 
 ```powershell
-copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\skript\chapters" -destination "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\tex2mdx\test" -recurse -force
-copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\skript\new_media" -destination "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\tex2mdx\test" -recurse -force
-copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\skript\combined.tex" -destination "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\tex2mdx\test" -recurse -force
-copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\skript\titlepage.tex" -destination "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\tex2mdx\test" -recurse -force
-
-
 cd test
 
-uv run tex2mdx "combined.tex" --output-file "html/combined.html"
-
-# or
-uv run tex2mdx "test.tex" --output-file "html/test.html"
+uv run tex2mdx "combined.tex" --output-dir "output" --media-dir "new_media"
 ```
 
 ### Test LaTeX compilation

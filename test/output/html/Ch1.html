@@ -1,0 +1,210 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>Chapter 1 Einleitung ‣ Digitale Signalverarbeitung</title>
+<!--Generated on Tue Jun 23 21:28:02 2026 by LaTeXML (version 0.8.8) http://dlmf.nist.gov/LaTeXML/.-->
+<!--Document created on June 23, 2026.-->
+
+<link rel="stylesheet" href="LaTeXML.css" type="text/css">
+<link rel="stylesheet" href="ltx-book.css" type="text/css">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link rel="stylesheet" href="cleanup.css" type="text/css">
+<link rel="up" href="combined.html" title="Digitale Signalverarbeitung">
+<link rel="start" href="combined.html" title="Digitale Signalverarbeitung">
+<link rel="prev" href="combined.html" title="Digitale Signalverarbeitung">
+<link rel="next" href="Ch2.html" title="Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung">
+<link rel="chapter" href="Ch2.html" title="Chapter 2 Signalabtastung und Rekonstruktion ‣ Digitale Signalverarbeitung">
+<link rel="chapter" href="Ch3.html" title="Chapter 3 Zeitdiskrete Signale ‣ Digitale Signalverarbeitung">
+</head>
+<body>
+<div class="ltx_page_main">
+<header class="ltx_page_header">
+<div class="ltx_align_center">
+<a href="combined.html" title="" class="ltx_ref" rel="up"><span class="ltx_text ltx_ref_title">Digitale Signalverarbeitung</span></a><a href="combined.html" title="" class="ltx_ref" rel="prev"><span class="ltx_text ltx_ref_title">Digitale Signalverarbeitung</span></a><a href="Ch2.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="next"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Signalabtastung und Rekonstruktion</span></a>
+</div></header>
+<div class="ltx_page_content">
+<section class="ltx_chapter ltx_fleqn">
+<h1 class="ltx_title ltx_title_chapter">
+<span class="ltx_tag ltx_tag_chapter">Chapter 1 </span>Einleitung</h1>
+
+<div id="p1" class="ltx_para">
+<p class="ltx_p">In vielen praktischen Anwendungen werden analoge Signale mit digitalen Systemen wie zum Beispiel Computern oder Mikro-Controllern erfasst und digital verarbeitet. Gründe für die digitale Realisierung von Systemen sind die kostengünstige Umsetzung, die sich aus der Verwendung von Mikro-Controllern oder hochintegrierter Schaltungen ergibt, und die Anwendung von Algorithmen, die analog wenn überhaupt nur sehr aufwendig umgesetzt werden können.</p>
+</div>
+<div id="p2" class="ltx_para">
+<p class="ltx_p">Der prinzipielle Aufbau eines Systems zur digitalen Signalverarbeitung ist in Bild <a href="#F1" title="Figure 1.1 ‣ Chapter 1 Einleitung ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1</span></a> dargestellt. Bei der Beschreibung eines Abtastvorgangs wird sich zeigen, dass das abzutastende Signal zunächst durch einen Tiefpass bandbegrenzt werden muss. Nach der anschließenden Abtastung liegen zeitdiskrete Signalwerte vor, mit den eine digitale Signalverarbeitung (DSV) durchgeführt wird. Gegebenenfalls werden die zeitdiskreten Abtastwerte über ein Halteglied und einen Tiefpass zu einem analogen Signal rekonstruiert. Insgesamt ergibt sich damit die in Bild <a href="#F1" title="Figure 1.1 ‣ Chapter 1 Einleitung ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1</span></a> beschriebene Signalverarbeitungskette.</p>
+</div>
+<figure id="F1" class="ltx_figure"><img src="" id="F1.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Refer to caption">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 1.1</span>: </span><span class="ltx_text" style="font-size:90%;">Blockdiagramm zur digitalen Signalverarbeitung</span></figcaption>
+</figure>
+<div id="p3" class="ltx_para">
+<p class="ltx_p">Die Signalverarbeitung wird dabei in Form von Gleichungen oder Algorithmen beschrieben, die von digitalen Systemen in einfacher Form umgesetzt werden können. Außer einer Speicherverwaltung müssen zur Realisierung der Algorithmen über Differenzengleichung nur Multiplikation und Additionen durchgeführt werden. Damit können die Algorithmen in sehr unterschiedlichen Systemen implementiert werden. Bei Anwendungen mit hohen Stückzahlen wie im Automotive-Bereich und bei Smart-Phones werden Application-Specific-Integrated-Circuits (ASIC) mit digitaler Signalverarbeitung eingesetzt. Zur Steuerung von Prozessen und zur lokalen Signalverarbeitung werden Mikro-Controller und digitale Signalprozessoren sowie Field-Programmable-Gate-Arrays (FPGA) eingesetzt. Auch in der Automatisierungstechnik findet die digitale Signalverarbeitung Anwendung. Bild <a href="#T1" title="Table 1.1 ‣ 1.1 Struktur des Buchs ‣ Chapter 1 Einleitung ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.1</span></a> zeigt eine Auswahl von Systemen, mit denen eine digitale Signalverarbeitung realisiert wird. Der Entwurf der entsprechenden Algorithmen ist Gegenstand der folgenden Kapitel dieses Skriptes.</p>
+</div>
+<section id="S1" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.1 </span>Struktur des Buchs </h2>
+
+<div id="S1.p1" class="ltx_para">
+<p class="ltx_p">Das Buch beginnt mit der Aufgabenstellung, analoge Signale in zeitdiskrete Signale umzusetzen. Es wird sich zeigen, dass analoge Signale ohne Verfälschung diskretisiert werden können, wenn das sogenannte Abtasttheorem eingehalten wird. Kritischer ist eine technisch realisierbare Rekonstruktion der Abtastwerte zu einem zeitkontinuierlichen Signal.</p>
+</div>
+<figure id="T1" class="ltx_table">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_table"><span class="ltx_text" style="font-size:90%;">Table 1.1</span>: </span><span class="ltx_text" style="font-size:90%;">Bild .: Beispiele für Systeme mit digitaler Signalverarbeitung</span></figcaption>
+<table class="ltx_tabular ltx_centering ltx_align_middle">
+<tbody class="ltx_tbody">
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;"><img src="" id="T1.g1" class="ltx_graphics ltx_missing ltx_missing_image" alt="[Uncaptioned image]"></td>
+<td class="ltx_td ltx_align_left ltx_border_tt" style="padding-top:1.5pt;padding-bottom:1.5pt;"><img src="" id="T1.g2" class="ltx_graphics ltx_missing ltx_missing_image" alt="[Uncaptioned image]"></td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">c) Field-Programmable-Gate-Array (FPGA)</td>
+<td class="ltx_td ltx_align_left ltx_border_t" style="padding-top:1.5pt;padding-bottom:1.5pt;">b) Micro-Controller (µC) und Signalprozessoren (DSP)</td>
+</tr>
+<tr class="ltx_tr">
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-top:1.5pt;padding-bottom:1.5pt;"><img src="" id="T1.g3" class="ltx_graphics ltx_missing ltx_missing_image" alt="[Uncaptioned image]"></td>
+<td class="ltx_td ltx_align_left ltx_border_bb" style="padding-top:1.5pt;padding-bottom:1.5pt;"><img src="" id="T1.g4" class="ltx_graphics ltx_missing ltx_missing_image" alt="[Uncaptioned image]"></td>
+</tr>
+</tbody>
+</table>
+</figure>
+<div id="S1.p2" class="ltx_para">
+<p class="ltx_p">Durch den Abtastprozess entstehen Zahlenfolgen. Diese Zahlen können ähnlich wie analoge Zeitfunktionen betrachtet werden. Der Umgang mit Zahlenfolgen wird dargestellt und an Beispielen geübt. Dabei wird das Rechnen mit Impuls- und Sprungfolgen eingeführt und vertieft. Besonderer Wert wird auf komplexe Exponentialfolgen gelegt, die für das Einschwingverhalten digitaler Systeme von besonderer Bedeutung sind.</p>
+</div>
+<div id="S1.p3" class="ltx_para">
+<p class="ltx_p">Digitale Systeme lassen sich wegen ihrer diskreten Signale nicht über Differentialgleichungen beschreiben. Deshalb wird die Beschreibung zeitdiskreter Systeme über Differenzengleichungen eingeführt. An Beispielen wird erläutert, wie diese Differenzengleichungen aufgestellt werden können. Abschließend werden grundlegende Systemeigenschaften wie Linearität, Zeitinvarianz, Stabilität und Kausalität diskutiert. Für lineare, zeitinvariante Systeme wird die Systemantwort über die Faltungssumme berechnet.</p>
+</div>
+<div id="S1.p4" class="ltx_para">
+<p class="ltx_p">Die Zweiteilung von Signalen und Systemen zieht sich weiter durch das Skript. Zur Lösung von Differenzengleichungen wird die z-Transformation eingeführt. Sie ist das Pendant zur Laplace-Transformation zeitkontinuierlicher Signale und Systeme. Nach der Diskussion der z-Transformation für Signale werden Differenzengleichungen mit Hilfe der z-Transformation gelöst, und es wird der Begriff der Übertragungsfunktion zeitdiskreter Systeme eingeführt. An der Übertragungsfunktion können wichtige Systemeigenschaften direkt abgelesen werden, ohne die Systemantwort ausrechnen zu müssen. Die Interpretation der Übertragungsfunktion wird beschrieben und an Beispielen angewendet.</p>
+</div>
+<div id="S1.p5" class="ltx_para">
+<p class="ltx_p">Anschließend wird der Begriff des Spektrums einer Signalfolge erläutert, und es wird die Fourier-Transformation von Signalfolgen vorgestellt. Mit der Fourier-Transformation für Signalfolgen wird einer Signalfolge ein Spektrum zugeordnet. Zeitdiskrete Systeme weisen einen Frequenzgang auf, der ebenfalls über die Fourier-Transformation von Signalfolgen bestimmt werden kann. Durchlaufen zeitdiskrete Signale zeitdiskrete Systeme, wird ihr Spektrum mit dem Frequenzgang des Systems multipliziert.</p>
+</div>
+<div id="S1.p6" class="ltx_para">
+<p class="ltx_p">In technischen Produkten werden zeitkontinuierliche Systeme als Ersatz oder Ergänzung zu zeitdiskreten Systemen eingesetzt. Eine zeitdiskrete Realisierung wird sich im Detail immer von einer zeitkontinuierlichen Realisierung unterscheiden. Es stellt sich die Frage, wie ein zeitkontinuierliches System entworfen werden kann. Diese Frage wird am Beispiel des Filterentwurf beantwortet. Es werden unterschiedliche Verfahren zum Filter-Design für Filter mit endlicher Impulsantwort (FIR-Filter) und für Filter mit unendlicher Impulsantwort (IIR-Filter) beschrieben und an Beispielen verdeutlicht. Für die Realisierung von Filtern Filter werden oftmals feste Strukturen verwendet, die vergleichbar zu standardisierten Operationsverstärkerschaltungen für analoge Filter sind.</p>
+</div>
+<div id="S1.p7" class="ltx_para">
+<p class="ltx_p">Zur Bestimmung des Spektrums eines gemessenen Signals wird die Diskrete-Fourier-Transformation verwendet. Sie wird am Ende des Skriptes vorgestellt und angewendet. Durch eine Analyse des Signalflusses von dem zeitkontinuierlichen Signal bis zum Spektrum der Diskreten-Fourier Transformation werden Effekte wie Fensterung, Leakage und Zero-Padding erläutert.</p>
+</div>
+<div id="S1.p8" class="ltx_para">
+<p class="ltx_p">Die Darstellungen in diesem Skript werden mit Beispielen illustriert. Beispiele beginnen mit einem grauen Balken und enden mit einem kleinen Quadrat.</p>
+</div>
+<div id="S1.p9" class="ltx_para ltx_noindent">
+<div class="ltx_logical-block ltx_framed ltx_framed_left" style="border-color: #000000;border-width:3pt;padding-left:10pt;">
+<div id="S1.p9.p1" class="ltx_para ltx_noindent">
+<p class="ltx_p"><span class="ltx_text fas fa-calculator"></span><span class="ltx_text ltx_font_bold" style="color:#288732;"> Beispiel 1.1:</span></p>
+</div>
+<div id="S1.p9.p2" class="ltx_para">
+<p class="ltx_p">Erläuterung des Beispiels</p>
+</div>
+</div>
+</div>
+<div id="S1.p10" class="ltx_para">
+<p class="ltx_p">Wesentlicher Erfolgsfaktor für das Verständnis und den praktischen Umgang mit den Methoden der Systemtheorie ist das selbstständige Rechnen von Aufgaben. Aus diesem Grund sind in das vorliegende Buch Übungsaufgaben integriert, die eine Semester begleitende Vertiefung ermöglichen. Musterlösungen sind online verfügbar.</p>
+</div>
+</section>
+<section id="S2" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.2 </span>Ergänzungen zum Buch</h2>
+
+<div id="S2.p1" class="ltx_para">
+<p class="ltx_p">Das Fach Systemtheorie führt zu interdisziplinären Systembeschreibungen und bietet damit die Option, unterschiedliche Disziplinen und Fachrichtungen miteinander zu verbinden. Dies ist vor allem bei größeren Entwicklungsprojekten in Industrie und Wirtschaft von strategischer Bedeutung. Leider steht der hohen Bedeutung oft eine Abneigung der Studierenden gegenüber, die das Fach Systemtheorie als theoretisch und abstrakt empfinden. In einem Projekt Systemtheorie-Online, das von der Hochschule Karlsruhe und dem Land Baden-Württemberg gefördert wurde, wurden unterschiedliche Elemente entwickelt, mit denen die Praxisrelevanz des Stoffes verdeutlicht und die Motivation der Studierenden gesteigert werden soll.</p>
+</div>
+<section id="S2.SS1" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.2.1 </span>Systemtheorie-Online</h3>
+
+<div id="S2.SS1.p1" class="ltx_para">
+<p class="ltx_p">Eine Maßnahme ist die Online-Plattform Systemtheorie-Online. Bei der Online-Plattform handelt es sich um ein Internet-Portal zur Unterstützung des Vorlesungsbetriebs. Die Studierenden haben dort die Möglichkeit, das Skript als PDF-Dokument herunterzuladen oder es online mit mehreren Zusatzfunktionen durchzuarbeiten. Zu den präsentierten Inhalten werden themenbezogen Links zu Praxisbeispielen und Übungsaufgaben sowie sogenannte Applikationen und sogenannte virtuelle Versuche bereitgestellt.</p>
+</div>
+<figure id="F2" class="ltx_figure"><img src="" id="F2.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Systemtheorie Online (https://eit-mesysto.hs-karlsruhe.de)">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 1.2</span>: </span><span class="ltx_text" style="font-size:90%;">Systemtheorie Online (https://eit-mesysto.hs-karlsruhe.de)</span></figcaption>
+</figure>
+<section id="S2.SS1.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Applikationen zur Systemtheorie</h4>
+
+<div id="S2.SS1.SSSx1.p1" class="ltx_para">
+<p class="ltx_p">Für Sachverhalte und Zusammenhänge, die sich die Studierenden nur schwer vorstellen können, werden Applikationen zur Verfügung gestellt. Bei den Applikationen können Parameter beispielsweise per Schiebregler verändert und die Folgen dieser Modifikationen auf die Ausgabesignale beobachtet werden. Die Applikationen erlauben es einerseits, im Rahmen des spielerischen Ausprobierens ein Gefühl für Zusammenhänge und Abhängigkeiten verschiedener Systemparameter zu bekommen. In Video-Tutorials werden Studierenden in den Umgang mit den Applikationen eingeführt. Sie sollen dabei vor der Manipulation von Parametern Hypothesen über zu erwartende Effekte auf das Gesamtsystem abgeben, bevor unmittelbar darauf das Ergebnis-Feedback bezüglich des Zutreffens der eigenen Vorhersagen erfolgt.</p>
+</div>
+<div id="S2.SS1.SSSx1.p2" class="ltx_para">
+<p class="ltx_p">Das Vorgehen bei den grafischen Animationen kann kurz an einem Beispiel erläutert werden: Ein PT2-Glied ist von den Parametern Zeitkonstante T, Dämpfung d und Verstärkung k abhängig (Bild <a href="#F3" title="Figure 1.3 ‣ Applikationen zur Systemtheorie ‣ 1.2.1 Systemtheorie-Online ‣ 1.2 Ergänzungen zum Buch ‣ Chapter 1 Einleitung ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.3</span></a>). Die grafische Animation zeigt parallel die Eigenschaften des Systems im Zeit-, Laplace- und Frequenzbereich. Die Parameter können dabei durch Schieberegler variiert werden, sodass die Studierenden spielend ein Fingerspitzengefühl für das Übertragungsverhalten bekommen. Durch die Bereitstellung als Silverlight-Applikation benötigen die Studierenden keine zusätzliche Software, um das Programm auszuführen.</p>
+</div>
+<figure id="F3" class="ltx_figure"><img src="" id="F3.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Darstellung des Verhaltens eines sogenannten PT2-Gliedes als Silverlight-Applikation">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 1.3</span>: </span><span class="ltx_text" style="font-size:90%;">Darstellung des Verhaltens eines sogenannten PT2-Gliedes als Silverlight-Applikation</span></figcaption>
+</figure>
+</section>
+<section id="S2.SS1.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Virtuelle Versuche zur Systemtheorie</h4>
+
+<div id="S2.SS1.SSSx2.p1" class="ltx_para">
+<p class="ltx_p">Darüber ermöglicht die Online-Plattform die Durchführung virtueller Experimente. Passend zu den Themen des Skripts werden Versuche mit dem Laborwagen auf Video aufgezeichnet und diese auf der Online-Plattform gemeinsam mit den entsprechenden Datensätzen zur Verfügung gestellt. Zusätzliche Erläuterungen zur Durchführung der Versuche und Auswertung der Daten fördern ein Grundverständnis für das wissenschaftliche Denken und Arbeiten.</p>
+</div>
+<div id="S2.SS1.SSSx2.p2" class="ltx_para">
+<p class="ltx_p">Als Experimente zur Demonstration stehen bereits einige Versuche zum Laborwagen zur Verfügung. Bild <a href="#F4" title="Figure 1.4 ‣ Virtuelle Versuche zur Systemtheorie ‣ 1.2.1 Systemtheorie-Online ‣ 1.2 Ergänzungen zum Buch ‣ Chapter 1 Einleitung ‣ Digitale Signalverarbeitung" class="ltx_ref"><span class="ltx_text ltx_ref_tag">1.4</span></a> zeigt zum Beispiel einen Versuch zur Beschreibung des Einschwingverhaltens eines Lautsprechers. Weitere Experimente insbesondere zu den Themen diskrete Systeme und stochastische Systeme wurden aufgebaut und gefilmt, die Videos stehen als Datei zur Verfügung. Die Studierenden erhalten aber nicht nur den Video-Stream, sondern auch die einzelnen Versuchsergebnisse in Form von Daten-Files und können bei Interesse eigene Versuchsauswertungen erstellen.</p>
+</div>
+<figure id="F4" class="ltx_figure"><img src="" id="F4.g1" class="ltx_graphics ltx_centering ltx_missing ltx_missing_image" alt="Versuchsaufbau zum Einschwingverhalten eines Lautsprechers">
+<figcaption class="ltx_caption ltx_centering"><span class="ltx_tag ltx_tag_figure"><span class="ltx_text" style="font-size:90%;">Figure 1.4</span>: </span><span class="ltx_text" style="font-size:90%;">Versuchsaufbau zum Einschwingverhalten eines Lautsprechers</span></figcaption>
+</figure>
+<div id="S2.SS1.SSSx2.p3" class="ltx_para">
+<p class="ltx_p">Das Portal Systemtheorie-Online bietet den Studierenden damit die Möglichkeit, theoretische Sachverhalte auf eine anschauliche Art aufbereitet und erklärt zu bekommen. Damit wird eine Forderung aus der Evaluation aufgegriffen, mehr Versuche in der Systemtheorie einzusetzen. Darüber hinaus haben die Studierenden die Möglichkeit, selbst aktiv zu werden und Versuche selbstständig auszuwerten und daran ihren eigenen Lernerfolg zu messen. Das Projekt bietet damit einen Beitrag zur praxisnahen Ausbildung von Studierenden und stellt wegen des freien Zugangs ein Weiterbildungsangebot dar, das Mitarbeitern aus Industrie und Wirtschaft offensteht. Der Aufbau dieses Portal wurde im Rahmen von Pro-Studium aus Studiengebühren und aus Mitteln des Landes Baden-Württemberg im Rahmen des Programms Willkommen in der Wissenschaft finanziert.</p>
+</div>
+</section>
+</section>
+<section id="S2.SS2" class="ltx_subsection">
+<h3 class="ltx_title ltx_title_subsection">
+<span class="ltx_tag ltx_tag_subsection">1.2.2 </span>Teamorientierte Lehrmethoden</h3>
+
+<div id="S2.SS2.p1" class="ltx_para">
+<p class="ltx_p">Parallel zu den Online-Aktivitäten wird die Vorlesung um unterschiedliche teamorientierte Lehrmethoden ergänzt. Kooperative Lernformen fördern den Zusammenhalt und tragen sozialen Bedürfnissen Rechnung. Sie wirken der sozialen Isolation entgegen, die Studierenden fühlen sich eingebunden. Nicht zuletzt spiegelt die Teamarbeit auch berufliche Anforderungen wider. Die Methoden des teamorientierten Lernens sind auf der Online-Plattform ausführlich dokumentiert.</p>
+</div>
+<section id="S2.SS2.SSSx1" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Lange Nächte der Systemtheorie</h4>
+
+<div id="S2.SS2.SSSx1.p1" class="ltx_para">
+<p class="ltx_p">Lange Nächte sind abendliche Veranstaltungen zur Vertiefung des Vorlesungsstoffs, passend zu einem bestimmten Vorlesungsthema. In entspannter Atmosphäre werden Übungsaufgaben und Experimente mit dem Laborwagen miteinander kombiniert. Der verfügbare Zeitrahmen erlaubt eine Beschäftigung mit komplexeren Fragestellungen. In erster Linie ist dieser Baustein als offener Lernraum konzipiert, in dem Wissen stressfrei vermittelt und vertieft wird. Erste lange Nächte wurden von den Studierenden sehr positiv bewertet. Besonders gelobt wurden das gemeinschaftliche Lernen in der Gruppe, das angenehme Arbeitsklima sowie der Praxisbezug und die Arbeit mit realen Messdaten.</p>
+</div>
+</section>
+<section id="S2.SS2.SSSx2" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Großer Preis der Systemtheorie</h4>
+
+<div id="S2.SS2.SSSx2.p1" class="ltx_para">
+<p class="ltx_p">In Anlehnung an die Fernsehsendung <span class="ltx_text ltx_inline-quote ltx_outerquote">“Der große Preis”</span> wird mit den Studierenden eine Quiz-Show veranstaltet. Dabei bearbeiten die Studierenden in Gruppen Fragen zu Themenblöcken der Vorlesung. Die Punktzahl ist abhängig von Schwierigkeitsgrad. Die Abschätzung eines Einsatzes bei sogenannten Risiko-Fragen erfordert die Selbsteinschätzung der Studierenden. Durch sogenannte Glücksfragen zu fachfremden Themen können auch Gruppen mit mäßigem Fachwissen gewinnen. Die traditionelle Rangordnung innerhalb der Vorlesung wird aufgebrochen und die Motivation der Studierenden steigt. Studierenden zeigten bei erster Durchführung extrem hohe Motivation und hohes Engagement.</p>
+</div>
+</section>
+<section id="S2.SS2.SSSx3" class="ltx_subsubsection">
+<h4 class="ltx_title ltx_title_subsubsection">Zirkeltraining Systemtheorie</h4>
+
+<div id="S2.SS2.SSSx3.p1" class="ltx_para">
+<p class="ltx_p">Erfolgreiches Lernen setzt ein Gleichgewicht zwischen Anspannung und Entspannung voraus. Zielsetzung dieses Zirkeltrainings ist es deshalb, sportliche Übungen oder Geschicklichkeitsspiele in den Lernprozess zu integrieren. Dazu wird ein Parkour aufgebaut, bei dem sich Übungsaufgaben und Spielstationen abwechseln. Bei der Veranstaltung stehen die Motivation und der Spaß an vorderster Stelle. Es wird eine angenehme Atmosphäre geschaffen, in der der Druck beim Bewältigen von Übungsaufgaben durch spielerische Anteile entlastet wird. Wegen des erforderlichen Platzbedarfs eignet sich das Zirkeltraining Systemtheorie insbesondere für die Sommermonate.</p>
+</div>
+<div id="S2.SS2.SSSx3.p2" class="ltx_para">
+<p class="ltx_p">Die Evaluationsergebnisse zur Vorlesung zeigen, dass es durch den Einsatz teamorientierter Lehrmethoden gelungen ist, diese Abneigung gegen das Fach Systemtheorie zumindest teilweise abzubauen.</p>
+</div>
+</section>
+</section>
+</section>
+<section id="S3" class="ltx_section">
+<h2 class="ltx_title ltx_title_section">
+<span class="ltx_tag ltx_tag_section">1.3 </span>Danksagung</h2>
+
+<div id="S3.p1" class="ltx_para">
+<p class="ltx_p">Wir bedanken uns bei den Studierenden und Assistenten Andreas Kühn, Erik Seiter, Sebastian Stiegler, Philipp Fetzer, Jaruwan Limsukhakorn, Doraemon Dedkum, Georg Bauer, Jochen Lang, Alex Schwin und Michael Holz für die Gestaltung und Ausarbeitung des wesentlichen Teils der Übungsaufgaben, Applikationen und Versuche.</p>
+</div>
+<div id="S3.p2" class="ltx_para">
+<p class="ltx_p">Unser besonderer Dank gilt außerdem den Kollegen Prof. Dr. Beucher, Prof. Dr. Dussel, Prof. Dr. Quint und Prof. Dr. Weizenecker, die die inhaltliche und mathematische Darstellung in diesem Buch kritisch hinterfragt und damit zur besseren Verständlichkeit beigetragen haben.</p>
+</div>
+<div id="S3.p3" class="ltx_para">
+<p class="ltx_p">In das Buch sind viele Hinweise von Studierenden der Hochschule Karlsruhe eingegangen. Wir haben versucht, den Hinweisen gerecht zu werden, die meisten Hinweise sind bereits in Überarbeitungen Korrekturen eingeflossen. Über weitere Hinweise zur mangelhaften Verständlichkeit und auf Fehler würden wir uns freuen.</p>
+</div>
+<div id="S3.p4" class="ltx_para">
+<p class="ltx_p">Karlsruhe, 15.03.2025</p>
+</div>
+</section>
+</section>
+</div>
+<footer class="ltx_page_footer">
+<div class="ltx_align_center">
+<a href="combined.html" title="" class="ltx_ref" rel="prev"><span class="ltx_text ltx_ref_title">Digitale Signalverarbeitung</span></a><a href="Ch2.html" title="In Digitale Signalverarbeitung" class="ltx_ref" rel="next"><span class="ltx_text ltx_ref_title"><span class="ltx_tag ltx_tag_ref">2 </span>Signalabtastung und Rekonstruktion</span></a>
+</div>
+<div class="ltx_page_logo">Generated  on Tue Jun 23 21:28:02 2026 by <a href="http://dlmf.nist.gov/LaTeXML/" class="ltx_LaTeXML_logo"><span style="letter-spacing:-0.2em; margin-right:0.1em;">L<span class="ltx_font_smallcaps" style="position:relative; bottom:2.2pt;">a</span>T<span class="ltx_font_smallcaps" style="font-size:120%;position:relative; bottom:-0.2ex;">e</span></span><span style="font-size:90%; position:relative; bottom:-0.2ex;">XML</span><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAsAAAAOCAYAAAD5YeaVAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9wKExQZLWTEaOUAAAAddEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIFRoZSBHSU1Q72QlbgAAAdpJREFUKM9tkL+L2nAARz9fPZNCKFapUn8kyI0e4iRHSR1Kb8ng0lJw6FYHFwv2LwhOpcWxTjeUunYqOmqd6hEoRDhtDWdA8ApRYsSUCDHNt5ul13vz4w0vWCgUnnEc975arX6ORqN3VqtVZbfbTQC4uEHANM3jSqXymFI6yWazP2KxWAXAL9zCUa1Wy2tXVxheKA9YNoR8Pt+aTqe4FVVVvz05O6MBhqUIBGk8Hn8HAOVy+T+XLJfLS4ZhTiRJgqIoVBRFIoric47jPnmeB1mW/9rr9ZpSSn3Lsmir1fJZlqWlUonKsvwWwD8ymc/nXwVBeLjf7xEKhdBut9Hr9WgmkyGEkJwsy5eHG5vN5g0AKIoCAEgkEkin0wQAfN9/cXPdheu6P33fBwB4ngcAcByHJpPJl+fn54mD3Gg0NrquXxeLRQAAwzAYj8cwTZPwPH9/sVg8PXweDAauqqr2cDjEer1GJBLBZDJBs9mE4zjwfZ85lAGg2+06hmGgXq+j3+/DsixYlgVN03a9Xu8jgCNCyIegIAgx13Vfd7vdu+FweG8YRkjXdWy329+dTgeSJD3ieZ7RNO0VAXAPwDEAO5VKndi2fWrb9jWl9Esul6PZbDY9Go1OZ7PZ9z/lyuD3OozU2wAAAABJRU5ErkJggg==" alt="Mascot Sammy"></a>
+</div></footer>
+</div>
+</body>
+</html>
