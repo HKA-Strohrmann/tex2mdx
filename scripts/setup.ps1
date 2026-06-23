@@ -1,5 +1,3 @@
-
-
 $ErrorActionPreference = "Continue"
 
 $InstallDir = Join-Path $env:LOCALAPPDATA "Programs\tex2mdx"
@@ -44,15 +42,15 @@ $magickConfig = Get-ChildItem `
     -Filter "magick-baseconfig.h" `
     -ErrorAction SilentlyContinue |
     Select-Object -First 1 -ExpandProperty FullName
+Write-Warning "ImageMagick installation must be manually configured. See https://github.com/StrawberryPerl/Perl-Dist-Strawberry/issues/140#issuecomment-1756627785 for details."
 if ($magickConfig) {
-    Write-Warning "ImageMagicks must be manually configured. See https://github.com/StrawberryPerl/Perl-Dist-Strawberry/issues/140#issuecomment-1756627785 for details."
-    Write-Warning "Please comment out the line containing: 'error ImageMagick was build with a 64 channel bit mask'"
-    Write-Warning "in File: '$magickConfig'"
+    Write-Warning "Please comment out the line containing: 'error ImageMagick was build with a 64 channel bit mask' in File: '$magickConfig'."
+    Write-Warning "Opening the file in Notepad..."
 
     notepad $magickConfig
 }
 else {
-    Write-Warning "Could not locate magick-baseconfig.h automatically."
+    Write-Warning "Could not locate 'magick-baseconfig.h' automatically. Please locate the file in your ImageMagick installation directory and comment out the line containing: 'error ImageMagick was build with a 64 channel bit mask'."
 }
 do {
     $answer = Read-Host "Have you completed the ImageMagick configuration? (y/n)"

@@ -32,3 +32,18 @@
 .ltx_page_header { display:none;}
 .ltx_page_logo { display:none;}
 .ltx_page_footer { display:none;}
+
+/* Custom Boxes */
+.custom-example-box {
+    border: 2px solid #288732; 
+    padding: 15px;
+    border-radius: 4px;
+    margin-top: 1.5em;
+    margin-bottom: 1.5em;
+    background-color: transparent;
+}
+
+/* Removes the top margin from the title so it sits flush */
+.custom-example-box .ltx_p:first-child {
+    margin-top: 0;
+}

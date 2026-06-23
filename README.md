@@ -1,6 +1,6 @@
 # tex2mdx Conversion Tool
 
-Converts your LaTeX documents to HTML via [LaTeXML](https://github.com/brucemiller/latexml). THe files are then post-processed to be compatible with the [MDX format](https://mdxjs.com/) and styled with custom CSS. The resulting HTML files can be used in any web application, but are primarily designed for use in our [Strohrmann Lecture Platform](https://github.com/HKA-Strohrmann/strohrmann-lecture-platform).
+Converts your LaTeX documents to HTML via [LaTeXML](https://github.com/brucemiller/latexml). THe files are then post-processed to the [MDX format](https://mdxjs.com/) and styled with custom CSS. The resulting files can be used in the web application [Strohrmann Lecture Platform](https://github.com/HKA-Strohrmann/strohrmann-lecture-platform).
 
 The underlying invocation commands and custom CSS/JavaScript files are based on the [arXiv-view-as-html](https://github.com/arXiv/arxiv-view-as-html) pipeline. Check out their [official blog post](https://arxiv.org/html/2402.08954v1) for more details.
 
@@ -42,17 +42,7 @@ The ImageMagick has to be binded to your Perl installation. On Windows, there is
 
 ### Automated Windows Setup
 
-If you are on Windows, you can automate the tool installations using winget via PowerShell:
-
-```powershell
-winget install Python.Launcher astral-sh.uv StrawberryPerl.StrawberryPerl MiKTeX.MiKTeX Inkscape.Inkscape Microsoft.VisualStudio.2022.BuildTools
-start "https://www.ghostscript.com/releases/gsdnld.html"
-start "https://imagemagick.org/download/#gsc.tab=0"
-write-warning "Please modify the file 'magick-baseconfig.h' file before continuing!"
-
-cpanm --force Image::Magick
-cpanm --force LaTeXML
-```
+If you are on Windows, you can automate the installations of the requirements and `tex2mdx` using [WinGet](https://learn.microsoft.com/de-de/windows/package-manager/winget/) via this [sctipt file](scripts/setup.ps1).
 
 
 ### Confirm Requirements
@@ -110,11 +100,9 @@ copy-item "C:\Users\Jax\Coding\Strohrmann-Lecture-Platform\doc2tex\test\skript\t
 cd test
 
 uv run tex2mdx "combined.tex" --output-file "html/combined.html"
-start "html/combined.html"
 
 # or
 uv run tex2mdx "test.tex" --output-file "html/test.html"
-start "html/test.html"
 ```
 
 ### Test LaTeX compilation
@@ -152,3 +140,20 @@ uv tool upgrade tex2mdx
 - babel does not work, figure captions will not render in german. maybe pin babel version to fix?
 - dont wipe the full html folder every run, only the affected files. 
 - update module to explicitly export mdx files. html files are a temp resource and can be used for quick validation.
+- why no right hand side navigation bar for sections?
+
+Why is this part of the arvix codebase?
+
+```python
+RELATIVE_LINKS_PATTERN = re.compile(
+    r'\b(href|src|data)\s*=\s*"(?![/#])(?!http)(?!data:)',
+    re.IGNORECASE
+)
+
+def add_prefix_to_relative_links(prefix: str, html_file: str) -> None:
+    """Add a given prefix to all relative links in an HTML file."""
+    path = Path(html_file)
+    content = path.read_text()
+    new_content = RELATIVE_LINKS_PATTERN.sub(rf'\1="{prefix}/', content)
+    path.write_text(new_content)
+```

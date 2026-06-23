@@ -4,15 +4,13 @@ import typer
 from typing import Annotated
 import webbrowser
 
-from . import ui
-from .postprocess import fix_html_paths
-from .latexml import convert_latex_to_html, LaTeXMLOutput
-from .embedding import generate_mdx_from_html_files
+
+from tex2mdx import ui, latexml, html, mdx
 
 
 app = typer.Typer(
     add_completion=False,   # dont list '--install-completion' command
-    help="CLI for LaTeX to HTML conversion"
+    help="CLI for LaTeX to mdx conversion via LaTeXML HTML.",
 )
 
 import importlib.metadata
@@ -25,50 +23,44 @@ def version_callback(value: bool):
 @app.command()
 def main(
     input_file: Annotated[str, typer.Argument(help="Input LaTeX file")],
-    output_file: Annotated[str, typer.Option("--output-file", help="Output file")] = "html/output.html",
+    output_folder: Annotated[str, typer.Option("--output-dir", help="Output folder")] = "output",
     splitat: Annotated[str, typer.Option("--splitat", help="LaTeXML splitat option (e.g., 'chapter', 'section')")] = "chapter",
     version: Annotated[bool | None, typer.Option("--version", help="Show version and exit", callback=version_callback, is_eager=True)] = None,
 ) -> typer.Exit:
-    """Convert a LaTeX file to HTML."""    
+    """Convert a LaTeX file to mdx."""    
+
     input_path = Path(input_file)
     if not input_path.exists() or not input_path.is_file() or input_path.suffix != ".tex":
-        raise typer.BadParameter(f"Invalid input file '{input_path}'. Must be an existing .tex file.")
+        raise typer.BadParameter(f"File '{input_path}' must exist and be a .tex file.")
     
-    output_path = Path(output_file)
-    if output_path.suffix != ".html":
-        raise typer.BadParameter(f"Output file '{output_path}' must have a .html extension.")
-    
-    output_dir = output_path.parent
+    output_dir = Path(output_folder)
     if output_dir.exists():
         shutil.rmtree(output_dir, ignore_errors=True)
         ui.console.print(f"Cleared output directory '{output_dir}'.")    
     output_dir.mkdir(parents=True, exist_ok=True)
 
-    mdx_dir = output_dir.parent / "mdx"
-    if mdx_dir.exists():
-        shutil.rmtree(mdx_dir, ignore_errors=True)
-        ui.console.print(f"Cleared output directory '{mdx_dir}'.")
-
+    HTML_DIR = output_dir / "html"
+    MDX_DIR = output_dir / "mdx"
+    
 
     try:
-        result: LaTeXMLOutput = convert_latex_to_html(input_path, output_path, splitat)
+        html_result: latexml.HTMLResult = latexml.build_html(input_path, HTML_DIR, splitat=splitat)
 
-        fix_html_paths(output_path)
-        html_files = sorted(output_dir.glob("*.html"))
+        html.process_html(html_result.chapter_files)
+
+        mdx_result = mdx.build_mdx(html_result.chapter_files, mdx_directory=MDX_DIR)
+        # process_mdx(mdx_result)
         
-        generate_mdx_from_html_files(html_files, mdx_directory=mdx_dir)
-        
-        if result.is_fatal:
-            return typer.Exit(code=result.returncode if result.returncode > 0 else 1)
-        
-        ui.console.print(f"Opening html file {output_path.resolve()} in web browser...")
-        webbrowser.open(output_path.resolve().as_uri())
-            
-        # Return 0 to the OS even if partial results exist, because the CLI "succeeded" 
-        # at its task of generating an output.
+        # export_assets(mdx_result)
+
+        ui.console.print(f"Opening html file '{html_result.output_file}' in web browser...")
+        webbrowser.open(html_result.output_file.resolve().as_uri())
+
+
         return typer.Exit(code=0)
     
 
     except Exception as e:
         ui.console.print(f"[bold red]Fatal Unexpected Error: {e}[/bold red]")
         return typer.Exit(code=2)
+

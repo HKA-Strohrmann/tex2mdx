@@ -41,7 +41,7 @@
         fleqn,                 % align equations to the left
     ]{scrbook}
 \else
-    \documentclass[
+    \documentclass[%
         a4paper,
         11pt,
         fleqn,                 % align equations to the left
@@ -179,7 +179,7 @@
 %    By default, figures scale to: width = \imagewidthfactor\columnwidth.
 %    Extremely tall images will be safely capped at \imagemaxheight.
 %
-% 2. THE \columnwidth TRAP (CONTEXT SPECIFICITY)
+% 2. THE \columnwidth ISSUE
 %    Because default values are expanded immediately in the preamble, images placed 
 %    inside columns, minipages, or boxes will NOT automatically adapt to the 
 %    nested container's smaller \columnwidth. They will mistakenly inherit the 
@@ -336,18 +336,6 @@
 % Custom Boxes
 
 
-\renewenvironment{leftbar}[2][\hsize]
-{
-    \def\FrameCommand
-    {
-        {\color{#2}\vrule width 3pt}
-        \hspace{10pt} % Increased slightly so text doesn't hug the bar
-    }
-    \MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}
-}
-{\endMakeFramed}
-
-
 \newcounter{example}[chapter]
 \newcounter{exercise}[chapter]
 \newcounter{application}[chapter]
@@ -364,48 +352,57 @@
 \newenvironment{example}[1]{%
     \refstepcounter{example}%
     \par\noindent%
-    \begin{leftbar}{FacGreen}%
+    \colorlet{shadecolor}{FacGreen!5}%
+    % \begin{shaded*}%
+    \begin{leftbar}%
     \noindent\textbf{\textcolor{FacGreen}{\faCalculator\quad \LangExample~\theexample: #1}}%
     \par%
 }{%
+    % \end{shaded*}\par%
     \end{leftbar}\par%
 }
 \newenvironment{application}[1]{%
     \refstepcounter{application}%
     \par%
-    \begin{leftbar}{FacTeal}%
+    \colorlet{shadecolor}{FacTeal!5}%
+    \begin{shaded*}%
     \noindent\textbf{\textcolor{FacTeal}{\faCogs\quad \LangApplication~\theapplication: #1}}%
     \par%
 }{%
-    \end{leftbar}\par%
+    \end{shaded*}\par%
 }
 \newenvironment{exercise}[1]{%
     \refstepcounter{exercise}%
     \par%
-    \begin{leftbar}{FacDarkBlue}%
+    \colorlet{shadecolor}{FacDarkBlue!5}%
+    \begin{shaded*}%
     \noindent\textbf{\textcolor{FacDarkBlue}{\faPen\quad \LangExercise~\theexercise: #1}}%
     \par%
 }{%
-    \end{leftbar}\par%
+    \end{shaded*}\par%
 }
 \newenvironment{video}[1]{%
     \refstepcounter{video}%
     \par%
-    \begin{leftbar}{FacPurple}%
+    \colorlet{shadecolor}{FacPurple!5}%
+    \begin{shaded*}%
     \noindent\textbf{\textcolor{FacPurple}{\faVideo\quad \LangVideo~\thevideo: #1}}%
     \par%
 }{%
-    \end{leftbar}\par%
+    \end{shaded*}\par%
 }
 \newenvironment{summary}[1]{%
     \refstepcounter{summary}%
-    \addcontentsline{los}{summary}{\thesummary: #1}%
+    \ifpdf
+        \addxcontentsline{los}{summary}[\thesummary]{#1}%
+    \fi
     \par%
-    \begin{leftbar}{HkaRed}%
+    \colorlet{shadecolor}{HkaRed!5}%
+    \begin{shaded*}%
     \noindent\textbf{\textcolor{HkaRed}{\faBook\quad \LangSummary~\thesummary: #1}}%
     \par%
 }{%
-    \end{leftbar}\par%
+    \end{shaded*}\par%
 }
 
 \ifpdf
@@ -480,10 +477,6 @@
     \maketitle
     \tableofcontents
     \listoftoc{los}
-\fi
-
-\ifpdf\else
-    Eine PDF-Version dieses Skripts finden Sie unter: ???
 \fi
 
 % \mainmatter   % arabic page numbers, chapter numbers, chapter entries in ToC

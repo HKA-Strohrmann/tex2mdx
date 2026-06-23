@@ -150,8 +150,8 @@ def _generate_mdx_from_html(
     return mdx_path
 
 
-def generate_mdx_from_html_files(
-    html_files: Iterable[str | Path],
+def build_mdx(
+    chapter_files: list[Path],
     *,
     mdx_directory: str | Path | None = None,
     title: str | None = None,
@@ -160,7 +160,7 @@ def generate_mdx_from_html_files(
 ):
     """Generate MDX files for multiple HTML files."""
     generated_files: list[Path] = []
-    for html_file in html_files:
+    for html_file in chapter_files:
         html_path = Path(html_file)
         if mdx_directory is None:
             mdx_path = None
