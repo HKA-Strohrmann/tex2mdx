@@ -12,9 +12,7 @@ DEFAULT_SIDEBAR_POSITION = 1
 DEFAULT_ASSET_BASE_PATH = "/eit/digitale-signalverarbeitung/latex-assets"
 
 
-def _extract_title(soup: BeautifulSoup, html_path: Path, title: str | None) -> str:
-    if title is not None:
-        return title
+def _extract_title(soup: BeautifulSoup, html_path: Path) -> str:
 
     title_node = soup.find(class_="ltx_title") or soup.find("title")
     if title_node is not None:
@@ -114,23 +112,16 @@ def _build_mdx_content(
 
 
 def _generate_mdx_from_html(
-    html_file: str | Path,
-    mdx_file: str | Path | None = None,
-    *,
-    title: str | None = None,
+    html_path: Path,
+    mdx_path: Path,
     sidebar_position: int = DEFAULT_SIDEBAR_POSITION,
     asset_base_path: str = DEFAULT_ASSET_BASE_PATH,
 )-> Path:
     """Generate a Docusaurus MDX file from a LaTeXML main page or sub-chapter HTML file."""
-    html_path = Path(html_file)
-    if mdx_file is None:
-        mdx_path = html_path.with_suffix(".mdx")
-    else:
-        mdx_path = Path(mdx_file)
 
     raw_html = html_path.read_text(encoding="utf-8")
     soup = BeautifulSoup(raw_html, "html.parser")
-    resolved_title = _extract_title(soup, html_path, title)
+    resolved_title = _extract_title(soup, html_path)
     article_node = _select_article_node(soup)
 
     _remove_document_title(article_node)
@@ -151,7 +142,7 @@ def _generate_mdx_from_html(
 
 
 def build_mdx(
-    html_files: list[Path],
+    html_paths: list[Path],
     mdx_dir: Path,
     title: str | None = None,
     sidebar_position: int = DEFAULT_SIDEBAR_POSITION,
@@ -160,12 +151,12 @@ def build_mdx(
     """Generate MDX files for multiple HTML files."""
     generated_files: list[Path] = []
 
-    for html_file in html_files:
-        mdx_path = Path(mdx_dir) / html_file.with_suffix(".mdx").name
+    for html_path in html_paths:
+        mdx_path = Path(mdx_dir) / html_path.with_suffix(".mdx").name
 
         generated_files.append(
             _generate_mdx_from_html(
-                html_file,
+                html_path,
                 mdx_path,
                 title=title,
                 sidebar_position=sidebar_position,
@@ -173,4 +164,4 @@ def build_mdx(
             )
         )
     
-    ui.console.print(f"Generated MDX files at '{mdx_dir}'.")
+    ui.console.print(f"Successfully generated MDX files at '{mdx_dir}'.")

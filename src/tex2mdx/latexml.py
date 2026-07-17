@@ -1,4 +1,5 @@
 from dataclasses import dataclass
+import os
 from pathlib import Path
 import subprocess
 import typer
@@ -34,6 +35,7 @@ class HTMLResult:
 def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
     """Convert LaTeX file to HTML using LaTeXML."""
     output_file = output_dir / f"{input_file.stem}.html"
+    output_dir.mkdir(parents=True, exist_ok=True)
 
     log_path = output_file.with_suffix(".log").resolve()
     ui.console.print(f"LaTeXML logs are written to '{log_path}'.")
@@ -76,7 +78,7 @@ def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
                 ui.console.print(f"[dim]{result.stderr.strip()}[/dim]")
 
             if returncode == 0:
-                ui.console.print(f"Successfully written LaTeXML conversion to '{output_file}'.")
+                ui.console.print(f"Written LaTeXML conversion to '{output_file}'.")
             else:
                 ui.console.print(f"[bold red]LaTeXML encountered errors (Exit code {returncode})[/bold red]")
                 is_fatal = True

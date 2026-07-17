@@ -76,8 +76,7 @@ uv tool install . # makes tex2mdx available anywhere
 To convert a LaTeX file to HTML, run the following command:
 
 ```bash
-tex2mdx "myfile.tex" --output-file "html/myfile.html"
-start "html/myfile.html" # opens in default browser
+tex2mdx "myfile.tex" --output-dir "tex2mdx"
 ```
 
 A detailed list of options can be found by running:
@@ -93,7 +92,7 @@ To test changes locally, synchronize your test assets and run the parser:
 ```powershell
 cd test
 
-uv run tex2mdx "combined.tex" --output-dir "output" --media-dir "new_media"
+uv run tex2mdx "combined.tex" --output-dir "tex2mdx" --media-dir "new_media"
 ```
 
 ### Test LaTeX compilation

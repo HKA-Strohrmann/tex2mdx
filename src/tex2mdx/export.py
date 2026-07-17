@@ -3,8 +3,7 @@ import shutil
 
 
 def export_assets(output_dir: Path, media_dir: Path | None, css_files: list[Path], js_files: list[Path], ) -> None:
-    """Export assets (images, media files) to the specified asset base path."""
-
+    """Export assets to the specified asset base path."""
     MEDIA_PATH = output_dir / "media"
     CSS_PATH = output_dir / "css"
     JS_PATH = output_dir / "js"

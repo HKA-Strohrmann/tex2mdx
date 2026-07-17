@@ -1,3 +1,5 @@
+import os
+import stat
 from pathlib import Path
 import shutil
 import typer
@@ -23,8 +25,9 @@ def version_callback(value: bool):
 @app.command()
 def main(
     input_file: Annotated[str, typer.Argument(help="Input LaTeX file")],
-    output_folder: Annotated[str, typer.Option("--output-dir", help="Output folder")] = "output",
+    output_folder: Annotated[str, typer.Option("--output-dir", help="Output folder")] = "tex2mdx",
     media_folder: Annotated[str | None, typer.Option("--media-dir", help="Media directory")] = None,
+    new_media_path: Annotated[str | None, typer.Option("--new-media-path", help="New media path")] = "/eit/digitale-signalverarbeitung/latex-assets",
     splitat: Annotated[str, typer.Option("--splitat", help="LaTeXML splitat option (e.g., 'chapter', 'section')")] = "chapter",
     version: Annotated[bool | None, typer.Option("--version", help="Show version and exit", callback=version_callback, is_eager=True)] = None,
 ) -> typer.Exit:
@@ -36,7 +39,7 @@ def main(
     
     output_dir = Path(output_folder)
     if output_dir.exists():
-        shutil.rmtree(output_dir)
+        shutil.rmtree(output_dir, onexc=_remove_readonly)
         ui.console.print(f"Cleared output directory '{output_dir}'.")    
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -51,15 +54,14 @@ def main(
         html_result: latexml.HTMLResult = latexml.build_html(input_path, HTML_DIR, splitat=splitat)
         html.process_html(html_result.chapter_files)
 
+        ui.console.print(f"Opening html file in web browser...")
+        webbrowser.open(html_result.output_file.resolve().as_uri())
+
         mdx_result = mdx.build_mdx(html_result.chapter_files, mdx_dir=MDX_DIR)
         # process_mdx(mdx_result)
         
         # TODO: update the image location in html/mdx files!
         export.export_assets(output_dir, media_dir, html_result.css_files, html_result.js_files)
-
-        ui.console.print(f"Opening html file '{html_result.output_file}' in web browser...")
-        webbrowser.open(html_result.output_file.resolve().as_uri())
-
 
         return typer.Exit(code=0)
     
@@ -68,3 +70,7 @@ def main(
         ui.console.print(f"[bold red]Fatal Unexpected Error: {e}[/bold red]")
         return typer.Exit(code=2)
 
+
+def _remove_readonly(func, path, excinfo):
+    os.chmod(path, stat.S_IWRITE)
+    func(path)
