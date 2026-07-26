@@ -56,6 +56,28 @@ def _resolve_output_dir(input_path: Path, requested_output_dir: str) -> Path:
     return Path(requested_output_dir)
 
 
+def _remove_tree_if_exists(path: Path) -> None:
+    if path.exists():
+        shutil.rmtree(path, onexc=_remove_readonly)
+
+
+def _cleanup_generated_output(input_path: Path, output_dir: Path, sources: list[Path]) -> None:
+    if input_path.is_dir():
+        for source_file in sources:
+            source_relative_dir = source_file.relative_to(input_path).parent
+            _remove_tree_if_exists(output_dir / source_relative_dir)
+        return
+
+    for generated_path in (
+        output_dir / "mdx",
+        output_dir / "html",
+        output_dir / "media",
+        output_dir / "css",
+        output_dir / "js",
+    ):
+        _remove_tree_if_exists(generated_path)
+
+
 def _collect_languages_for_topic(repo_root: Path, topic: str) -> set[str]:
     topic_dir = repo_root / topic
     if not topic_dir.exists():
@@ -202,10 +224,6 @@ def main(
         raise typer.BadParameter(f"File '{input_path}' must be a .tex file.")
     
     output_dir = _resolve_output_dir(input_path, output_folder)
-    if output_dir.exists():
-        shutil.rmtree(output_dir, onexc=_remove_readonly)
-        ui.console.print(f"Cleared output directory '{output_dir}'.")    
-    output_dir.mkdir(parents=True, exist_ok=True)
 
     media_dir = Path(media_folder) if media_folder else None
     if media_dir and not media_dir.exists():
@@ -222,16 +240,20 @@ def main(
         html_root = output_dir / "html"
         asset_base_path = new_media_path or "/eit/digitale-signalverarbeitung/latex-assets"
 
+    sources = _discover_tex_sources(input_path)
+    if not sources:
+        raise typer.BadParameter(f"No LaTeX sources found under '{input_path}'.")
+
+    _cleanup_generated_output(input_path, output_dir, sources)
+    output_dir.mkdir(parents=True, exist_ok=True)
+    ui.console.print(f"Cleaned generated output in '{output_dir}'.")
+
     if asset_dir.exists():
         shutil.rmtree(asset_dir, onexc=_remove_readonly)
     asset_dir.mkdir(parents=True, exist_ok=True)
 
     if html_root.exists():
         shutil.rmtree(html_root, onexc=_remove_readonly)
-
-    sources = _discover_tex_sources(input_path)
-    if not sources:
-        raise typer.BadParameter(f"No LaTeX sources found under '{input_path}'.")
 
     try:
         opened_preview = False
