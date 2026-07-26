@@ -76,7 +76,13 @@ uv tool install . # makes tex2mdx available anywhere
 To convert a LaTeX file to HTML, run the following command:
 
 ```bash
-tex2mdx "myfile.tex" --output-dir "tex2mdx"
+tex2mdx main "myfile.tex" --output-dir "tex2mdx"
+```
+
+To open the generated HTML preview automatically in your browser, add:
+
+```bash
+tex2mdx main "myfile.tex" --open-preview
 ```
 
 A detailed list of options can be found by running:
@@ -92,7 +98,7 @@ To test changes locally, synchronize your test assets and run the parser:
 ```powershell
 cd test
 
-uv run tex2mdx "combined.tex" --output-dir "tex2mdx" --media-dir "new_media"
+uv run tex2mdx main "combined.tex" --output-dir "tex2mdx" --media-dir "new_media"
 ```
 
 ### Test LaTeX compilation
@@ -100,8 +106,8 @@ uv run tex2mdx "combined.tex" --output-dir "tex2mdx" --media-dir "new_media"
 Test latex compilation in pdftex and lualatex:
 
 ```bash
-latexmk -C --outdir="_build" && latexmk -pdf -interaction=nonstopmode -synctex=1 -file-line-error --shell-escape --outdir="_build" combined.tex
-latexmk -C --outdir="_build" && latexmk -lualatex -pdf -interaction=nonstopmode -synctex=1 -file-line-error --shell-escape --outdir="_build" combined.tex
+latexmk -C --outdir="build" && latexmk -pdf -interaction=nonstopmode -synctex=1 -file-line-error --shell-escape --outdir="build" combined.tex
+latexmk -C --outdir="build" && latexmk -lualatex -pdf -interaction=nonstopmode -synctex=1 -file-line-error --shell-escape --outdir="build" combined.tex
 ```
 
 ## Update Version

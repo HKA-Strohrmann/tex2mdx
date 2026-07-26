@@ -1,7 +1,7 @@
+import html
 import json
 import re
 from pathlib import Path
-from typing import Iterable
 
 from bs4 import BeautifulSoup
 
@@ -51,23 +51,56 @@ def _remove_document_title(article_node) -> None:
 
 
 def _rewrite_asset_paths(article_node, asset_base_path: str) -> None:
-    for img in article_node.find_all("img"):
-        old_src = img.get("src")
-        if old_src is None:
-            continue
+    supported_asset_extensions = {
+        ".png",
+        ".jpg",
+        ".jpeg",
+        ".svg",
+        ".gif",
+        ".webp",
+        ".bmp",
+        ".tiff",
+        ".ico",
+        ".pdf",
+        ".mp4",
+        ".webm",
+    }
 
-        old_src_text = str(old_src)
-        if old_src_text and not old_src_text.startswith(("http", "/")):
-            img["src"] = f"{asset_base_path}/{old_src_text}"
+    for element in article_node.find_all(True):
+        for attribute_name in ("src", "href", "poster", "data"):
+            attribute_value = element.get(attribute_name)
+            if attribute_value is None:
+                continue
 
-    for obj in article_node.find_all("object"):
-        old_data = obj.get("data")
-        if old_data is None:
-            continue
+            value = str(attribute_value).strip()
+            if not value or value.startswith(("http://", "https://", "mailto:", "#", "/", "data:")):
+                continue
 
-        old_data_text = str(old_data)
-        if old_data_text and not old_data_text.startswith(("http", "/")):
-            obj["data"] = f"{asset_base_path}/{old_data_text}"
+            normalized_value = value.replace("\\", "/")
+            split_index = min(
+                [idx for idx in [normalized_value.find("?"), normalized_value.find("#")] if idx != -1],
+                default=-1,
+            )
+            if split_index == -1:
+                path_part = normalized_value
+                suffix_part = ""
+            else:
+                path_part = normalized_value[:split_index]
+                suffix_part = normalized_value[split_index:]
+
+            if path_part.endswith(".html"):
+                continue
+
+            extension = Path(path_part).suffix.lower()
+            if extension not in supported_asset_extensions:
+                continue
+
+            if path_part.startswith("media/"):
+                rewritten_path = f"{asset_base_path}/{path_part}"
+            else:
+                rewritten_path = f"{asset_base_path}/media/{Path(path_part).name}"
+
+            element[attribute_name] = f"{rewritten_path}{suffix_part}"
 
 
 def _rewrite_internal_links(article_node) -> None:
@@ -80,21 +113,24 @@ def _rewrite_internal_links(article_node) -> None:
 
 
 def _build_mdx_content(
-    html_path: Path,
     article_node,
     *,
     title: str,
     sidebar_position: int,
     asset_base_path: str,
+    displayed_sidebar: str | None = None,
 ) -> str:
+    escaped_title = title.replace('"', '\\"')
     article_html = str(article_node)
     safe_html_string = json.dumps(article_html)
+    toc_proxy_html = _build_toc_proxy(article_node)
 
     return "\n".join(
         [
             "---",
-            f"title: {title}",
+            f'title: "{escaped_title}"',
             f"sidebar_position: {sidebar_position}",
+            *( [f"displayed_sidebar: {displayed_sidebar}"] if displayed_sidebar else [] ),
             "---",
             "",
             "import Head from '@docusaurus/Head';",
@@ -105,10 +141,74 @@ def _build_mdx_content(
             f'  <link rel="stylesheet" href="{asset_base_path}/cleanup.css" />',
             "</Head>",
             "",
+            toc_proxy_html,
+            "",
             f"<div dangerouslySetInnerHTML={{{{ __html: {safe_html_string} }}}} />",
             "",
         ]
     )
+
+
+def _build_toc_proxy(article_node) -> str:
+    heading_lines: list[str] = []
+
+    for section_node in article_node.find_all("section"):
+        section_id = section_node.get("id")
+        if not section_id:
+            continue
+
+        heading_tag = section_node.find(
+            ["h2", "h3", "h4"],
+            class_=lambda class_names: (
+                bool(class_names)
+                and any(
+                    css_class in (
+                        class_names
+                        if isinstance(class_names, list)
+                        else str(class_names).split()
+                    )
+                    for css_class in {"ltx_title_section", "ltx_title_subsection", "ltx_title_subsubsection"}
+                )
+            ),
+        )
+        if heading_tag is None:
+            continue
+
+        heading_text = heading_tag.get_text(" ", strip=True)
+        if not heading_text:
+            continue
+
+        heading_level = heading_tag.name
+        heading_lines.append(f'<{heading_level} id="{section_id}">{html.escape(heading_text)}</{heading_level}>')
+
+    if not heading_lines:
+        return ""
+
+    return "\n".join(
+        [
+            '<div className="tex2mdx-toc-proxy" hidden>',
+            *heading_lines,
+            "</div>",
+        ]
+    )
+
+
+def _infer_sidebar_position(relative_html_path: Path | None, fallback_stem: str) -> int:
+    if relative_html_path is None:
+        return DEFAULT_SIDEBAR_POSITION
+
+    if relative_html_path.stem in {"main", "combined", "index"}:
+        return DEFAULT_SIDEBAR_POSITION
+
+    chapter_match = re.fullmatch(r"Ch(\d+)", relative_html_path.stem)
+    if chapter_match:
+        return int(chapter_match.group(1)) + 1
+
+    leading_number_match = re.match(r"(\d+)", fallback_stem)
+    if leading_number_match:
+        return int(leading_number_match.group(1)) + 1
+
+    return DEFAULT_SIDEBAR_POSITION
 
 
 def _generate_mdx_from_html(
@@ -116,6 +216,8 @@ def _generate_mdx_from_html(
     mdx_path: Path,
     sidebar_position: int = DEFAULT_SIDEBAR_POSITION,
     asset_base_path: str = DEFAULT_ASSET_BASE_PATH,
+    media_relative_root: Path | None = None,
+    displayed_sidebar: str | None = None,
 )-> Path:
     """Generate a Docusaurus MDX file from a LaTeXML main page or sub-chapter HTML file."""
 
@@ -129,11 +231,11 @@ def _generate_mdx_from_html(
     _rewrite_internal_links(article_node)
 
     mdx_content = _build_mdx_content(
-        html_path,
         article_node,
         title=resolved_title,
         sidebar_position=sidebar_position,
         asset_base_path=asset_base_path,
+        displayed_sidebar=displayed_sidebar,
     )
 
     mdx_path.parent.mkdir(parents=True, exist_ok=True)
@@ -144,23 +246,43 @@ def _generate_mdx_from_html(
 def build_mdx(
     html_paths: list[Path],
     mdx_dir: Path,
+    source_root: Path | None = None,
     title: str | None = None,
     sidebar_position: int = DEFAULT_SIDEBAR_POSITION,
     asset_base_path: str = DEFAULT_ASSET_BASE_PATH,
+    displayed_sidebar: str | None = None,
 ):
     """Generate MDX files for multiple HTML files."""
     generated_files: list[Path] = []
 
     for html_path in html_paths:
-        mdx_path = Path(mdx_dir) / html_path.with_suffix(".mdx").name
+        relative_html_path = html_path.relative_to(source_root) if source_root is not None else None
+        is_root_landing_page = relative_html_path is None or (
+            relative_html_path.parent == Path(".") and relative_html_path.stem in {"main", "combined", "index"}
+        )
+
+        if source_root is None:
+            mdx_name = "index.mdx" if is_root_landing_page else html_path.with_suffix(".mdx").name
+            mdx_path = Path(mdx_dir) / mdx_name
+        else:
+            if is_root_landing_page:
+                mdx_path = Path(mdx_dir) / relative_html_path.parent / "index.mdx"
+            else:
+                mdx_path = Path(mdx_dir) / relative_html_path.with_suffix(".mdx")
+
+        resolved_sidebar_position = _infer_sidebar_position(
+            relative_html_path,
+            html_path.stem,
+        )
 
         generated_files.append(
             _generate_mdx_from_html(
                 html_path,
                 mdx_path,
-                title=title,
-                sidebar_position=sidebar_position,
+                sidebar_position=resolved_sidebar_position if sidebar_position == DEFAULT_SIDEBAR_POSITION else sidebar_position,
                 asset_base_path=asset_base_path,
+                media_relative_root=source_root,
+                displayed_sidebar=displayed_sidebar,
             )
         )
     

@@ -34,6 +34,7 @@ class HTMLResult:
 
 def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
     """Convert LaTeX file to HTML using LaTeXML."""
+    input_file = input_file.resolve()
     output_file = output_dir / f"{input_file.stem}.html"
     output_dir.mkdir(parents=True, exist_ok=True)
 
@@ -46,7 +47,7 @@ def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
         "--presentationmathml",
         "--mathtex",
         "--format=html5",
-        "--graphicsmap=pdf.",
+        # "--graphicsmap=pdf.",
         f"--splitat={splitat}",
         f"--log={log_path}",
         f"--timeout={LATEXML_TIMEOUT_SEC}",
@@ -55,7 +56,7 @@ def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
     ]
     for binding in ASSETS_DIR.glob("*.sty.ltxml"):
         latexml_config.append(f"--preload={binding.resolve()}")
-    latexml_config.append(str(input_file))
+    latexml_config.append(input_file.resolve().as_posix())
 
     ui.console.print(f"[dim]Command: {' '.join(latexml_config)}[/dim]")
 
@@ -69,6 +70,7 @@ def build_html(input_file: Path, output_dir: Path, splitat: str) -> HTMLResult:
                 check=False,
                 text=True,
                 timeout=LATEXML_TIMEOUT_SEC + 5,
+                cwd=input_file.parent,
                 stderr=subprocess.PIPE,
                 stdout=subprocess.PIPE, # Capture stdout so it doesn't bleed into the CLI
             )
